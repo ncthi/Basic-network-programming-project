@@ -1,6 +1,6 @@
 # Basic-network-programming-project
 ### Những nguyên tắc khi sử dụng github
-1. Chỉ làm việc trên nhanh của minh.
+1. Chỉ làm việc trên nhánh của minh.
 2. Trước khi code nên pull về để cập nhật code mới.
 3. Commit rõ ràng.
 3. Hoàn thành 1 cái gì đó thì tạo pull request (**Lưu ý chỉ tạo pull request không confirm**).
