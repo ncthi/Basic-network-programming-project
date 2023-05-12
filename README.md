@@ -12,4 +12,7 @@
 4. Nên comment những chỗ khó hiểu.
 5. Những đoạn code nào không sử dụng nữa nên xóa đi.
 6. Những class viết thêm để sử dụng nên được viết ra ngoài riêng biệt.
-**<p>Đây là những lưu ý của của Cao Thi hihi</p>**
+### Phân chia công việc
+1. Viết class kết nối với SQL server 
+2. Làm giao diện quản lý file. Link tham khảo: <https://www.youtube.com/watch?v=oRtME1oJD7M>, <https://www.youtube.com/watch?v=LT97kQWf7wU&list=PL-EU0JUF-XD1saII7gONUxMIbk13XkmCV&index=99>
+3. Lập trình socket truyền file. Link tham khỏa:
