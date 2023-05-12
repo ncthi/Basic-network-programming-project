@@ -11,7 +11,7 @@
 3. Tên toolbox cần có tiền tố. Ví dụ: textBox_Name, button_Read,...
 4. Nên comment những chỗ khó hiểu.
 5. Những đoạn code nào không sử dụng nữa nên xóa đi.
-6. Những class viết thêm để sử dụng nên được viết ra ngoài riêng biệt.
+6. Những phần có nhiều công việc liên quan cần viết 1 class.
 ### Phân chia công việc
 1. Viết class kết nối với SQL server (Thi)
 2. Làm giao diện quản lý file. Link tham khảo: <https://www.youtube.com/watch?v=oRtME1oJD7M>, <https://www.youtube.com/watch?v=LT97kQWf7wU&list=PL-EU0JUF-XD1saII7gONUxMIbk13XkmCV&index=99> (Lê)
