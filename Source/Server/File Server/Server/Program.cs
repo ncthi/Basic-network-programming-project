@@ -8,7 +8,10 @@ namespace Server
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
+            SQL_server Database = new SQL_server();
+            Database.ConnectSqlServer();
+            SocketServer server =new  SocketServer(3000);
+            Thread threadServer = new Thread(server.Listen);
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form_FileManager());
