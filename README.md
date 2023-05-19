@@ -1,6 +1,6 @@
 # Basic-network-programming-project
 ### Nguyên lý hoạt động
-1. Khi đăng ký trên client: kiểm tra 2 mật khẩu có trùng nhau không, sau đó gửi tên user và password tới server để tạo tài khoản nếu tạo thành công server trả về true, không thành công thì trả về false.
+1. Khi đăng ký trên client: Nhận thông tin tài khoản, sau đó gửi tên user và password tới server để tạo tài khoản nếu tạo thành công server trả về true, không thành công thì trả về false.
 2. Khi server nhận được thông tin đăng ký từ client: Kiểm tên user đã tồn tại hay chưa nếu chưa tồn tại thì tạo user mới trên FTP server và ghi vào database, trả về true nếu tạo thành công
 3. Khi đăng nhập trên client: Client sẽ kết nối với FTP server với tài khoản đã tạo trước đó, khi kết nối thành công thì sẽ hiện thư mục trên FTP server.
 4. Quản lý trên server: Server có thể quản lý thông tin tài khoản vầ khôi phục mật khẩu.
