@@ -68,13 +68,13 @@
             // 
             // listView_Dialog
             // 
+            listView_Dialog.GroupImageList = iconList;
+            listView_Dialog.LargeImageList = iconList;
             listView_Dialog.Location = new Point(13, 46);
             listView_Dialog.Name = "listView_Dialog";
             listView_Dialog.Size = new Size(775, 366);
-            listView_Dialog.SmallImageList = iconList;
             listView_Dialog.TabIndex = 3;
             listView_Dialog.UseCompatibleStateImageBehavior = false;
-            listView_Dialog.View = View.SmallIcon;
             listView_Dialog.ItemSelectionChanged += listView_Dialog_ItemSelectionChanged;
             listView_Dialog.MouseDoubleClick += listView_Dialog_MouseDoubleClick;
             // 
