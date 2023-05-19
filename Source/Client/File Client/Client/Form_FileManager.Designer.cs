@@ -92,6 +92,7 @@
             iconList.Images.SetKeyName(6, "Music.png");
             iconList.Images.SetKeyName(7, "Video.png");
             iconList.Images.SetKeyName(8, "AnotherFile.png");
+            iconList.Images.SetKeyName(9, "Zip.png");
             // 
             // button_Go
             // 

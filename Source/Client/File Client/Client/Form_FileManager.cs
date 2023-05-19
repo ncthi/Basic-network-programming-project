@@ -83,6 +83,10 @@ namespace Client
                             case ".XLSX":
                                 listView_Dialog.Items.Add(files[i].Name, 4);
                                 break;
+                            case ".ZIP":
+                            case ".RAR":
+                                listView_Dialog.Items.Add(files[i].Name, 9);
+                                break;
                             case ".PNG":
                             case ".JPG":
                             case ".JPEG":
