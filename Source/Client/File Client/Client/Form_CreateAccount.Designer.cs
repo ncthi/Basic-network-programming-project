@@ -115,8 +115,7 @@
             // 
             // Form_CreateAccount
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 492);
             Controls.Add(checkBox_ShowPass);

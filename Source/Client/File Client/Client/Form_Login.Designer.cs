@@ -110,8 +110,7 @@
             // 
             // Form_Login
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(812, 482);
             Controls.Add(checkBox_ShowPass);

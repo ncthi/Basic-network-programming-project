@@ -36,7 +36,7 @@ namespace Client
             string username = textBox_CreateUser.Text;
             string password = textBox_CreatePass.Text;
             string confirmPassword = textBox_ConfirmPass.Text;
-            
+
             //Kiểm tra thông tin nhập vào 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {

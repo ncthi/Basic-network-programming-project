@@ -18,12 +18,12 @@ namespace Client
             if (checkBox_ShowPass.Checked)
             {
                 textBox_Password.UseSystemPasswordChar = false;
-                
+
             }
             else
             {
                 textBox_Password.UseSystemPasswordChar = true;
-            
+
             }
         }
     }
