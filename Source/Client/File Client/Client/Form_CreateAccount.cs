@@ -40,13 +40,27 @@ namespace Client
             //Kiểm tra thông tin nhập vào 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.");
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (password != confirmPassword)
             {
-                MessageBox.Show("Mật khẩu và xác nhận mật khẩu không khớp.");
+                MessageBox.Show("Mật khẩu và xác nhận mật khẩu không khớp.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Kiểm tra ràng buộc tên người dùng
+            if (username.Contains(" ") || HasSpecialCharacters(username) || HasUppercaseLetters(username))
+            {
+                MessageBox.Show("Tên người dùng không hợp lệ. Tên không được chứa khoảng trắng, kí tự đặc biệt và chữ in hoa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Kiểm tra ràng buộc độ dài mật khẩu
+            if (password.Length < 6)
+            {
+                MessageBox.Show("Mật khẩu phải chứa ít nhất 6 kí tự.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -76,6 +90,17 @@ namespace Client
             {
                 MessageBox.Show($"Lỗi khi tạo tài khoản: {ex.Message}");
             }
+        }
+
+        private bool HasSpecialCharacters(string str)
+        {
+            string specialCharacters = @"!@#$%^&*()-=_+[]{}|;:,.<>?";
+            return str.IndexOfAny(specialCharacters.ToCharArray()) != -1;
+        }
+
+        private bool HasUppercaseLetters(string str)
+        {
+            return str.Any(char.IsUpper);
         }
 
         private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e) //Nút hiện mật khẩu 
