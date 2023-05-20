@@ -115,7 +115,7 @@ namespace Client
                 textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
         }
-
+         
         private void button1_Click(object sender, EventArgs e)
         {
 
