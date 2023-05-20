@@ -42,7 +42,7 @@
             textBox_Username.BorderStyle = BorderStyle.None;
             textBox_Username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_Username.ForeColor = Color.FromArgb(255, 128, 128);
-            textBox_Username.Location = new Point(133, 192);
+            textBox_Username.Location = new Point(144, 192);
             textBox_Username.Name = "textBox_Username";
             textBox_Username.Size = new Size(212, 23);
             textBox_Username.TabIndex = 0;
@@ -69,6 +69,7 @@
             button_Login.Size = new Size(110, 29);
             button_Login.TabIndex = 2;
             button_Login.UseVisualStyleBackColor = false;
+            button_Login.Click += button_Login_Click;
             // 
             // button_ForgotPass
             // 

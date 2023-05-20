@@ -70,8 +70,7 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] usernameBytes = Encoding.ASCII.GetBytes(username);
-                        byte[] passwordBytes = Encoding.ASCII.GetBytes(password);
+                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password);
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(usernameBytes, 0, usernameBytes.Length);
@@ -115,6 +114,11 @@ namespace Client
                 textBox_CreatePass.UseSystemPasswordChar = true;
                 textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
