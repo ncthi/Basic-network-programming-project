@@ -70,7 +70,7 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes(username+','+password);
+                        byte[] info = Encoding.ASCII.GetBytes(username+','+password+",registry");
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);
@@ -79,7 +79,11 @@ namespace Client
                         byte[] buffer = new byte[1024];
                         int bytesRead = stream.Read(buffer, 0, buffer.Length);
                         string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                        if (result == "True") MessageBox.Show("Tạo tài khoản thành công");
+                        if (result == "True")
+                        {
+                            MessageBox.Show("Tạo tài khoản thành công");
+                            this.Close();
+                        }
                         else MessageBox.Show("Tạo tài khoản không thành công");
                         return;
                     }

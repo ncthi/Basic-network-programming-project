@@ -51,7 +51,7 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password);
+                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password+",login");
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);
