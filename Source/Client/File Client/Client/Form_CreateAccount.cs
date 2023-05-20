@@ -73,15 +73,15 @@ namespace Client
                         byte[] info = Encoding.ASCII.GetBytes(username + ',' + password);
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
-                        stream.Write(usernameBytes, 0, usernameBytes.Length);
-                        stream.Write(passwordBytes, 0, passwordBytes.Length);
+                        stream.Write(info, 0, info.Length);
 
                         // Nhận kết quả từ server, đã tạo thành công hay chưa 
                         byte[] buffer = new byte[1024];
                         int bytesRead = stream.Read(buffer, 0, buffer.Length);
                         string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-
-                        MessageBox.Show(result);
+                        if (result == "True") MessageBox.Show("Tạo tài khoản thành công");
+                        else MessageBox.Show("Tạo tài khoản không thành công");
+                        return;
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace Client
         {
             if (checkBox_ShowPass.Checked)
             {
-                textBox_CreatePass.UseSystemPasswordChar = false;
+                textBox_CreatePass.UseSystemPasswordChar = false; 
                 textBox_ConfirmPass.UseSystemPasswordChar = false;
             }
             else
