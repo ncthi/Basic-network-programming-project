@@ -15,6 +15,7 @@ namespace Server
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form_FileManager());
+            server.disconect(false);
         }
     }
 }

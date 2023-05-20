@@ -59,9 +59,18 @@ namespace Server
                     string[] data = receive(stream).Split(',');
                     SQL_server database= new SQL_server();
                     database.ConnectSqlServer();
-                    string res=database.AddUser(data[0], data[1],"").ToString();
-                    send(res, stream);
-                    return;
+                    string status = data[2].Trim('\0');
+                    if (status=="registry")
+                    {
+                        string res = database.AddUser(data[0], data[1], "").ToString();
+                        send(res, stream);
+                        return;
+                    }
+                    else
+                    {
+                        send(database.checkUser(data[0], data[1]).ToString(), stream);
+                        return;
+                    }
                 }
                 catch
                 {
@@ -71,6 +80,11 @@ namespace Server
             }
             stream.Close();
             client.Close();
+        }
+        public void disconect(bool check)
+        {
+            server.Stop();
+            checkConnect = check;
         }
     }
 }
