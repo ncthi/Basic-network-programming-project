@@ -93,7 +93,7 @@ namespace Server
             StringBuilder strBuilder = new StringBuilder();
             for (int i = 0; i < result.Length; i++)
             {
-                strBuilder.Append(result[i].ToString(""));
+                strBuilder.Append(result[i].ToString("x2"));
             }
 
             return strBuilder.ToString();

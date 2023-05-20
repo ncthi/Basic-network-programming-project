@@ -56,11 +56,17 @@ namespace Server
             {
                 try
                 {
-                    string data = receive(stream);
-                    MessageBox.Show(data);
+                    string[] data = receive(stream).Split(',');
+                    SQL_server database= new SQL_server();
+                    database.ConnectSqlServer();
+                    string res=database.AddUser(data[0], data[1],"").ToString();
+                    send(res, stream);
+                    return;
                 }
                 catch
                 {
+                    send("false", stream);
+                    return;
                 }
             }
             stream.Close();
