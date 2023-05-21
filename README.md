@@ -1,4 +1,4 @@
-# Basic-network-programming-project
+# Basic network programming project (2023)
 ### Nguyên lý hoạt động
 1. Khi đăng ký trên client: Nhận thông tin tài khoản, sau đó gửi tên user và password tới server để tạo tài khoản nếu tạo thành công server trả về true, không thành công thì trả về false.
 2. Khi server nhận được thông tin đăng ký từ client: Kiểm tên user đã tồn tại hay chưa nếu chưa tồn tại thì tạo user mới trên FTP server và ghi vào database, trả về true nếu tạo thành công
