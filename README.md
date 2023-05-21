@@ -26,4 +26,4 @@
 5. Thiết kế form đăng nhập. (Thái) (Đã xong)
 6. Viết socket gửi tên user và password tới server (Thái) (Đã xong)
 7. Viết socket nhận tên user và password (Thi)
-8. Viết 1 class gửi mail body là html với nội dụng là 1 mật khẩu random khi quên mật khẩu (viết bên server). Link tham khảo: [link1](https://stackoverflow.com/questions/1155797/send-an-email-with-a-html-file-as-body-c), [link2](https://www.phanxuanchanh.com/2021/09/16/lap-trinh-c-gui-email-don-gian-bang-giao-thuc-smtp/) (Thái)
+8. Viết 1 class gửi mail body là html với nội dụng là 1 mật khẩu random khi quên mật khẩu (viết bên server). Link tham khảo: [link1](https://stackoverflow.com/questions/1155797/send-an-email-with-a-html-file-as-body-c), [link2](https://www.phanxuanchanh.com/2021/09/16/lap-trinh-c-gui-email-don-gian-bang-giao-thuc-smtp/){:target="_blank"} (Thái)
