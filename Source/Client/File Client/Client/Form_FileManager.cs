@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Client
@@ -18,7 +19,6 @@ namespace Client
         private string filePath = "";
         private bool isFile = false;
         private string currentPath = "";
-        private string currentlySelectedItemName = @"ftp://192.168.112.142/";
 
         public Form_FileManager()
         {
@@ -29,69 +29,119 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.112.142/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://172.20.123.38/", "caothi", "123456");
             ftpClient.connect();
-            var list = ftpClient.directoryListSimple(path);
-            DirectoryInfo fileList;
+            // List directorys and files
+            List<string> listAll = ftpClient.directoryListDetailed(path);
+            //List Files
+            List<string> listFiles = FTP.ListFile(listAll);
+            //List directorys
+            List<string> listDirs = FTP.ListDirectory(listAll);
             string tempFilePath = "";
             FileAttributes fileAttr;
             try
             {
-                foreach (var file in list)
+                foreach (var file in listFiles)
                 {
-                    if (file.IndexOf(".") != -1)
+                    var fileExtension = file.Split('.')[1];
+                    if (fileExtension.Length >= 2)
                     {
-                        var fileExtension = file.Split('.')[1];
                         switch (fileExtension)
                         {
                             case ".MP3":
                             case ".MP2":
-                                listView_Dialog.Items.Add(file, 6);
+                                ListViewItem item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 6;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".PPT":
                             case ".PPTX":
-                                listView_Dialog.Items.Add(file, 3);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 3;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".MP4":
                             case ".AVI":
                             case ".MKV":
-                                listView_Dialog.Items.Add(file, 7);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 7;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".PDF":
-                                listView_Dialog.Items.Add(file, 2);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 2;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".DOC":
                             case ".DOCX":
-                                listView_Dialog.Items.Add(file, 1);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 1;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".XLS":
                             case ".XLSX":
-                                listView_Dialog.Items.Add(file, 4);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 4;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".ZIP":
                             case ".RAR":
-                                listView_Dialog.Items.Add(file, 9);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 3;
+                                listView_Dialog.Items.Add(item);
                                 break;
                             case ".PNG":
                             case ".JPG":
                             case ".JPEG":
-                                listView_Dialog.Items.Add(file, 5);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 5;
+                                listView_Dialog.Items.Add(item);
                                 break;
 
                             default:
-                                listView_Dialog.Items.Add(file, 8);
+                                item = new ListViewItem();
+                                item.Tag = "File";
+                                item.Text = file;
+                                item.ImageIndex = 8;
+                                listView_Dialog.Items.Add(item);
                                 break;
                         }
                     }
                     else
                     {
-                        listView_Dialog.Items.Add(file, 0);
+                        ListViewItem item = new ListViewItem();
+                        item.Tag = "File";
+                        item.Text = file;
+                        item.ImageIndex = 8;
+                        listView_Dialog.Items.Add(item);
                     }
-
                 }
-
+                foreach (string dir in listDirs)
+                {
+                    ListViewItem item = new ListViewItem();
+                    item.Tag = "Dir";
+                    item.Text = dir;
+                    item.ImageIndex = 0;
+                    listView_Dialog.Items.Add(item);
+                }
+                currentPath = path;
                 textBox_Path.Text = path;
-                currentPath = textBox_Path.Text;
             }
             catch (Exception e)
             {
@@ -151,24 +201,23 @@ namespace Client
 
         private void listView_Dialog_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            currentlySelectedItemName += e.Item.Text;
-            loadFilesAndDirectories(currentlySelectedItemName);
-            //if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
-            //{
-            //    isFile = false;
-            //    textBox_Path.Text = currentlySelectedItemName;
-            //}
-            //else
-            //{
-            //    isFile = true;
-            //}
+            label_FileName.Text = e.Item.Text;
         }
 
         private void listView_Dialog_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            
-            //currentlySelectedItemName += "/" + 
-            //loadFilesAndDirectories(currentlySelectedItemName);
+            if (listView_Dialog.SelectedItems.Count > 0)
+            {
+                // Lấy tên item đang chọn
+                ListViewItem item = listView_Dialog.SelectedItems[0];
+                string nameItem = item.Text;
+                // mở thư mục chọn
+                if (item.Tag == "Dir")
+                {
+                    currentPath += '/' + nameItem;
+                    loadFilesAndDirectories(currentPath);
+                }
+            }
         }
 
         private void button_Back_Click(object sender, EventArgs e)

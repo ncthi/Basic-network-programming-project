@@ -63,6 +63,10 @@ namespace Client
                         if (result == "True")
                         {
                             MessageBox.Show("Đăng nhập thành công.");
+                            Form_FileManager form_FileManager = new Form_FileManager();
+                            this.Hide();
+                            form_FileManager.ShowDialog();
+                            this.Close();
                         }
                         else
                         {
