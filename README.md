@@ -20,9 +20,9 @@
 6. Những phần có nhiều công việc liên quan cần viết 1 class.
 ### Phân chia công việc
 1. Viết class kết nối với SQL server (Thi)
-2. Làm giao diện quản lý file. Link tham khảo: <https://www.youtube.com/watch?v=oRtME1oJD7M>, <https://www.youtube.com/watch?v=LT97kQWf7wU&list=PL-EU0JUF-XD1saII7gONUxMIbk13XkmCV&index=99> (Lê)
-3. Viết class thực hiện các thao tác với FTP server. Link Tham khảo: <https://megacode.vn/files/view/ket-noi-ftp-server-bang-c-1901.html#:~:text=K%E1%BA%BFt%20n%E1%BB%91i%20FTP%20server%20b%E1%BA%B1ng%20C%23%202013-09-03T09%3A00-03%3A00%20%C4%90%C4%83ng,function%20of%20choice%2C%20v%C3%A0%20free%20resource.%200.73684210526316%2F10%208711>(Ngân)
+2. Làm giao diện quản lý file. Link tham khảo: :[link1](https://www.youtube.com/watch?v=oRtME1oJD7M), [link2](https://www.youtube.com/watch?v=LT97kQWf7wU&list=PL-EU0JUF-XD1saII7gONUxMIbk13XkmCV&index=99) (Lê)
+3. Viết class thực hiện các thao tác với FTP server. Link Tham khảo: [link](https://megacode.vn/files/view/ket-noi-ftp-server-bang-c-1901.html#:~:text=K%E1%BA%BFt%20n%E1%BB%91i%20FTP%20server%20b%E1%BA%B1ng%20C%23%202013-09-03T09%3A00-03%3A00%20%C4%90%C4%83ng,function%20of%20choice%2C%20v%C3%A0%20free%20resource.%200.73684210526316%2F10%208711) (Ngân)
 4. Thiết kế form đăng nhập. (Thái) (Đã xong)
 5. Viết socket gửi tên user và password tới server (Thái) (Đã xong)
 6. Viết socket nhận tên user và password (Thi)
-7. Viết 1 class gửi mail body là html với nội dụng là 1 mật khẩu random khi quên mật khẩu (viết bên server). Link tham khảo: <https://stackoverflow.com/questions/1155797/send-an-email-with-a-html-file-as-body-c>, <https://www.phanxuanchanh.com/2021/09/16/lap-trinh-c-gui-email-don-gian-bang-giao-thuc-smtp/> (Thái)
+7. Viết 1 class gửi mail body là html với nội dụng là 1 mật khẩu random khi quên mật khẩu (viết bên server). Link tham khảo: [link1](https://stackoverflow.com/questions/1155797/send-an-email-with-a-html-file-as-body-c), [link2](https://www.phanxuanchanh.com/2021/09/16/lap-trinh-c-gui-email-don-gian-bang-giao-thuc-smtp/) (Thái)
