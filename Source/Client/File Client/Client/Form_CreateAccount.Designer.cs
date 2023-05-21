@@ -101,6 +101,7 @@
             button1.Size = new Size(58, 29);
             button1.TabIndex = 5;
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // checkBox_ShowPass
             // 

@@ -63,6 +63,21 @@ namespace Server
                 return false;
             }
         }
+        public bool checkUser(string user, string pass)
+        {
+            pass = EncodePass(pass);
+            string temp="";
+            string stringSelect = $"SELECT* FROM dbo.account WHERE UserName='{user}' and Pass='{pass}'";
+            SqlCommand cm = new SqlCommand(stringSelect, sqlConnection);
+            SqlDataReader reader = cm.ExecuteReader();
+            while (reader.Read())
+            {
+                temp += reader["UserName"].ToString();
+            }
+            reader.Close();
+            if (temp == "") return false;
+            else return true;
+        }
         public void Resetpassword(string userName)
         {
             string stringSet = $"UPDATE dbo.account SET Pass='123456' WHERE UserName='{userName}';";
@@ -100,7 +115,7 @@ namespace Server
         }
         ~SQL_server()
         {
-            sqlConnection.Close();
+            //sqlConnection.Close();
         }
     }
 }
