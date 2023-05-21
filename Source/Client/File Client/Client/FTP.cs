@@ -47,8 +47,9 @@ namespace Client
                 Console.WriteLine("CONNECT FAILED - Detail: " + ex.Message);
             }
         }
-        public string[] directoryListSimple(string directory)
+        public List<string> directoryListSimple(string directory)
         {
+            List <string> listDirectory = new List<string>();
             try
             {
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + directory);
@@ -67,7 +68,8 @@ namespace Client
                 {
                     while (ftpReader.Peek() != -1)
                     {
-                        directoryRaw += ftpReader.ReadLine() + "|";
+                        string[] path = ftpReader.ReadLine().Split('/');
+                        listDirectory.Add(path[path.Length - 1]);
                     }
                 }
                 catch (Exception ex)
@@ -79,21 +81,90 @@ namespace Client
                 ftpStream.Close();
                 ftpResponse.Close();
                 ftpRequest = null;
-
-                try
-                {
-                    string[] directoryList = directoryRaw.Split("|".ToCharArray()); return directoryList;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
+                return listDirectory;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                return listDirectory;
             }
-            return new string[] { "" };
+            
+        }
+        /* List Directory Contents in Detail (Name, Size, Created, etc.) */
+        public List<string> directoryListDetailed(string directory)
+        {
+            List<string> listDirectory = new List<string>();
+            try
+            {
+                /* Create an FTP Request */
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + directory);
+                /* Log in to the FTP Server with the User Name and Password Provided */
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                /* When in doubt, use these options */
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                /* Specify the Type of FTP Request */
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                /* Establish Return Communication with the FTP Server */
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                /* Establish Return Communication with the FTP Server */
+                ftpStream = ftpResponse.GetResponseStream();
+                /* Get the FTP Server's Response Stream */
+                StreamReader ftpReader = new StreamReader(ftpStream);
+                /* Store the Raw Response */
+                string directoryRaw = null;
+                /* Read Each Line of the Response and Append a Pipe to Each Line for Easy Parsing */
+                try
+                {
+                    while (ftpReader.Peek() != -1)
+                    {
+                        string[] path = ftpReader.ReadLine().Split('/');
+                        listDirectory.Add(path[path.Length - 1]);
+                    }
+                }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+                /* Resource Cleanup */
+                ftpReader.Close();
+                ftpStream.Close();
+                ftpResponse.Close();
+                ftpRequest = null;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            /* Return an Empty string Array if an Exception Occurs */
+            return listDirectory;
+        }
+        public static List<string> ListFile(List<string> list)
+        {
+            List<string> files = new List<string>();
+            foreach (string file in list)
+            {
+                // Kiểm tra line có phải là tên thư mục hay không
+                if (!file.StartsWith("d"))
+                {
+                    string[] parts = file.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string directoryPath = parts[parts.Length - 1];
+                    string directoryName = Path.GetFileName(directoryPath);
+                    files.Add(directoryName);
+                }
+            }
+            return files;
+        }
+        public static List<string> ListDirectory(List<string> list)
+        {
+            List<string> dirs = new List<string>();
+            foreach (string dir in list)
+            {
+                // Kiểm tra line có phải là tên thư mục hay không
+                if (dir.StartsWith("d"))
+                {
+                    string[] parts = dir.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string directoryPath = parts[parts.Length - 1];
+                    string directoryName = Path.GetFileName(directoryPath);
+                    dirs.Add(directoryName);
+                }
+            }
+            return dirs;
         }
         // Download function
         public void downloadFile(string remoteFile, string localFile)
@@ -342,6 +413,17 @@ namespace Client
             }
 
             return directories;
+        }
+        //Lấy đường ở thư mục đang làm việc hiện tại
+        public string WorkingDirectory()
+        {
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(host);
+            request.Credentials = new NetworkCredential(user,pass);
+            request.Method = WebRequestMethods.Ftp.PrintWorkingDirectory;
+            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+            {
+                return response.StatusDescription;
+            }
         }
     }
     
