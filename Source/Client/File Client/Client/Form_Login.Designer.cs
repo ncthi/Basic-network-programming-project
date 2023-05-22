@@ -41,7 +41,7 @@
             // 
             textBox_Username.BorderStyle = BorderStyle.None;
             textBox_Username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_Username.ForeColor = Color.FromArgb(255, 128, 128);
+            textBox_Username.ForeColor = Color.Black;
             textBox_Username.Location = new Point(144, 192);
             textBox_Username.Name = "textBox_Username";
             textBox_Username.Size = new Size(212, 23);

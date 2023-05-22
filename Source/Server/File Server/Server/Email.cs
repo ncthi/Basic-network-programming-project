@@ -10,8 +10,8 @@ namespace Server
 {
     internal class Email
     {
-        public static string Address = "21522648@gm.uit.edu.vn"; //Địa chỉ email của bạn
-        public static string Password = "abcde"; //Mật khẩu ứng dụng
+        public static string Address = "cloudkeeper4@gmail.com"; 
+        public static string Password = "abcde"; 
         string htmlFilePath = @"C:\LTM\email.html"; //đường dẫn tới file html 
         public void SendPasswordResetEmail(string userEmail, string htmlFilePath) 
         {

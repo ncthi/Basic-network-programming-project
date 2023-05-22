@@ -41,8 +41,8 @@
             // textBox_CreateUser
             // 
             textBox_CreateUser.BorderStyle = BorderStyle.None;
-            textBox_CreateUser.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_CreateUser.ForeColor = Color.DarkOrange;
+            textBox_CreateUser.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox_CreateUser.ForeColor = Color.Black;
             textBox_CreateUser.Location = new Point(472, 146);
             textBox_CreateUser.Name = "textBox_CreateUser";
             textBox_CreateUser.Size = new Size(251, 23);
@@ -52,9 +52,10 @@
             // textBox_Email
             // 
             textBox_Email.BorderStyle = BorderStyle.None;
+            textBox_Email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_Email.Location = new Point(448, 232);
             textBox_Email.Name = "textBox_Email";
-            textBox_Email.Size = new Size(275, 20);
+            textBox_Email.Size = new Size(275, 23);
             textBox_Email.TabIndex = 1;
             // 
             // textBox_CreatePass
