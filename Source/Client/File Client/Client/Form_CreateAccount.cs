@@ -84,7 +84,7 @@ namespace Client
                             MessageBox.Show("Account successfully created!");
                             this.Close();
                         }
-                        else MessageBox.Show("You can not create an account!");
+                        else MessageBox.Show("You can not create an account!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                 }
