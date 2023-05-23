@@ -29,7 +29,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://172.20.123.38/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://192.168.137.169/", "caothi", "123456");
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -43,84 +43,93 @@ namespace Client
             {
                 foreach (var file in listFiles)
                 {
-                    var fileExtension = file.Split('.')[1];
-                    if (fileExtension.Length >= 2)
+                    if (file.IndexOf('.') != -1)
                     {
-                        switch (fileExtension)
+                        var fileExtension = file.Split('.')[1];
                         {
-                            case ".MP3":
-                            case ".MP2":
-                                ListViewItem item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 6;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".PPT":
-                            case ".PPTX":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 3;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".MP4":
-                            case ".AVI":
-                            case ".MKV":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 7;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".PDF":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 2;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".DOC":
-                            case ".DOCX":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 1;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".XLS":
-                            case ".XLSX":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 4;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".ZIP":
-                            case ".RAR":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 3;
-                                listView_Dialog.Items.Add(item);
-                                break;
-                            case ".PNG":
-                            case ".JPG":
-                            case ".JPEG":
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 5;
-                                listView_Dialog.Items.Add(item);
-                                break;
+                            switch (fileExtension)
+                            {
+                                case "mp3":
+                                case "mp2":
+                                    ListViewItem item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 9;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "txt":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 10;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "ppt":
+                                case "pptx":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 3;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "mp4":
+                                case "avi":
+                                case "mkv":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 6;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "pdf":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 2;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "doc":
+                                case "docx":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 1;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "xsl":
+                                case "xslx":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 4;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "zip":
+                                case "rar":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 7;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "png":
+                                case "jpg":
+                                case "jpeg":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 5;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
 
-                            default:
-                                item = new ListViewItem();
-                                item.Tag = "File";
-                                item.Text = file;
-                                item.ImageIndex = 8;
-                                listView_Dialog.Items.Add(item);
-                                break;
+                                default:
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 8;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                            }
                         }
                     }
                     else
@@ -224,6 +233,26 @@ namespace Client
         {
             goBack();
             loadButtonAction();
+        }
+
+        private void Form_FileManager_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Upload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string localFilePath = openFileDialog.FileName;
+                string remoteFileName = Path.GetFileName(localFilePath);
+                string remoteFilePath = currentPath + remoteFileName ;
+
+                // Tải lên tập tin lên máy chủ FTP
+                ftpClient.uploadFile(remoteFilePath,localFilePath);
+                loadFilesAndDirectories(currentPath);
+            }
         }
     }
 }
