@@ -39,22 +39,24 @@
             this.SuspendLayout();
             // 
             // textBox_CreateUser
-            // 
-            this.textBox_CreateUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_CreateUser.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox_CreateUser.ForeColor = System.Drawing.Color.DarkOrange;
-            this.textBox_CreateUser.Location = new System.Drawing.Point(472, 148);
-            this.textBox_CreateUser.Name = "textBox_CreateUser";
-            this.textBox_CreateUser.Size = new System.Drawing.Size(251, 23);
-            this.textBox_CreateUser.TabIndex = 0;
+
+            textBox_CreateUser.BorderStyle = BorderStyle.None;
+            textBox_CreateUser.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox_CreateUser.ForeColor = Color.Black;
+            textBox_CreateUser.Location = new Point(472, 146);
+            textBox_CreateUser.Name = "textBox_CreateUser";
+            textBox_CreateUser.Size = new Size(251, 23);
+            textBox_CreateUser.TabIndex = 0;
+            textBox_CreateUser.TextChanged += textBox1_TextChanged;
             // 
             // textBox_Email
             // 
-            this.textBox_Email.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_Email.Location = new System.Drawing.Point(448, 233);
-            this.textBox_Email.Name = "textBox_Email";
-            this.textBox_Email.Size = new System.Drawing.Size(275, 20);
-            this.textBox_Email.TabIndex = 1;
+            textBox_Email.BorderStyle = BorderStyle.None;
+            textBox_Email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox_Email.Location = new Point(448, 232);
+            textBox_Email.Name = "textBox_Email";
+            textBox_Email.Size = new Size(275, 23);
+            textBox_Email.TabIndex = 1;
             // 
             // textBox_CreatePass
             // 

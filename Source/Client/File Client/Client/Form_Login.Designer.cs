@@ -39,6 +39,7 @@
             // 
             // textBox_Username
             // 
+
             this.textBox_Username.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox_Username.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.textBox_Username.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -46,6 +47,7 @@
             this.textBox_Username.Name = "textBox_Username";
             this.textBox_Username.Size = new System.Drawing.Size(212, 23);
             this.textBox_Username.TabIndex = 0;
+
             // 
             // textBox_Password
             // 
