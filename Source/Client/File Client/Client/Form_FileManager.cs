@@ -158,6 +158,11 @@ namespace Client
             }
         }
 
+        private void listView_Dialog_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            label_FileName.Text = e.Item.Text;
+        }
+
         public void loadButtonAction()
         {
             filePath = textBox_Path.Text;
@@ -208,10 +213,6 @@ namespace Client
             loadButtonAction();
         }
 
-        private void listView_Dialog_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            label_FileName.Text = e.Item.Text;
-        }
 
         private void listView_Dialog_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -235,11 +236,6 @@ namespace Client
             loadButtonAction();
         }
 
-        private void Form_FileManager_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_Upload_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -247,10 +243,106 @@ namespace Client
             {
                 string localFilePath = openFileDialog.FileName;
                 string remoteFileName = Path.GetFileName(localFilePath);
-                string remoteFilePath = currentPath + remoteFileName ;
+                string remoteFilePath = currentPath + remoteFileName;
 
                 // Tải lên tập tin lên máy chủ FTP
-                ftpClient.uploadFile(remoteFilePath,localFilePath);
+                ftpClient.uploadFile(remoteFilePath, localFilePath);
+                loadFilesAndDirectories(currentPath);
+            }
+        }
+
+        private void listView_Dialog_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // Lấy item được chọn
+                ListViewItem item = listView_Dialog.GetItemAt(e.X, e.Y);
+
+                if (item != null)
+                {
+                    // Hiển thị menu context cho item được chọn
+                    contextMenuStrip_Function.Show(listView_Dialog, e.Location);
+                }
+            }
+        }
+
+        private void toolStripMenuItem_Delete_Click(object sender, EventArgs e)
+        {
+            // Lấy item được chọn
+            ListViewItem item = listView_Dialog.SelectedItems[0];
+
+            // Xóa item
+            ftpClient.delete(currentPath + item.Text);
+            loadFilesAndDirectories(currentPath);
+        }
+
+        private void toolStripMenuItem_Copy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem_Cut_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public static string ShowInputDialog(string title, string promptText, string defaultValue = "")
+        {
+            Form prompt = new Form();
+            prompt.Width = 500;
+            prompt.Height = 200;
+            prompt.Text = title;
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = promptText };
+            System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 50, Width = 400, Text = defaultValue };
+            System.Windows.Forms.Button confirmation = new System.Windows.Forms.Button() { Text = "OK", Left = 350, Width = 100, Height = 30, Top = 80 };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.ShowDialog();
+            return textBox.Text;
+        }
+
+        private void toolStripMenuItem_Rename_Click(object sender, EventArgs e)
+        {
+            // Lấy item được chọn
+            ListViewItem item = listView_Dialog.SelectedItems[0];
+
+            // Lấy tên hiện tại của item
+            string currentName = item.Text;
+
+            // Hiển thị hộp thoại nhập tên mới cho item
+            string newName = ShowInputDialog("Rename", "Enter new name for " + currentName + ":", currentName);
+            if (newName != null)
+            {
+                // Thực hiện đổi tên item trên máy chủ FTP
+                ftpClient.rename(currentPath + "/" + currentName, newName);
+
+                // Cập nhật lại danh sách các item trong listView
+                loadFilesAndDirectories(currentPath);
+            }
+        }
+
+        private void toolStripMenuItem_Download_Click(object sender, EventArgs e)
+        {
+            // Lấy item được chọn
+            ListViewItem item = listView_Dialog.SelectedItems[0];
+
+            // Mở folder muốn lưu file
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                // Lấy đường dẫn thư mục muốn lưu tập tin trên máy tính
+                string localFolderPath = fbd.SelectedPath;
+                // Lấy tên tập tin cần tải về
+                string remoteFileName = item.Text;
+                // Lấy đường dẫn tập tin trên máy chủ FTP
+                string remoteFilePath = currentPath + remoteFileName;
+
+                // Tải tập tin từ máy chủ FTP về máy tính
+                ftpClient.downloadFile(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+
+                // Cập nhật danh sách tập tin và thư mục hiện tại
                 loadFilesAndDirectories(currentPath);
             }
         }

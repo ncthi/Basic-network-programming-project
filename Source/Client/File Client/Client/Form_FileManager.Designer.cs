@@ -30,15 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_FileManager));
-            this.button_Back = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox_Path = new System.Windows.Forms.TextBox();
-            this.listView_Dialog = new System.Windows.Forms.ListView();
-            this.iconList = new System.Windows.Forms.ImageList(this.components);
-            this.button_Go = new System.Windows.Forms.Button();
-            this.button_Upload = new System.Windows.Forms.Button();
-            this.label_FileName = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            button_Back = new Button();
+            label1 = new Label();
+            textBox_Path = new TextBox();
+            listView_Dialog = new ListView();
+            iconList = new ImageList(components);
+            button_Go = new Button();
+            button_Upload = new Button();
+            label_FileName = new Label();
+            contextMenuStrip_Function = new ContextMenuStrip(components);
+            toolStripMenuItem_Delete = new ToolStripMenuItem();
+            toolStripMenuItem_Copy = new ToolStripMenuItem();
+            toolStripMenuItem_Cut = new ToolStripMenuItem();
+            toolStripMenuItem_Rename = new ToolStripMenuItem();
+            toolStripMenuItem_Download = new ToolStripMenuItem();
+            contextMenuStrip_Function.SuspendLayout();
+            SuspendLayout();
             // 
             // button_Back
             // 
@@ -67,14 +74,16 @@
             // 
             // listView_Dialog
             // 
-            this.listView_Dialog.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.listView_Dialog.GroupImageList = this.iconList;
-            this.listView_Dialog.LargeImageList = this.iconList;
-            this.listView_Dialog.Location = new System.Drawing.Point(13, 46);
-            this.listView_Dialog.Name = "listView_Dialog";
-            this.listView_Dialog.Size = new System.Drawing.Size(775, 366);
-            this.listView_Dialog.TabIndex = 3;
-            this.listView_Dialog.UseCompatibleStateImageBehavior = false;
+            listView_Dialog.GroupImageList = iconList;
+            listView_Dialog.LargeImageList = iconList;
+            listView_Dialog.Location = new Point(13, 46);
+            listView_Dialog.Name = "listView_Dialog";
+            listView_Dialog.Size = new Size(775, 366);
+            listView_Dialog.TabIndex = 3;
+            listView_Dialog.UseCompatibleStateImageBehavior = false;
+            listView_Dialog.ItemSelectionChanged += listView_Dialog_ItemSelectionChanged;
+            listView_Dialog.MouseDoubleClick += listView_Dialog_MouseDoubleClick;
+            listView_Dialog.MouseDown += listView_Dialog_MouseDown;
             // 
             // iconList
             // 
@@ -104,12 +113,13 @@
             // 
             // button_Upload
             // 
-            this.button_Upload.Location = new System.Drawing.Point(720, 418);
-            this.button_Upload.Name = "button_Upload";
-            this.button_Upload.Size = new System.Drawing.Size(68, 27);
-            this.button_Upload.TabIndex = 6;
-            this.button_Upload.Text = "Upload";
-            this.button_Upload.UseVisualStyleBackColor = true;
+            button_Upload.Location = new Point(720, 418);
+            button_Upload.Name = "button_Upload";
+            button_Upload.Size = new Size(68, 27);
+            button_Upload.TabIndex = 6;
+            button_Upload.Text = "Upload";
+            button_Upload.UseVisualStyleBackColor = true;
+            button_Upload.Click += button_Upload_Click;
             // 
             // label_FileName
             // 
@@ -120,29 +130,65 @@
             this.label_FileName.TabIndex = 7;
             this.label_FileName.Text = "--";
             // 
+            // contextMenuStrip_Function
+            // 
+            contextMenuStrip_Function.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip_Function.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_Delete, toolStripMenuItem_Copy, toolStripMenuItem_Cut, toolStripMenuItem_Rename, toolStripMenuItem_Download });
+            contextMenuStrip_Function.Name = "contextMenuStrip_Function";
+            contextMenuStrip_Function.Size = new Size(148, 124);
+            // 
+            // toolStripMenuItem_Delete
+            // 
+            toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
+            toolStripMenuItem_Delete.Size = new Size(147, 24);
+            toolStripMenuItem_Delete.Text = "Delete";
+            toolStripMenuItem_Delete.Click += toolStripMenuItem_Delete_Click;
+            // 
+            // toolStripMenuItem_Copy
+            // 
+            toolStripMenuItem_Copy.Name = "toolStripMenuItem_Copy";
+            toolStripMenuItem_Copy.Size = new Size(147, 24);
+            toolStripMenuItem_Copy.Text = "Copy";
+            toolStripMenuItem_Copy.Click += toolStripMenuItem_Copy_Click;
+            // 
+            // toolStripMenuItem_Cut
+            // 
+            toolStripMenuItem_Cut.Name = "toolStripMenuItem_Cut";
+            toolStripMenuItem_Cut.Size = new Size(147, 24);
+            toolStripMenuItem_Cut.Text = "Cut";
+            toolStripMenuItem_Cut.Click += toolStripMenuItem_Cut_Click;
+            // 
+            // toolStripMenuItem_Rename
+            // 
+            toolStripMenuItem_Rename.Name = "toolStripMenuItem_Rename";
+            toolStripMenuItem_Rename.Size = new Size(147, 24);
+            toolStripMenuItem_Rename.Text = "Rename";
+            toolStripMenuItem_Rename.Click += toolStripMenuItem_Rename_Click;
+            // 
+            // toolStripMenuItem_Download
+            // 
+            toolStripMenuItem_Download.Name = "toolStripMenuItem_Download";
+            toolStripMenuItem_Download.Size = new Size(147, 24);
+            toolStripMenuItem_Download.Text = "Download";
+            toolStripMenuItem_Download.Click += toolStripMenuItem_Download_Click;
+            // 
             // Form_FileManager
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 455);
-            this.Controls.Add(this.label_FileName);
-            this.Controls.Add(this.button_Upload);
-            this.Controls.Add(this.button_Go);
-            this.Controls.Add(this.listView_Dialog);
-            this.Controls.Add(this.textBox_Path);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button_Back);
-            this.Name = "Form_FileManager";
-            this.Text = "Form_FileManager";
-            this.Load += new System.EventHandler(this.Form_FileManager_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-        }
-
-        private void Button_Go_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(label_FileName);
+            Controls.Add(button_Upload);
+            Controls.Add(button_Go);
+            Controls.Add(listView_Dialog);
+            Controls.Add(textBox_Path);
+            Controls.Add(label1);
+            Controls.Add(button_Back);
+            Name = "Form_FileManager";
+            Text = "Form_FileManager";
+            contextMenuStrip_Function.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -155,5 +201,11 @@
         private Button button_Go;
         private Button button_Upload;
         private Label label_FileName;
+        private ContextMenuStrip contextMenuStrip_Function;
+        private ToolStripMenuItem toolStripMenuItem_Delete;
+        private ToolStripMenuItem toolStripMenuItem_Copy;
+        private ToolStripMenuItem toolStripMenuItem_Cut;
+        private ToolStripMenuItem toolStripMenuItem_Rename;
+        private ToolStripMenuItem toolStripMenuItem_Download;
     }
 }
