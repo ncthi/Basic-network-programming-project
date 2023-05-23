@@ -38,6 +38,13 @@
             button_Go = new Button();
             button_Upload = new Button();
             label_FileName = new Label();
+            contextMenuStrip_Function = new ContextMenuStrip(components);
+            toolStripMenuItem_Delete = new ToolStripMenuItem();
+            toolStripMenuItem_Copy = new ToolStripMenuItem();
+            toolStripMenuItem_Cut = new ToolStripMenuItem();
+            toolStripMenuItem_Rename = new ToolStripMenuItem();
+            toolStripMenuItem_Download = new ToolStripMenuItem();
+            contextMenuStrip_Function.SuspendLayout();
             SuspendLayout();
             // 
             // button_Back
@@ -77,6 +84,7 @@
             listView_Dialog.UseCompatibleStateImageBehavior = false;
             listView_Dialog.ItemSelectionChanged += listView_Dialog_ItemSelectionChanged;
             listView_Dialog.MouseDoubleClick += listView_Dialog_MouseDoubleClick;
+            listView_Dialog.MouseDown += listView_Dialog_MouseDown;
             // 
             // iconList
             // 
@@ -112,6 +120,7 @@
             button_Upload.TabIndex = 6;
             button_Upload.Text = "Upload";
             button_Upload.UseVisualStyleBackColor = true;
+            button_Upload.Click += button_Upload_Click;
             // 
             // label_FileName
             // 
@@ -121,6 +130,48 @@
             label_FileName.Size = new Size(21, 20);
             label_FileName.TabIndex = 7;
             label_FileName.Text = "--";
+            // 
+            // contextMenuStrip_Function
+            // 
+            contextMenuStrip_Function.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip_Function.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_Delete, toolStripMenuItem_Copy, toolStripMenuItem_Cut, toolStripMenuItem_Rename, toolStripMenuItem_Download });
+            contextMenuStrip_Function.Name = "contextMenuStrip_Function";
+            contextMenuStrip_Function.Size = new Size(148, 124);
+            // 
+            // toolStripMenuItem_Delete
+            // 
+            toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
+            toolStripMenuItem_Delete.Size = new Size(147, 24);
+            toolStripMenuItem_Delete.Text = "Delete";
+            toolStripMenuItem_Delete.Click += toolStripMenuItem_Delete_Click;
+            // 
+            // toolStripMenuItem_Copy
+            // 
+            toolStripMenuItem_Copy.Name = "toolStripMenuItem_Copy";
+            toolStripMenuItem_Copy.Size = new Size(147, 24);
+            toolStripMenuItem_Copy.Text = "Copy";
+            toolStripMenuItem_Copy.Click += toolStripMenuItem_Copy_Click;
+            // 
+            // toolStripMenuItem_Cut
+            // 
+            toolStripMenuItem_Cut.Name = "toolStripMenuItem_Cut";
+            toolStripMenuItem_Cut.Size = new Size(147, 24);
+            toolStripMenuItem_Cut.Text = "Cut";
+            toolStripMenuItem_Cut.Click += toolStripMenuItem_Cut_Click;
+            // 
+            // toolStripMenuItem_Rename
+            // 
+            toolStripMenuItem_Rename.Name = "toolStripMenuItem_Rename";
+            toolStripMenuItem_Rename.Size = new Size(147, 24);
+            toolStripMenuItem_Rename.Text = "Rename";
+            toolStripMenuItem_Rename.Click += toolStripMenuItem_Rename_Click;
+            // 
+            // toolStripMenuItem_Download
+            // 
+            toolStripMenuItem_Download.Name = "toolStripMenuItem_Download";
+            toolStripMenuItem_Download.Size = new Size(147, 24);
+            toolStripMenuItem_Download.Text = "Download";
+            toolStripMenuItem_Download.Click += toolStripMenuItem_Download_Click;
             // 
             // Form_FileManager
             // 
@@ -136,6 +187,7 @@
             Controls.Add(button_Back);
             Name = "Form_FileManager";
             Text = "Form_FileManager";
+            contextMenuStrip_Function.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -150,5 +202,11 @@
         private Button button_Go;
         private Button button_Upload;
         private Label label_FileName;
+        private ContextMenuStrip contextMenuStrip_Function;
+        private ToolStripMenuItem toolStripMenuItem_Delete;
+        private ToolStripMenuItem toolStripMenuItem_Copy;
+        private ToolStripMenuItem toolStripMenuItem_Cut;
+        private ToolStripMenuItem toolStripMenuItem_Rename;
+        private ToolStripMenuItem toolStripMenuItem_Download;
     }
 }
