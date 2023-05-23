@@ -9,7 +9,7 @@ namespace Client
     public partial class Form_Login : Form
     {
 
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "172.20.120.105";
         private const int serverPort = 8080;
         public Form_Login()
         {
@@ -84,5 +84,7 @@ namespace Client
                 MessageBox.Show($"Error creating account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        
     }
 }

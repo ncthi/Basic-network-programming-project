@@ -280,6 +280,24 @@ namespace Client
             return;
         }
 
+        // Cut file
+        public void cut(string cutFile)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + cutFile);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         // Rename File 
         public void rename(string currentFileNameAndPath, string newFileName)
         {
@@ -414,6 +432,7 @@ namespace Client
 
             return directories;
         }
+
         //Lấy đường ở thư mục đang làm việc hiện tại
         public string WorkingDirectory()
         {

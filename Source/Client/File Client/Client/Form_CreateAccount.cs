@@ -14,7 +14,7 @@ namespace Client
     public partial class Form_CreateAccount : Form
     {
 
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "192.168.112.142";
         private const int serverPort = 8080;
         public Form_CreateAccount()
         {
@@ -119,10 +119,6 @@ namespace Client
                 textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }
