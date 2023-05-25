@@ -220,7 +220,7 @@ namespace Client
 
         }
 
-        // Upload function
+        // Upload File
         public void uploadFile(string remoteFile, string localFile)
         {
             try
@@ -255,6 +255,25 @@ namespace Client
             return;
         }
 
+        // Upload Folder
+        public void uploadFolder(string remoteFolder, string localFolder)
+        {
+            // Tải lên tất cả các tệp tin trong thư mục cục bộ lên máy chủ FTP
+            foreach (string file in Directory.GetFiles(localFolder))
+            {
+                string remoteFile = remoteFolder + "/" + Path.GetFileName(file);
+                uploadFile(remoteFile, file);
+            }
+
+            // Tải lên tất cả các thư mục con trong thư mục cục bộ lên máy chủ FTP
+            foreach (string subFolder in Directory.GetDirectories(localFolder))
+            {
+                string remoteSubFolder = remoteFolder + "/" + Path.GetFileName(subFolder);
+                createDirectory(remoteSubFolder); // Tạo thư mục trên máy chủ FTP nếu chưa có
+                uploadFolder(remoteSubFolder, subFolder); // Đệ quy để tải lên tất cả các tệp tin và thư mục con
+            }
+        }
+
         // Delete file function
         public void delete(string deleteFile)
         {
@@ -280,23 +299,6 @@ namespace Client
             return;
         }
 
-        // Cut file
-        public void cut(string cutFile)
-        {
-            try
-            {
-                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + cutFile);
-                ftpRequest.Credentials = new NetworkCredential(user, pass);
-                ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
-                ftpRequest.KeepAlive = true;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
 
         // Rename File 
         public void rename(string currentFileNameAndPath, string newFileName)
@@ -325,6 +327,56 @@ namespace Client
             return;
         }
 
+        // Copy File
+        public MemoryStream copy(string copyFile)
+        {
+            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
+            ftpRequest.Credentials = new NetworkCredential(user, pass);
+            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+            ftpStream = ftpResponse.GetResponseStream();
+
+            MemoryStream memoryStream = new MemoryStream();
+
+            int buffLength = 2048;
+            byte[] byteBuffer = new byte[buffLength];
+
+            int bytesRead = ftpStream.Read(byteBuffer, 0, buffLength);
+
+            if (bytesRead > 0)
+            {
+                while (bytesRead > 0)
+                {
+                    memoryStream.Write(byteBuffer, 0, bytesRead);
+                    bytesRead = ftpStream.Read(byteBuffer, 0, buffLength);
+                }
+            }
+
+            ftpStream.Close();
+            ftpResponse.Close();
+            ((IDisposable)ftpResponse).Dispose();
+
+            return memoryStream;
+        }
+
+
+        // Paste File
+        public void paste(string pasteFile, MemoryStream memoryStream)
+        {
+            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + pasteFile);
+            ftpRequest.Credentials = new NetworkCredential(user, pass);
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+            ftpStream = ftpRequest.GetRequestStream();
+
+            // Copy data from the memory stream to the FTP stream
+            byte[] buffer = memoryStream.ToArray();
+            ftpStream.Write(buffer, 0, buffer.Length);
+
+            // Dispose of the memory stream
+            memoryStream.Dispose();
+            ftpStream.Close();
+            ftpStream.Dispose();
+        }
 
         //Browse all files that have been stored in FTP server
         public string[] browseFile(string directory)
@@ -380,7 +432,7 @@ namespace Client
         {
             try
             {
-                FtpWebRequest req = (FtpWebRequest)WebRequest.Create(host + "/" + newDirectory);
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + newDirectory);
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 // When in doubt, use these options 
                 ftpRequest.UseBinary = true;
