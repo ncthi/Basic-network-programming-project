@@ -14,7 +14,7 @@ namespace Client
     public partial class Form_CreateAccount : Form
     {
 
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "192.168.112.142";
         private const int serverPort = 8080;
         public Form_CreateAccount()
         {
@@ -40,27 +40,27 @@ namespace Client
             //Kiểm tra thông tin nhập vào 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter full information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (password != confirmPassword)
             {
-                MessageBox.Show("Mật khẩu và xác nhận mật khẩu không khớp.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Password and confirm password do not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Kiểm tra ràng buộc tên người dùng
             if (username.Contains(" ") || HasSpecialCharacters(username) || HasUppercaseLetters(username))
             {
-                MessageBox.Show("Tên người dùng không hợp lệ. Tên không được chứa khoảng trắng, kí tự đặc biệt và chữ in hoa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid username! The name cannot contain spaces, special characters and capital letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Kiểm tra ràng buộc độ dài mật khẩu
             if (password.Length < 6)
             {
-                MessageBox.Show("Mật khẩu phải chứa ít nhất 6 kí tự.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Password must contain at least 6 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -70,7 +70,7 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes(username+','+password+",registry");
+                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password + ",registry");
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);
@@ -81,17 +81,17 @@ namespace Client
                         string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                         if (result == "True")
                         {
-                            MessageBox.Show("Tạo tài khoản thành công");
+                            MessageBox.Show("Account successfully created!");
                             this.Close();
                         }
-                        else MessageBox.Show("Tạo tài khoản không thành công");
+                        else MessageBox.Show("You can not create an account!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tạo tài khoản: {ex.Message}");
+                MessageBox.Show($"Error creating account: {ex.Message}");
             }
         }
 
@@ -110,7 +110,7 @@ namespace Client
         {
             if (checkBox_ShowPass.Checked)
             {
-                textBox_CreatePass.UseSystemPasswordChar = false; 
+                textBox_CreatePass.UseSystemPasswordChar = false;
                 textBox_ConfirmPass.UseSystemPasswordChar = false;
             }
             else
@@ -119,10 +119,6 @@ namespace Client
                 textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
         }
-         
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

@@ -1,4 +1,7 @@
-﻿using System.Net.Sockets;
+﻿using Microsoft.VisualBasic;
+using System.Diagnostics.Metrics;
+using System.Net.Sockets;
+using System.Numerics;
 using System.Text;
 
 namespace Client
@@ -41,7 +44,7 @@ namespace Client
             // Kiểm tra thông tin nhập vào
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Vui lòng nhập đẩy đủ tài khoản và mật khẩu.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter full information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -51,7 +54,7 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password+",login");
+                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password + ",login");
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);
@@ -62,7 +65,7 @@ namespace Client
                         string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                         if (result == "True")
                         {
-                            MessageBox.Show("Đăng nhập thành công.");
+                            MessageBox.Show("Login succesfully!");
                             Form_FileManager form_FileManager = new Form_FileManager();
                             //ẩn forrm
                             this.Hide();
@@ -71,15 +74,17 @@ namespace Client
                         }
                         else
                         {
-                            MessageBox.Show("Tài khoản hoặc mật khẩu không đúng.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("User name or password is not correct", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi đăng nhập: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error creating account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        
     }
 }

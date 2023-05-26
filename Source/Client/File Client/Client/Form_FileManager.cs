@@ -56,7 +56,14 @@ namespace Client
                                     ListViewItem item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
-                                    item.ImageIndex = 6;
+                                    item.ImageIndex = 9;
+                                    listView_Dialog.Items.Add(item);
+                                    break;
+                                case "txt":
+                                    item = new ListViewItem();
+                                    item.Tag = "File";
+                                    item.Text = file;
+                                    item.ImageIndex = 10;
                                     listView_Dialog.Items.Add(item);
                                     break;
                                 case "ppt":
@@ -80,7 +87,7 @@ namespace Client
                                     item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
-                                    item.ImageIndex = 7;
+                                    item.ImageIndex = 6;
                                     listView_Dialog.Items.Add(item);
                                     break;
                                 case "pdf":
@@ -98,8 +105,8 @@ namespace Client
                                     item.ImageIndex = 1;
                                     listView_Dialog.Items.Add(item);
                                     break;
-                                case "xls":
-                                case ".xlsx":
+                                case "xsl":
+                                case "xslx":
                                     item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
@@ -111,7 +118,7 @@ namespace Client
                                     item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
-                                    item.ImageIndex = 9;
+                                    item.ImageIndex = 7;
                                     listView_Dialog.Items.Add(item);
                                     break;
                                 case "png":
