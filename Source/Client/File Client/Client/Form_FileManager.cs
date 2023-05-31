@@ -339,10 +339,6 @@ namespace Client
 
             // Xóa item
             ftpClient.delete(currentPath + item.Text);
-
-            // Dán file
-            ftpClient.paste(currentPath, memoryStream);
-            loadFilesAndDirectories(currentPath);
         }
 
         private void toolStripMenuItem_Delete_Click(object sender, EventArgs e)
@@ -397,11 +393,9 @@ namespace Client
 
         private void toolStripMenuItem_Paste_Click(object sender, EventArgs e)
         {
-            string newPath = textBox_Path.Text;
-
             // Dán file 
-            ftpClient.paste(currentPath + newPath, memoryStream);
-            loadFilesAndDirectories(currentPath + newPath);
+            ftpClient.paste(currentPath, memoryStream);
+            loadFilesAndDirectories(currentPath);
         }
     }
 }

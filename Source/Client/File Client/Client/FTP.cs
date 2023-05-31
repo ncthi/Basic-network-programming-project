@@ -275,28 +275,42 @@ namespace Client
         }
 
         // Delete file function
-        public void delete(string deleteFile)
+        public void delete(string deletePath)
         {
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(host + "/" + deletePath);
+            request.Credentials = new NetworkCredential(user, pass);
+            request.UseBinary = true;
+            request.UsePassive = true;
+            request.KeepAlive = true;
+
+            bool isFile = false;
             try
             {
-                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFile);
-                ftpRequest.Credentials = new NetworkCredential(user, pass);
-                // When in doubt, use these options 
-                ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
-                ftpRequest.KeepAlive = true;
-                // Type of FTP request
-                ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
-                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                // Clean resources 
-                ftpResponse.Close();
-                ftpRequest = null;
+                request.Method = WebRequestMethods.Ftp.GetFileSize;
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    isFile = true;
+                    response.Close();
+                }
             }
-            catch (Exception ex)
+            catch { }
+
+            if (isFile)
             {
-                Console.WriteLine(ex.Message);
+                request.Method = WebRequestMethods.Ftp.DeleteFile;
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    response.Close();
+                }
             }
-            return;
+            else
+            {
+                request.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    response.Close();
+                }
+            }
         }
 
 

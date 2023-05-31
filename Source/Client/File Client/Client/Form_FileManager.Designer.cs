@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_FileManager));
             button_Back = new Button();
             label1 = new Label();
@@ -54,28 +54,28 @@
             // 
             // button_Back
             // 
-            this.button_Back.Location = new System.Drawing.Point(13, 9);
-            this.button_Back.Name = "button_Back";
-            this.button_Back.Size = new System.Drawing.Size(68, 27);
-            this.button_Back.TabIndex = 0;
-            this.button_Back.Text = "Back";
-            this.button_Back.UseVisualStyleBackColor = true;
+            button_Back.Location = new Point(13, 9);
+            button_Back.Name = "button_Back";
+            button_Back.Size = new Size(68, 27);
+            button_Back.TabIndex = 0;
+            button_Back.Text = "Back";
+            button_Back.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(85, 421);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "FileName:";
+            label1.AutoSize = true;
+            label1.Location = new Point(85, 421);
+            label1.Name = "label1";
+            label1.Size = new Size(75, 20);
+            label1.TabIndex = 1;
+            label1.Text = "FileName:";
             // 
             // textBox_Path
             // 
-            this.textBox_Path.Location = new System.Drawing.Point(87, 9);
-            this.textBox_Path.Name = "textBox_Path";
-            this.textBox_Path.Size = new System.Drawing.Size(627, 27);
-            this.textBox_Path.TabIndex = 2;
+            textBox_Path.Location = new Point(87, 9);
+            textBox_Path.Name = "textBox_Path";
+            textBox_Path.Size = new Size(627, 27);
+            textBox_Path.TabIndex = 2;
             // 
             // listView_Dialog
             // 
@@ -92,40 +92,38 @@
             // 
             // iconList
             // 
-
             iconList.ColorDepth = ColorDepth.Depth32Bit;
             iconList.ImageStream = (ImageListStreamer)resources.GetObject("iconList.ImageStream");
             iconList.TransparentColor = Color.Transparent;
             iconList.Images.SetKeyName(0, "Folder.png");
             iconList.Images.SetKeyName(1, "Doc.png");
             iconList.Images.SetKeyName(2, "PDF.png");
-            iconList.Images.SetKeyName(3, "PowerPoint.png");
+            iconList.Images.SetKeyName(3, "Powerpoint.png");
             iconList.Images.SetKeyName(4, "Excel.png");
             iconList.Images.SetKeyName(5, "Image.png");
-            iconList.Images.SetKeyName(6, "Music.png");
-            iconList.Images.SetKeyName(7, "Video.png");
+            iconList.Images.SetKeyName(6, "Video.png");
+            iconList.Images.SetKeyName(7, "Zip.png");
             iconList.Images.SetKeyName(8, "AnotherFile.png");
-            iconList.Images.SetKeyName(9, "Zip.png");
+            iconList.Images.SetKeyName(9, "Music.png");
             iconList.Images.SetKeyName(10, "Text.png");
-
             // 
             // button_Go
             // 
-            this.button_Go.Location = new System.Drawing.Point(720, 9);
-            this.button_Go.Name = "button_Go";
-            this.button_Go.Size = new System.Drawing.Size(68, 27);
-            this.button_Go.TabIndex = 5;
-            this.button_Go.Text = "Go";
-            this.button_Go.UseVisualStyleBackColor = true;
+            button_Go.Location = new Point(720, 9);
+            button_Go.Name = "button_Go";
+            button_Go.Size = new Size(68, 27);
+            button_Go.TabIndex = 5;
+            button_Go.Text = "Go";
+            button_Go.UseVisualStyleBackColor = true;
             // 
             // label_FileName
             // 
-            this.label_FileName.AutoSize = true;
-            this.label_FileName.Location = new System.Drawing.Point(157, 421);
-            this.label_FileName.Name = "label_FileName";
-            this.label_FileName.Size = new System.Drawing.Size(21, 20);
-            this.label_FileName.TabIndex = 7;
-            this.label_FileName.Text = "--";
+            label_FileName.AutoSize = true;
+            label_FileName.Location = new Point(157, 421);
+            label_FileName.Name = "label_FileName";
+            label_FileName.Size = new Size(21, 20);
+            label_FileName.TabIndex = 7;
+            label_FileName.Text = "--";
             // 
             // contextMenuStrip_Function1
             // 
@@ -174,33 +172,33 @@
             contextMenuStrip_Function2.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function2.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_CreateFolder, toolStripMenuItem_UploadFolder, toolStripMenuItem_UploadFile, toolStripMenuItem_Paste });
             contextMenuStrip_Function2.Name = "contextMenuStrip_Function2";
-            contextMenuStrip_Function2.Size = new Size(211, 128);
+            contextMenuStrip_Function2.Size = new Size(208, 100);
             // 
             // toolStripMenuItem_CreateFolder
             // 
             toolStripMenuItem_CreateFolder.Name = "toolStripMenuItem_CreateFolder";
-            toolStripMenuItem_CreateFolder.Size = new Size(210, 24);
+            toolStripMenuItem_CreateFolder.Size = new Size(207, 24);
             toolStripMenuItem_CreateFolder.Text = "Create New Folder";
             toolStripMenuItem_CreateFolder.Click += toolStripMenuItem_CreateFolder_Click;
             // 
             // toolStripMenuItem_UploadFolder
             // 
             toolStripMenuItem_UploadFolder.Name = "toolStripMenuItem_UploadFolder";
-            toolStripMenuItem_UploadFolder.Size = new Size(210, 24);
+            toolStripMenuItem_UploadFolder.Size = new Size(207, 24);
             toolStripMenuItem_UploadFolder.Text = "Upload New Folder";
             toolStripMenuItem_UploadFolder.Click += toolStripMenuItem_UploadFolder_Click;
             // 
             // toolStripMenuItem_UploadFile
             // 
             toolStripMenuItem_UploadFile.Name = "toolStripMenuItem_UploadFile";
-            toolStripMenuItem_UploadFile.Size = new Size(210, 24);
+            toolStripMenuItem_UploadFile.Size = new Size(207, 24);
             toolStripMenuItem_UploadFile.Text = "Upload New File";
             toolStripMenuItem_UploadFile.Click += toolStripMenuItem_UploadFile_Click;
             // 
             // toolStripMenuItem_Paste
             // 
             toolStripMenuItem_Paste.Name = "toolStripMenuItem_Paste";
-            toolStripMenuItem_Paste.Size = new Size(210, 24);
+            toolStripMenuItem_Paste.Size = new Size(207, 24);
             toolStripMenuItem_Paste.Text = "Paste";
             toolStripMenuItem_Paste.Click += toolStripMenuItem_Paste_Click;
             // 
