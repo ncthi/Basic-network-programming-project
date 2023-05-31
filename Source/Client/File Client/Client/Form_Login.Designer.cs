@@ -29,101 +29,104 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Login));
-            textBox_Username = new TextBox();
-            textBox_Password = new TextBox();
-            button_Login = new Button();
-            button_ForgotPass = new Button();
-            button_CreateAcc = new Button();
-            checkBox_ShowPass = new CheckBox();
-            SuspendLayout();
+            this.textBox_Username = new System.Windows.Forms.TextBox();
+            this.textBox_Password = new System.Windows.Forms.TextBox();
+            this.button_Login = new System.Windows.Forms.Button();
+            this.button_ForgotPass = new System.Windows.Forms.Button();
+            this.button_CreateAcc = new System.Windows.Forms.Button();
+            this.checkBox_ShowPass = new System.Windows.Forms.CheckBox();
+            this.SuspendLayout();
             // 
             // textBox_Username
             // 
-            textBox_Username.BorderStyle = BorderStyle.None;
-            textBox_Username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_Username.ForeColor = Color.FromArgb(255, 128, 128);
-            textBox_Username.Location = new Point(144, 192);
-            textBox_Username.Name = "textBox_Username";
-            textBox_Username.Size = new Size(212, 23);
-            textBox_Username.TabIndex = 0;
+
+            this.textBox_Username.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_Username.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textBox_Username.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.textBox_Username.Location = new System.Drawing.Point(135, 192);
+            this.textBox_Username.Name = "textBox_Username";
+            this.textBox_Username.Size = new System.Drawing.Size(212, 23);
+            this.textBox_Username.TabIndex = 0;
+
             // 
             // textBox_Password
             // 
-            textBox_Password.BorderStyle = BorderStyle.None;
-            textBox_Password.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_Password.Location = new Point(133, 270);
-            textBox_Password.Name = "textBox_Password";
-            textBox_Password.Size = new Size(212, 23);
-            textBox_Password.TabIndex = 1;
-            textBox_Password.UseSystemPasswordChar = true;
+            this.textBox_Password.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_Password.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textBox_Password.Location = new System.Drawing.Point(135, 270);
+            this.textBox_Password.Name = "textBox_Password";
+            this.textBox_Password.Size = new System.Drawing.Size(212, 23);
+            this.textBox_Password.TabIndex = 1;
+            this.textBox_Password.UseSystemPasswordChar = true;
             // 
             // button_Login
             // 
-            button_Login.BackColor = Color.Transparent;
-            button_Login.FlatAppearance.BorderSize = 0;
-            button_Login.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button_Login.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_Login.FlatStyle = FlatStyle.Flat;
-            button_Login.Location = new Point(169, 373);
-            button_Login.Name = "button_Login";
-            button_Login.Size = new Size(110, 29);
-            button_Login.TabIndex = 2;
-            button_Login.UseVisualStyleBackColor = false;
-            button_Login.Click += button_Login_Click;
+            this.button_Login.BackColor = System.Drawing.Color.Transparent;
+            this.button_Login.FlatAppearance.BorderSize = 0;
+            this.button_Login.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button_Login.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button_Login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Login.Location = new System.Drawing.Point(169, 373);
+            this.button_Login.Name = "button_Login";
+            this.button_Login.Size = new System.Drawing.Size(110, 29);
+            this.button_Login.TabIndex = 2;
+            this.button_Login.UseVisualStyleBackColor = false;
+            this.button_Login.Click += new System.EventHandler(this.button_Login_Click);
             // 
             // button_ForgotPass
             // 
-            button_ForgotPass.BackColor = Color.Transparent;
-            button_ForgotPass.FlatAppearance.BorderSize = 0;
-            button_ForgotPass.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button_ForgotPass.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_ForgotPass.FlatStyle = FlatStyle.Flat;
-            button_ForgotPass.Location = new Point(234, 309);
-            button_ForgotPass.Name = "button_ForgotPass";
-            button_ForgotPass.Size = new Size(134, 20);
-            button_ForgotPass.TabIndex = 3;
-            button_ForgotPass.UseVisualStyleBackColor = false;
+            this.button_ForgotPass.BackColor = System.Drawing.Color.Transparent;
+            this.button_ForgotPass.FlatAppearance.BorderSize = 0;
+            this.button_ForgotPass.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button_ForgotPass.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button_ForgotPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_ForgotPass.Location = new System.Drawing.Point(234, 309);
+            this.button_ForgotPass.Name = "button_ForgotPass";
+            this.button_ForgotPass.Size = new System.Drawing.Size(134, 20);
+            this.button_ForgotPass.TabIndex = 3;
+            this.button_ForgotPass.UseVisualStyleBackColor = false;
             // 
             // button_CreateAcc
             // 
-            button_CreateAcc.BackColor = Color.Transparent;
-            button_CreateAcc.FlatAppearance.BorderSize = 0;
-            button_CreateAcc.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button_CreateAcc.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_CreateAcc.FlatStyle = FlatStyle.Flat;
-            button_CreateAcc.Location = new Point(159, 418);
-            button_CreateAcc.Name = "button_CreateAcc";
-            button_CreateAcc.Size = new Size(120, 27);
-            button_CreateAcc.TabIndex = 4;
-            button_CreateAcc.UseVisualStyleBackColor = false;
-            button_CreateAcc.Click += button_CreateAcc_Click;
+            this.button_CreateAcc.BackColor = System.Drawing.Color.Transparent;
+            this.button_CreateAcc.FlatAppearance.BorderSize = 0;
+            this.button_CreateAcc.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button_CreateAcc.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button_CreateAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_CreateAcc.Location = new System.Drawing.Point(159, 418);
+            this.button_CreateAcc.Name = "button_CreateAcc";
+            this.button_CreateAcc.Size = new System.Drawing.Size(120, 27);
+            this.button_CreateAcc.TabIndex = 4;
+            this.button_CreateAcc.UseVisualStyleBackColor = false;
+            this.button_CreateAcc.Click += new System.EventHandler(this.button_CreateAcc_Click);
             // 
             // checkBox_ShowPass
             // 
-            checkBox_ShowPass.FlatStyle = FlatStyle.Flat;
-            checkBox_ShowPass.Location = new Point(338, 274);
-            checkBox_ShowPass.Margin = new Padding(5);
-            checkBox_ShowPass.Name = "checkBox_ShowPass";
-            checkBox_ShowPass.Size = new Size(18, 17);
-            checkBox_ShowPass.TabIndex = 6;
-            checkBox_ShowPass.UseVisualStyleBackColor = true;
-            checkBox_ShowPass.CheckedChanged += checkBox_ShowPass_CheckedChanged;
+            this.checkBox_ShowPass.BackColor = System.Drawing.Color.Transparent;
+            this.checkBox_ShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox_ShowPass.Location = new System.Drawing.Point(338, 274);
+            this.checkBox_ShowPass.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox_ShowPass.Name = "checkBox_ShowPass";
+            this.checkBox_ShowPass.Size = new System.Drawing.Size(18, 17);
+            this.checkBox_ShowPass.TabIndex = 6;
+            this.checkBox_ShowPass.UseVisualStyleBackColor = false;
             // 
             // Form_Login
             // 
-            AutoScaleMode = AutoScaleMode.None;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(812, 482);
-            Controls.Add(checkBox_ShowPass);
-            Controls.Add(button_CreateAcc);
-            Controls.Add(button_ForgotPass);
-            Controls.Add(button_Login);
-            Controls.Add(textBox_Password);
-            Controls.Add(textBox_Username);
-            Name = "Form_Login";
-            Text = "Form1";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(812, 482);
+            this.Controls.Add(this.checkBox_ShowPass);
+            this.Controls.Add(this.button_CreateAcc);
+            this.Controls.Add(this.button_ForgotPass);
+            this.Controls.Add(this.button_Login);
+            this.Controls.Add(this.textBox_Password);
+            this.Controls.Add(this.textBox_Username);
+            this.Name = "Form_Login";
+            this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
