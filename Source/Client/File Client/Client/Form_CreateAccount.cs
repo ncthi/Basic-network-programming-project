@@ -14,7 +14,8 @@ namespace Client
     public partial class Form_CreateAccount : Form
     {
 
-        private const string serverIpAddress = "192.168.112.142";
+
+        private const string serverIpAddress = "172.30.216.11";
         private const int serverPort = 8080;
         public Form_CreateAccount()
         {
