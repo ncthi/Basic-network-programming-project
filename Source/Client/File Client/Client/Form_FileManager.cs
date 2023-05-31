@@ -74,13 +74,6 @@ namespace Client
                                     item.ImageIndex = 3;
                                     listView_Dialog.Items.Add(item);
                                     break;
-                                case "txt":
-                                    item = new ListViewItem();
-                                    item.Tag = "File";
-                                    item.Text = file;
-                                    item.ImageIndex = 10;
-                                    listView_Dialog.Items.Add(item);
-                                    break;
                                 case "mp4":
                                 case "avi":
                                 case "mkv":
