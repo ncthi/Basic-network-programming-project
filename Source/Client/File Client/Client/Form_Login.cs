@@ -6,7 +6,7 @@ namespace Client
     public partial class Form_Login : Form
     {
 
-        private const string serverIpAddress = "172.30.216.11";
+        private const string serverIpAddress = "172.20.120.105";
         private const int serverPort = 8080;
         public Form_Login()
         {
