@@ -60,7 +60,6 @@ namespace Server
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
                     smtp.Credentials = new NetworkCredential(Address, Password); 
-
                     using (MailMessage mail = new MailMessage(Address, userEmail))
                     {
                         mail.Subject = subject; 

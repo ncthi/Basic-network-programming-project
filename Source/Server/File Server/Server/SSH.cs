@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -30,7 +31,10 @@ namespace Server
         // Add user
         public void AddUser(string UserName, string Password)
         {
-            string stringComand = $"sudo adduser {UserName}";
+            string stringCmd = $"sudo useradd -m {UserName} -p $(openssl passwd -1 {Password})";
+            MessageBox.Show(sshClient.RunCommand(stringCmd).ToString()); 
+            string cmdAddFtp= $"echo \"{UserName}\" | sudo tee -a /etc/vsftpd.userlist";
+            sshClient.RunCommand(cmdAddFtp);
         }
         //Delete user
         public bool DelUser(string UserName)
@@ -53,6 +57,12 @@ namespace Server
         public bool ChangePassword(string UserName,string NewPassword)
         {
             return false;
+        }
+        public void makedir(string path)
+        {
+                string strigComand = $"mkdir {path}";
+                var respone = sshClient.RunCommand(strigComand);
+
         }
         ~SSH() {
             sshClient.Disconnect();
