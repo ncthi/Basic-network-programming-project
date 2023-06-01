@@ -275,20 +275,43 @@ namespace Client
         }
 
         // Delete file function
-        public void delete(string deleteFile)
+        public void deleteFile(string deleteFile)
         {
             try
             {
                 ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFile);
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
-                // When in doubt, use these options 
+                // When in doubt, use these options
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = true;
                 ftpRequest.KeepAlive = true;
                 // Type of FTP request
                 ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
                 ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                // Clean resources 
+                // Clean resources
+                ftpResponse.Close();
+                ftpRequest = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return;
+        }
+        public void deleteFolder(string deleteFolder)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFolder);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                // When in doubt, use these options
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                // Type of FTP request
+                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                // Clean resources
                 ftpResponse.Close();
                 ftpRequest = null;
             }
