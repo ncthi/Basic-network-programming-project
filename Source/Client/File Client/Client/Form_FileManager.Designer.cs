@@ -60,6 +60,7 @@
             button_Back.TabIndex = 0;
             button_Back.Text = "Back";
             button_Back.UseVisualStyleBackColor = true;
+            button_Back.Click += button_Back_Click;
             // 
             // label1
             // 
@@ -115,6 +116,7 @@
             button_Go.TabIndex = 5;
             button_Go.Text = "Go";
             button_Go.UseVisualStyleBackColor = true;
+            button_Go.Click += button_Go_Click;
             // 
             // label_FileName
             // 

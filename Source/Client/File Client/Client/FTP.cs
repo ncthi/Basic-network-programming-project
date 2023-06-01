@@ -275,42 +275,51 @@ namespace Client
         }
 
         // Delete file function
-        public void delete(string deletePath)
+        public void deleteFile(string deleteFile)
         {
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(host + "/" + deletePath);
-            request.Credentials = new NetworkCredential(user, pass);
-            request.UseBinary = true;
-            request.UsePassive = true;
-            request.KeepAlive = true;
-
-            bool isFile = false;
             try
             {
-                request.Method = WebRequestMethods.Ftp.GetFileSize;
-                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-                {
-                    isFile = true;
-                    response.Close();
-                }
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFile);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                // When in doubt, use these options
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                // Type of FTP request
+                ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                // Clean resources
+                ftpResponse.Close();
+                ftpRequest = null;
             }
-            catch { }
-
-            if (isFile)
+            catch (Exception ex)
             {
-                request.Method = WebRequestMethods.Ftp.DeleteFile;
-                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-                {
-                    response.Close();
-                }
+                Console.WriteLine(ex.Message);
             }
-            else
+            return;
+        }
+        public void deleteFolder(string deleteFolder)
+        {
+            try
             {
-                request.Method = WebRequestMethods.Ftp.RemoveDirectory;
-                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-                {
-                    response.Close();
-                }
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFolder);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                // When in doubt, use these options
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                // Type of FTP request
+                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                // Clean resources
+                ftpResponse.Close();
+                ftpRequest = null;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return;
         }
 
 
