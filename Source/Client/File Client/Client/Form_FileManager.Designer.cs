@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_FileManager));
             button_Back = new Button();
-            label1 = new Label();
             textBox_Path = new TextBox();
             listView_Dialog = new ListView();
             iconList = new ImageList(components);
@@ -54,37 +53,37 @@
             // 
             // button_Back
             // 
-            button_Back.Location = new Point(13, 9);
+
+            button_Back.BackColor = Color.Transparent;
+            button_Back.FlatAppearance.BorderSize = 0;
+            button_Back.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Back.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Back.FlatStyle = FlatStyle.Flat;
+            button_Back.Location = new Point(30, 32);
             button_Back.Name = "button_Back";
-            button_Back.Size = new Size(68, 27);
+            button_Back.Size = new Size(50, 27);
             button_Back.TabIndex = 0;
-            button_Back.Text = "Back";
-            button_Back.UseVisualStyleBackColor = true;
-            button_Back.Click += button_Back_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(85, 421);
-            label1.Name = "label1";
-            label1.Size = new Size(75, 20);
-            label1.TabIndex = 1;
-            label1.Text = "FileName:";
+            button_Back.UseVisualStyleBackColor = false;
             // 
             // textBox_Path
             // 
-            textBox_Path.Location = new Point(87, 9);
+            textBox_Path.BackColor = Color.FromArgb(252, 194, 197);
+            textBox_Path.BorderStyle = BorderStyle.None;
+            textBox_Path.Location = new Point(147, 36);
             textBox_Path.Name = "textBox_Path";
-            textBox_Path.Size = new Size(627, 27);
+            textBox_Path.Size = new Size(492, 20);
+
             textBox_Path.TabIndex = 2;
             // 
             // listView_Dialog
             // 
+            listView_Dialog.BackColor = Color.FromArgb(255, 239, 239);
+            listView_Dialog.BorderStyle = BorderStyle.None;
             listView_Dialog.GroupImageList = iconList;
             listView_Dialog.LargeImageList = iconList;
-            listView_Dialog.Location = new Point(13, 46);
+            listView_Dialog.Location = new Point(30, 81);
             listView_Dialog.Name = "listView_Dialog";
-            listView_Dialog.Size = new Size(775, 366);
+            listView_Dialog.Size = new Size(667, 299);
             listView_Dialog.TabIndex = 3;
             listView_Dialog.UseCompatibleStateImageBehavior = false;
             listView_Dialog.ItemSelectionChanged += listView_Dialog_ItemSelectionChanged;
@@ -94,8 +93,22 @@
             // iconList
             // 
             iconList.ColorDepth = ColorDepth.Depth32Bit;
-            iconList.ImageStream = (ImageListStreamer)resources.GetObject("iconList.ImageStream");
+            iconList.ImageSize = new Size(16, 16);
             iconList.TransparentColor = Color.Transparent;
+            // 
+            // button_Go
+            // 
+            button_Go.BackColor = Color.Transparent;
+            button_Go.FlatAppearance.BorderSize = 0;
+            button_Go.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Go.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Go.FlatStyle = FlatStyle.Flat;
+            button_Go.Location = new Point(658, 32);
+            button_Go.Name = "button_Go";
+            button_Go.Size = new Size(54, 27);
+            button_Go.TabIndex = 5;
+            button_Go.UseVisualStyleBackColor = false;
+
             iconList.Images.SetKeyName(0, "Folder.png");
             iconList.Images.SetKeyName(1, "Doc.png");
             iconList.Images.SetKeyName(2, "PDF.png");
@@ -108,24 +121,16 @@
             iconList.Images.SetKeyName(9, "Music.png");
             iconList.Images.SetKeyName(10, "Text.png");
             // 
-            // button_Go
-            // 
-            button_Go.Location = new Point(720, 9);
-            button_Go.Name = "button_Go";
-            button_Go.Size = new Size(68, 27);
-            button_Go.TabIndex = 5;
-            button_Go.Text = "Go";
-            button_Go.UseVisualStyleBackColor = true;
-            button_Go.Click += button_Go_Click;
+
             // 
             // label_FileName
             // 
             label_FileName.AutoSize = true;
-            label_FileName.Location = new Point(157, 421);
+            label_FileName.BackColor = Color.Transparent;
+            label_FileName.Location = new Point(262, 472);
             label_FileName.Name = "label_FileName";
-            label_FileName.Size = new Size(21, 20);
+            label_FileName.Size = new Size(0, 20);
             label_FileName.TabIndex = 7;
-            label_FileName.Text = "--";
             // 
             // contextMenuStrip_Function1
             // 
@@ -208,12 +213,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(800, 641);
             Controls.Add(label_FileName);
             Controls.Add(button_Go);
             Controls.Add(listView_Dialog);
             Controls.Add(textBox_Path);
-            Controls.Add(label1);
             Controls.Add(button_Back);
             Name = "Form_FileManager";
             Text = "Form_FileManager";
@@ -226,7 +231,6 @@
         #endregion
 
         private Button button_Back;
-        private Label label1;
         private TextBox textBox_Path;
         private ListView listView_Dialog;
         private ImageList iconList;
