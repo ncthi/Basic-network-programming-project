@@ -351,13 +351,13 @@ namespace Client
         }
 
         // Copy File
-        public MemoryStream copy(string copyFile)
+        public (MemoryStream, string) copy(string copyFile)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
-            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-            ftpStream = ftpResponse.GetResponseStream();
+            FtpWebResponse ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+            Stream ftpStream = ftpResponse.GetResponseStream();
 
             MemoryStream memoryStream = new MemoryStream();
 
@@ -379,21 +379,24 @@ namespace Client
             ftpResponse.Close();
             ((IDisposable)ftpResponse).Dispose();
 
-            return memoryStream;
+            // Lấy tên tệp tin từ đường dẫn
+            string filename = Path.GetFileName(copyFile);
+
+            return (memoryStream, filename);
         }
 
-
         // Paste File
-        public void paste(string curentPath, MemoryStream memoryStream)
+        public void paste(string currentPath, MemoryStream memoryStream, string filename)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" +curentPath+"/text.sh");
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + currentPath + "/" + filename);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
-            ftpStream = ftpRequest.GetRequestStream();
+            Stream ftpStream = ftpRequest.GetRequestStream();
 
             // Copy data from the memory stream to the FTP stream
             byte[] buffer = memoryStream.ToArray();
             ftpStream.Write(buffer, 0, buffer.Length);
+            ftpStream.Flush();
 
             // Dispose of the memory stream
             memoryStream.Dispose();
