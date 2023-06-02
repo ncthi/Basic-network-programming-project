@@ -12,8 +12,8 @@ namespace Server
             //SocketServer server =new  SocketServer(8080);
             //Thread threadServer = new Thread(server.Listen);
             //threadServer.Start();
-            SSH ssh = new SSH("172.20.120.105", "caothi", "123456");
-            ssh.DelUser("nhatthu");
+            SSH ssh = new SSH("192.168.137.109", "caothi", "123456");
+            ssh.AddUser("nc", "123456");
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form_FileManager());

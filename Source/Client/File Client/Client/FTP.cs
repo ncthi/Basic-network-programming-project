@@ -384,9 +384,9 @@ namespace Client
 
 
         // Paste File
-        public void paste(string pasteFile, MemoryStream memoryStream)
+        public void paste(string curentPath, MemoryStream memoryStream)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + pasteFile);
+            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" +curentPath+"/text.sh");
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
             ftpStream = ftpRequest.GetRequestStream();

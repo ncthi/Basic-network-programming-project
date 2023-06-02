@@ -16,11 +16,18 @@ namespace Server
         public IPEndPoint iPEndPoint;
         private static int sizeBuffer = 1024 * 32;
         private bool checkConnect;
+        private SQL_server database;
+        private string ipDatabase;
+        private SSH sshClinet;
+        private string ipSSh;
         public SocketServer(int Port)
         {
             this.port = Port;
             this.iPEndPoint = new IPEndPoint(IPAddress.Any, Port);
             server = new TcpListener(iPEndPoint);
+            database = new SQL_server();
+            database.ConnectSqlServer();
+            sshClinet = new SSH(ipSSh, "caothi", "123456");
         }
         public static string receive(NetworkStream stream)
         {
@@ -57,12 +64,13 @@ namespace Server
                 try
                 {
                     string[] data = receive(stream).Split(',');
-                    SQL_server database= new SQL_server();
-                    database.ConnectSqlServer();
                     string status = data[2].Trim('\0');
+                    string u = data[0];
+                    string p = data[1];
                     if (status=="registry")
                     {
-                        string res = database.AddUser(data[0], data[1], "").ToString();
+                        string res = database.AddUser(u, p, "").ToString();
+                        sshClinet.AddUser(u, p);
                         send(res, stream);
                         return;
                     }
