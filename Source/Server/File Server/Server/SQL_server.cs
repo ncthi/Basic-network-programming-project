@@ -82,7 +82,8 @@ namespace Server
         {
             try
             {
-                string stringSet = $"UPDATE dbo.account SET Pass={NewPass} WHERE UserName={UserName}';";
+                string passEncode = EncodePass(NewPass);
+                string stringSet = $"UPDATE dbo.account SET Pass={passEncode} WHERE UserName={UserName}';";
                 SqlCommand cm = new SqlCommand(stringSet, sqlConnection);
                 cm.ExecuteNonQuery();
                 return true;
@@ -90,12 +91,6 @@ namespace Server
             catch {
                 return false;
             }
-        }
-        public void Resetpassword(string userName)
-        {
-            string stringSet = $"UPDATE dbo.account SET Pass='123456' WHERE UserName='{userName}';";
-            SqlCommand cm = new SqlCommand(stringSet,sqlConnection);
-            cm.ExecuteNonQuery();
         }
         public List<string> ListUser()
         {

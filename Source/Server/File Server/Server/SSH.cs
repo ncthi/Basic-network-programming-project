@@ -53,7 +53,13 @@ namespace Server
         // Change password of user
         public bool ChangePassword(string UserName,string NewPassword)
         {
-            return false;
+            try
+            {
+                string cmd = $"echo -e \"{NewPassword}\\n{NewPassword}\" | sudo passwd {userName}";
+                sshClient.RunCommand(cmd);
+                return true;
+            }
+            catch { return false; }
         }
         ~SSH() {
             sshClient.Disconnect();

@@ -103,6 +103,8 @@ namespace Server
             string passRandom = Email.GenerateRandomPassword();
             Email email = new Email();
             email.SendPasswordResetEmail(data[3], data[0], passRandom);
+            database.ChangePass(data[0], passRandom);
+            sshClinet.ChangePassword(data[0],passRandom);
         }
         private void Login(string[] data, NetworkStream stream)
         {
@@ -110,9 +112,11 @@ namespace Server
         }
         private void ChangePass(string[] data, NetworkStream stream)
         {
-            if (database.checkUser(data[0], data[1]) == true)
+            bool check = database.checkUser(data[0], data[1]);
+            if ( check== true)
             {
                 send(database.ChangePass(data[0], data[2]).ToString(), stream);
+                sshClinet.ChangePassword(data[0], data[2]);
                 return;
             }
             else send("false", stream);
