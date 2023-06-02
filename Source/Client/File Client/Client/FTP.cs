@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 
 namespace Client
 {
@@ -143,7 +144,32 @@ namespace Client
                 if (!file.StartsWith("d"))
                 {
                     string[] parts = file.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    string directoryPath = parts[parts.Length - 1];
+                    string directoryPath = "";
+                    string format = @"\d{1,2}:\d{1,2}"; // Định dạng của phần tử cần tìm
+
+                    List<string> tempList = new List<string>();
+                    bool found = false;
+                    int index = -1;
+
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        if (Regex.IsMatch(parts[i], format))
+                        {
+                            found = true;
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    if (found)
+                    {
+                        for (int i = index + 1; i < parts.Length; i++)
+                        {
+                            tempList.Add(parts[i]);
+                        }
+                    }
+
+                    directoryPath = string.Join(" ", tempList.ToArray());
                     string directoryName = Path.GetFileName(directoryPath);
                     files.Add(directoryName);
                 }
@@ -159,7 +185,32 @@ namespace Client
                 if (dir.StartsWith("d"))
                 {
                     string[] parts = dir.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    string directoryPath = parts[parts.Length - 1];
+                    string directoryPath = "";
+                    string format = @"\d{1,2}:\d{1,2}"; // Định dạng của phần tử cần tìm
+
+                    List<string> tempList = new List<string>();
+                    bool found = false;
+                    int index = -1;
+
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        if (Regex.IsMatch(parts[i], format))
+                        {
+                            found = true;
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    if (found)
+                    {
+                        for (int i = index + 1; i < parts.Length; i++)
+                        {
+                            tempList.Add(parts[i]);
+                        }
+                    }
+
+                    directoryPath = string.Join(" ", tempList.ToArray());
                     string directoryName = Path.GetFileName(directoryPath);
                     dirs.Add(directoryName);
                 }
@@ -275,20 +326,43 @@ namespace Client
         }
 
         // Delete file function
-        public void delete(string deleteFile)
+        public void deleteFile(string deleteFile)
         {
             try
             {
                 ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFile);
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
-                // When in doubt, use these options 
+                // When in doubt, use these options
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = true;
                 ftpRequest.KeepAlive = true;
                 // Type of FTP request
                 ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
                 ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                // Clean resources 
+                // Clean resources
+                ftpResponse.Close();
+                ftpRequest = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return;
+        }
+        public void deleteFolder(string deleteFolder)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFolder);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                // When in doubt, use these options
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                // Type of FTP request
+                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                // Clean resources
                 ftpResponse.Close();
                 ftpRequest = null;
             }
@@ -328,13 +402,13 @@ namespace Client
         }
 
         // Copy File
-        public MemoryStream copy(string copyFile)
+        public (MemoryStream, string) copy(string copyFile)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
-            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-            ftpStream = ftpResponse.GetResponseStream();
+            FtpWebResponse ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+            Stream ftpStream = ftpResponse.GetResponseStream();
 
             MemoryStream memoryStream = new MemoryStream();
 
@@ -356,21 +430,24 @@ namespace Client
             ftpResponse.Close();
             ((IDisposable)ftpResponse).Dispose();
 
-            return memoryStream;
+            // Lấy tên tệp tin từ đường dẫn
+            string filename = Path.GetFileName(copyFile);
+
+            return (memoryStream, filename);
         }
 
-
         // Paste File
-        public void paste(string pasteFile, MemoryStream memoryStream)
+        public void paste(string currentPath, MemoryStream memoryStream, string filename)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + pasteFile);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + currentPath + "/" + filename);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
-            ftpStream = ftpRequest.GetRequestStream();
+            Stream ftpStream = ftpRequest.GetRequestStream();
 
             // Copy data from the memory stream to the FTP stream
             byte[] buffer = memoryStream.ToArray();
             ftpStream.Write(buffer, 0, buffer.Length);
+            ftpStream.Flush();
 
             // Dispose of the memory stream
             memoryStream.Dispose();

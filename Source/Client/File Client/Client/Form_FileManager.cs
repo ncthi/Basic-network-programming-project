@@ -20,6 +20,7 @@ namespace Client
         private string filePath = "";
         private bool isFile = false;
         private string currentPath = "";
+        private string filename = "";
         MemoryStream memoryStream;
 
         public Form_FileManager()
@@ -31,7 +32,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.137.143/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://172.20.130.1/", "caothi", "123456");
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -215,6 +216,11 @@ namespace Client
             loadButtonAction();
         }
 
+        private void button_Back_Click(object sender, EventArgs e)
+        {
+            goBack();
+            loadButtonAction();
+        }
 
         private void listView_Dialog_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -230,12 +236,6 @@ namespace Client
                     loadFilesAndDirectories(currentPath);
                 }
             }
-        }
-
-        private void button_Back_Click(object sender, EventArgs e)
-        {
-            goBack();
-            loadButtonAction();
         }
 
         private void listView_Dialog_MouseDown(object sender, MouseEventArgs e)
@@ -324,8 +324,8 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item
-            memoryStream = ftpClient.copy(currentPath + item.Text);
+            // Sao chép item và lấy tên tệp tin
+            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
             loadFilesAndDirectories(currentPath);
         }
 
@@ -334,14 +334,20 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item
-            ftpClient.copy(currentPath + item.Text);
+            // Sao chép item và lấy tên tệp tin
+            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
+
+            bool isFolder = item.ImageIndex == 0;
 
             // Xóa item
-            ftpClient.delete(currentPath + item.Text);
-
-            // Dán file
-            ftpClient.paste(currentPath, memoryStream);
+            if (isFolder)
+            {
+                ftpClient.deleteFolder(currentPath + "/" + item.Text);
+            }
+            else if (!isFolder)
+            {
+                ftpClient.deleteFile(currentPath + "/" + item.Text);
+            }
             loadFilesAndDirectories(currentPath);
         }
 
@@ -350,8 +356,17 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
+            bool isFolder = item.ImageIndex == 0;
+
             // Xóa item
-            ftpClient.delete(currentPath + item.Text);
+            if (isFolder)
+            {
+                ftpClient.deleteFolder(currentPath + "/" + item.Text);
+            }
+            else if (!isFolder)
+            {
+                ftpClient.deleteFile(currentPath + "/" + item.Text);
+            }
             loadFilesAndDirectories(currentPath);
         }
 
@@ -372,7 +387,11 @@ namespace Client
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 string localFolderPath = fbd.SelectedPath;
-                string remoteFolderPath = currentPath;
+                string folderName = new DirectoryInfo(localFolderPath).Name;
+                string remoteFolderPath = currentPath + "/" + folderName;
+
+                // Tạo thư mục mới trên máy chủ FTP trước khi tải lên thư mục và tất cả các tệp tin và thư mục con của nó
+                ftpClient.createDirectory(remoteFolderPath);
 
                 // Tải lên thư mục và tất cả các tệp tin và thư mục con của nó lên máy chủ FTP
                 ftpClient.uploadFolder(remoteFolderPath, localFolderPath);
@@ -387,7 +406,7 @@ namespace Client
             {
                 string localFilePath = openFileDialog.FileName;
                 string remoteFileName = Path.GetFileName(localFilePath);
-                string remoteFilePath = currentPath + remoteFileName;
+                string remoteFilePath = currentPath + "/" + remoteFileName;
 
                 // Tải lên tập tin lên máy chủ FTP
                 ftpClient.uploadFile(remoteFilePath, localFilePath);
@@ -397,11 +416,9 @@ namespace Client
 
         private void toolStripMenuItem_Paste_Click(object sender, EventArgs e)
         {
-            string newPath = textBox_Path.Text;
-
             // Dán file 
-            ftpClient.paste(currentPath + newPath, memoryStream);
-            loadFilesAndDirectories(currentPath + newPath);
+            ftpClient.paste(currentPath, memoryStream, filename);
+            loadFilesAndDirectories(currentPath);
         }
     }
 }

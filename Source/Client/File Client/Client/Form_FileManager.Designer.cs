@@ -53,6 +53,7 @@
             // 
             // button_Back
             // 
+
             button_Back.BackColor = Color.Transparent;
             button_Back.FlatAppearance.BorderSize = 0;
             button_Back.FlatAppearance.MouseDownBackColor = Color.Transparent;
@@ -71,6 +72,7 @@
             textBox_Path.Location = new Point(147, 36);
             textBox_Path.Name = "textBox_Path";
             textBox_Path.Size = new Size(492, 20);
+
             textBox_Path.TabIndex = 2;
             // 
             // listView_Dialog
@@ -106,6 +108,20 @@
             button_Go.Size = new Size(54, 27);
             button_Go.TabIndex = 5;
             button_Go.UseVisualStyleBackColor = false;
+
+            iconList.Images.SetKeyName(0, "Folder.png");
+            iconList.Images.SetKeyName(1, "Doc.png");
+            iconList.Images.SetKeyName(2, "PDF.png");
+            iconList.Images.SetKeyName(3, "Powerpoint.png");
+            iconList.Images.SetKeyName(4, "Excel.png");
+            iconList.Images.SetKeyName(5, "Image.png");
+            iconList.Images.SetKeyName(6, "Video.png");
+            iconList.Images.SetKeyName(7, "Zip.png");
+            iconList.Images.SetKeyName(8, "AnotherFile.png");
+            iconList.Images.SetKeyName(9, "Music.png");
+            iconList.Images.SetKeyName(10, "Text.png");
+            // 
+
             // 
             // label_FileName
             // 
