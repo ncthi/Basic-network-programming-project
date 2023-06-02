@@ -13,13 +13,17 @@ namespace Server
         {
             public static string Address = "cloudkeeper4@gmail.com"; 
             public static string Password = "yzzatuxcjlxqonmy";  
-            public void SendPasswordResetEmail(string userEmail, string htmlFilePath,string name, string newPassword) 
+            public void SendPasswordResetEmail(string userEmail,string name, string newPassword) 
             {
                 string subject = "Reset Password";
-                //string htmlBody = ReadHtmlFile(htmlFilePath);
-                string body = GetPasswordResetEmailBody(htmlFilePath,name, newPassword);
+                //lấy đường dẫn thư mục server
+                var currentDirectory = Directory.GetCurrentDirectory();
+                var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
+                // Lấy đường dẫn Emil.html
+                string htmlFilePath = basePath + "\\Email\\Email.html";
+                string body = GetPasswordResetEmailBody(htmlFilePath, name, newPassword);
 
-                Send(userEmail, subject, body); //gửi email đến địa chỉ email của người nhận 
+            Send(userEmail, subject, body); //gửi email đến địa chỉ email của người nhận 
             }
 
             public static string GenerateRandomPassword() //Tạo mật khẩu ngẫu nhiên dài 8 kí tự 
@@ -45,9 +49,9 @@ namespace Server
             }
 
             //Lấy nôị dung html đã code sẵn và thay thế mật khẩu 
-            private string GetPasswordResetEmailBody(string htmlBody,string name,string newPassword)
+            private string GetPasswordResetEmailBody(string htmlBodyPath,string name,string newPassword)
             {
-                string body = File.ReadAllText(htmlBody);
+                string body = File.ReadAllText(htmlBodyPath);
                 body = body.Replace("{newPassword}", newPassword);
                 body = body.Replace("{name}", name);
                 return body;

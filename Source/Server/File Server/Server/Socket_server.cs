@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Server
 {
@@ -66,30 +68,18 @@ namespace Server
                 {
                     string[] data = receive(stream).Split(',');
                     string status = data[data.Length-1].Trim('\0');
-                    string u = data[0];
-                    string p = data[1];
                     switch  (status){
                         case "registry":
-                            string res = database.AddUser(u, p, "").ToString();
-                            sshClinet.AddUser(u, p);
-                            send(res, stream);
+                            _Resgistry(data,stream);
                             return;
                         case "forget":
-                            string passRandom = Email.GenerateRandomPassword();
-                            Email email = new Email();
-                            string path = @"Server\\Email\\Email.html";
-                            email.SendPasswordResetEmail("21522648@gm.uit.edu.vn", path, data[0], passRandom);
+                            Forget(data,stream);
                             return;
                         case "login":
-                            send(database.checkUser(data[0], data[1]).ToString(), stream);
+                            Login(data,stream);
                             return;
                         case "changePass":
-                            if (database.checkUser(data[0], data[1]) == true)
-                            {
-                                send(database.ChangePass(data[0], data[2]).ToString(), stream);
-                                return;
-                            }
-                            else send("false", stream);
+                            ChangePass(data,stream);
                             return;
                     }
                 }
@@ -101,6 +91,31 @@ namespace Server
             }
             stream.Close();
             client.Close();
+        }
+        private void _Resgistry(string[] data,NetworkStream stream)
+        {
+            string res = database.AddUser(data[0], data[1], "").ToString();
+            sshClinet.AddUser(data[0], data[1]);
+            send(res, stream);
+        }
+        private void Forget(string[] data, NetworkStream stream)
+        {
+            string passRandom = Email.GenerateRandomPassword();
+            Email email = new Email();
+            email.SendPasswordResetEmail(data[3], data[0], passRandom);
+        }
+        private void Login(string[] data, NetworkStream stream)
+        {
+            send(database.checkUser(data[0], data[1]).ToString(), stream);
+        }
+        private void ChangePass(string[] data, NetworkStream stream)
+        {
+            if (database.checkUser(data[0], data[1]) == true)
+            {
+                send(database.ChangePass(data[0], data[2]).ToString(), stream);
+                return;
+            }
+            else send("false", stream);
         }
         public void disconect(bool check)
         {
