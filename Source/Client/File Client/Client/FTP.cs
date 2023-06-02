@@ -275,20 +275,43 @@ namespace Client
         }
 
         // Delete file function
-        public void delete(string deleteFile)
+        public void deleteFile(string deleteFile)
         {
             try
             {
                 ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFile);
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
-                // When in doubt, use these options 
+                // When in doubt, use these options
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = true;
                 ftpRequest.KeepAlive = true;
                 // Type of FTP request
                 ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
                 ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                // Clean resources 
+                // Clean resources
+                ftpResponse.Close();
+                ftpRequest = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return;
+        }
+        public void deleteFolder(string deleteFolder)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFolder);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                // When in doubt, use these options
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                // Type of FTP request
+                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                // Clean resources
                 ftpResponse.Close();
                 ftpRequest = null;
             }
@@ -328,13 +351,13 @@ namespace Client
         }
 
         // Copy File
-        public MemoryStream copy(string copyFile)
+        public (MemoryStream, string) copy(string copyFile)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
-            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-            ftpStream = ftpResponse.GetResponseStream();
+            FtpWebResponse ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+            Stream ftpStream = ftpResponse.GetResponseStream();
 
             MemoryStream memoryStream = new MemoryStream();
 
@@ -356,21 +379,24 @@ namespace Client
             ftpResponse.Close();
             ((IDisposable)ftpResponse).Dispose();
 
-            return memoryStream;
+            // Lấy tên tệp tin từ đường dẫn
+            string filename = Path.GetFileName(copyFile);
+
+            return (memoryStream, filename);
         }
 
-
         // Paste File
-        public void paste(string pasteFile, MemoryStream memoryStream)
+        public void paste(string currentPath, MemoryStream memoryStream, string filename)
         {
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + pasteFile);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + currentPath + "/" + filename);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
-            ftpStream = ftpRequest.GetRequestStream();
+            Stream ftpStream = ftpRequest.GetRequestStream();
 
             // Copy data from the memory stream to the FTP stream
             byte[] buffer = memoryStream.ToArray();
             ftpStream.Write(buffer, 0, buffer.Length);
+            ftpStream.Flush();
 
             // Dispose of the memory stream
             memoryStream.Dispose();
