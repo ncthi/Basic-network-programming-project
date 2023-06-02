@@ -20,6 +20,7 @@ namespace Client
         private string filePath = "";
         private bool isFile = false;
         private string currentPath = "";
+        private string filename = "";
         MemoryStream memoryStream;
 
         public Form_FileManager()
@@ -31,7 +32,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.137.109/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://192.168.91.141/", "caothi", "123456");
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -323,8 +324,8 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item
-            memoryStream = ftpClient.copy(currentPath + "/"+item.Text);
+            // Sao chép item và lấy tên tệp tin
+            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
             loadFilesAndDirectories(currentPath);
         }
 
@@ -333,19 +334,19 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item
-            ftpClient.copy(currentPath +"/"+ item.Text);
+            // Sao chép item và lấy tên tệp tin
+            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
 
             bool isFolder = item.ImageIndex == 0;
 
             // Xóa item
             if (isFolder)
             {
-                ftpClient.deleteFolder(currentPath + "/"+item.Text);
+                ftpClient.deleteFolder(currentPath + "/" + item.Text);
             }
             else if (!isFolder)
             {
-                ftpClient.deleteFile(currentPath +"/" +item.Text);
+                ftpClient.deleteFile(currentPath + "/" + item.Text);
             }
             loadFilesAndDirectories(currentPath);
         }
@@ -416,7 +417,7 @@ namespace Client
         private void toolStripMenuItem_Paste_Click(object sender, EventArgs e)
         {
             // Dán file 
-            ftpClient.paste(currentPath, memoryStream);
+            ftpClient.paste(currentPath, memoryStream, filename);
             loadFilesAndDirectories(currentPath);
         }
     }
