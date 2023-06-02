@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 
 namespace Client
 {
@@ -143,7 +144,32 @@ namespace Client
                 if (!file.StartsWith("d"))
                 {
                     string[] parts = file.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    string directoryPath = parts[parts.Length - 1];
+                    string directoryPath = "";
+                    string format = @"\d{1,2}:\d{1,2}"; // Định dạng của phần tử cần tìm
+
+                    List<string> tempList = new List<string>();
+                    bool found = false;
+                    int index = -1;
+
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        if (Regex.IsMatch(parts[i], format))
+                        {
+                            found = true;
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    if (found)
+                    {
+                        for (int i = index + 1; i < parts.Length; i++)
+                        {
+                            tempList.Add(parts[i]);
+                        }
+                    }
+
+                    directoryPath = string.Join(" ", tempList.ToArray());
                     string directoryName = Path.GetFileName(directoryPath);
                     files.Add(directoryName);
                 }
@@ -159,7 +185,32 @@ namespace Client
                 if (dir.StartsWith("d"))
                 {
                     string[] parts = dir.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    string directoryPath = parts[parts.Length - 1];
+                    string directoryPath = "";
+                    string format = @"\d{1,2}:\d{1,2}"; // Định dạng của phần tử cần tìm
+
+                    List<string> tempList = new List<string>();
+                    bool found = false;
+                    int index = -1;
+
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        if (Regex.IsMatch(parts[i], format))
+                        {
+                            found = true;
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    if (found)
+                    {
+                        for (int i = index + 1; i < parts.Length; i++)
+                        {
+                            tempList.Add(parts[i]);
+                        }
+                    }
+
+                    directoryPath = string.Join(" ", tempList.ToArray());
                     string directoryName = Path.GetFileName(directoryPath);
                     dirs.Add(directoryName);
                 }
