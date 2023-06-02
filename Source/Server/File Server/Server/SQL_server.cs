@@ -78,6 +78,19 @@ namespace Server
             if (temp == "") return false;
             else return true;
         }
+        public bool ChangePass(string UserName, string NewPass)
+        {
+            try
+            {
+                string stringSet = $"UPDATE dbo.account SET Pass={NewPass} WHERE UserName={UserName}';";
+                SqlCommand cm = new SqlCommand(stringSet, sqlConnection);
+                cm.ExecuteNonQuery();
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
         public void Resetpassword(string userName)
         {
             string stringSet = $"UPDATE dbo.account SET Pass='123456' WHERE UserName='{userName}';";

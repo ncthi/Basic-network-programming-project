@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Server
 {
@@ -64,20 +65,32 @@ namespace Server
                 try
                 {
                     string[] data = receive(stream).Split(',');
-                    string status = data[2].Trim('\0');
+                    string status = data[data.Length-1].Trim('\0');
                     string u = data[0];
                     string p = data[1];
-                    if (status=="registry")
-                    {
-                        string res = database.AddUser(u, p, "").ToString();
-                        sshClinet.AddUser(u, p);
-                        send(res, stream);
-                        return;
-                    }
-                    else
-                    {
-                        send(database.checkUser(data[0], data[1]).ToString(), stream);
-                        return;
+                    switch  (status){
+                        case "registry":
+                            string res = database.AddUser(u, p, "").ToString();
+                            sshClinet.AddUser(u, p);
+                            send(res, stream);
+                            return;
+                        case "forget":
+                            string passRandom = Email.GenerateRandomPassword();
+                            Email email = new Email();
+                            string path = @"Server\\Email\\Email.html";
+                            email.SendPasswordResetEmail("21522648@gm.uit.edu.vn", path, data[0], passRandom);
+                            return;
+                        case "login":
+                            send(database.checkUser(data[0], data[1]).ToString(), stream);
+                            return;
+                        case "changePass":
+                            if (database.checkUser(data[0], data[1]) == true)
+                            {
+                                send(database.ChangePass(data[0], data[2]).ToString(), stream);
+                                return;
+                            }
+                            else send("false", stream);
+                            return;
                     }
                 }
                 catch

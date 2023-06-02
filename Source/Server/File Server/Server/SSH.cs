@@ -43,9 +43,6 @@ namespace Server
             {
                 string strigComand = $"sudo userdel {UserName}";
                 var respone = sshClient.RunCommand(strigComand);
-          
-                strigComand = password;
-                respone= sshClient.RunCommand(strigComand);
                 return true;
             }
             catch
@@ -57,12 +54,6 @@ namespace Server
         public bool ChangePassword(string UserName,string NewPassword)
         {
             return false;
-        }
-        public void makedir(string path)
-        {
-                string strigComand = $"mkdir {path}";
-                var respone = sshClient.RunCommand(strigComand);
-
         }
         ~SSH() {
             sshClient.Disconnect();
