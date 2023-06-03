@@ -271,10 +271,19 @@ namespace Client
                 // Lấy tên tập tin cần tải về
                 string remoteFileName = item.Text;
                 // Lấy đường dẫn tập tin trên máy chủ FTP
-                string remoteFilePath = currentPath + remoteFileName;
+                string remoteFilePath = currentPath + "/" + remoteFileName;
+
+                bool isFolder = item.ImageIndex == 0;
 
                 // Tải tập tin từ máy chủ FTP về máy tính
-                ftpClient.downloadFile(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+                if (isFolder)
+                {
+                    ftpClient.downloadFolder(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+                }
+                else if (!isFolder)
+                {
+                    ftpClient.downloadFile(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+                }
 
                 // Cập nhật danh sách tập tin và thư mục hiện tại
                 loadFilesAndDirectories(currentPath);
