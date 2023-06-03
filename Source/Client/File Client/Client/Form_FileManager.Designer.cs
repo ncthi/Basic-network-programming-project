@@ -58,10 +58,10 @@
             button_Back.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_Back.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Back.FlatStyle = FlatStyle.Flat;
-            button_Back.Location = new Point(33, 36);
+            button_Back.Location = new Point(33, 25);
             button_Back.Margin = new Padding(3, 2, 3, 2);
             button_Back.Name = "button_Back";
-            button_Back.Size = new Size(44, 20);
+            button_Back.Size = new Size(44, 40);
             button_Back.TabIndex = 0;
             button_Back.UseVisualStyleBackColor = false;
             // 
@@ -115,10 +115,10 @@
             button_Go.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_Go.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Go.FlatStyle = FlatStyle.Flat;
-            button_Go.Location = new Point(662, 36);
+            button_Go.Location = new Point(662, 25);
             button_Go.Margin = new Padding(3, 2, 3, 2);
             button_Go.Name = "button_Go";
-            button_Go.Size = new Size(47, 20);
+            button_Go.Size = new Size(47, 40);
             button_Go.TabIndex = 5;
             button_Go.UseVisualStyleBackColor = false;
             // 
