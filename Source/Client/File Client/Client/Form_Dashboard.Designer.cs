@@ -32,7 +32,7 @@
             panel_Left = new Panel();
             button3 = new Button();
             button2 = new Button();
-            button1 = new Button();
+            button_Filemanage = new Button();
             button_MyProfile = new Button();
             panel_Body = new FlowLayoutPanel();
             panel_Left.SuspendLayout();
@@ -43,7 +43,7 @@
             panel_Left.BackColor = Color.Transparent;
             panel_Left.Controls.Add(button3);
             panel_Left.Controls.Add(button2);
-            panel_Left.Controls.Add(button1);
+            panel_Left.Controls.Add(button_Filemanage);
             panel_Left.Controls.Add(button_MyProfile);
             panel_Left.Location = new Point(0, -3);
             panel_Left.Name = "panel_Left";
@@ -72,17 +72,17 @@
             button2.TabIndex = 2;
             button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // button_Filemanage
             // 
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(23, 176);
-            button1.Name = "button1";
-            button1.Size = new Size(148, 37);
-            button1.TabIndex = 1;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button_Filemanage.FlatAppearance.BorderSize = 0;
+            button_Filemanage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Filemanage.FlatStyle = FlatStyle.Flat;
+            button_Filemanage.Location = new Point(23, 176);
+            button_Filemanage.Name = "button_Filemanage";
+            button_Filemanage.Size = new Size(148, 37);
+            button_Filemanage.TabIndex = 1;
+            button_Filemanage.UseVisualStyleBackColor = true;
+            button_Filemanage.Click += button1_Click;
             // 
             // button_MyProfile
             // 
@@ -99,9 +99,10 @@
             // panel_Body
             // 
             panel_Body.BackColor = Color.Transparent;
-            panel_Body.Location = new Point(211, -3);
+
+            panel_Body.Location = new Point(203, -3);
             panel_Body.Name = "panel_Body";
-            panel_Body.Size = new Size(721, 533);
+            panel_Body.Size = new Size(728, 529);
             panel_Body.TabIndex = 1;
             // 
             // Form_Dashboard
@@ -122,7 +123,7 @@
         private Panel panel_Left;
         private Button button3;
         private Button button2;
-        private Button button1;
+        private Button button_Filemanage;
         private Button button_MyProfile;
         private FlowLayoutPanel panel_Body;
     }

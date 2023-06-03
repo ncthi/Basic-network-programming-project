@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using RSA;
 using System.Diagnostics.Metrics;
 using System.Net.Sockets;
 using System.Numerics;
@@ -54,11 +55,11 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password + ",login");
+                        string data = $"{username},{password},login";
+                        byte[] dataEn =RSAKeys.EncryptData()
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);
-
                         // Nhận kết quả từ server, đã tạo thành công hay chưa 
                         byte[] buffer = new byte[1024];
                         int bytesRead = stream.Read(buffer, 0, buffer.Length);

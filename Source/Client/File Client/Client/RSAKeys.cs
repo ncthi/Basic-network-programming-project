@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
@@ -34,20 +35,30 @@ namespace RSA
         //    return csp;
         //}
 
-        public static byte[] EncryptData(RSACryptoServiceProvider csp, byte[] data)
+        public static string EncryptData(string data)
         {
+            RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
+            byte[] dataBytes = Encoding.UTF8.GetBytes(data);
+
             // Mã hóa dữ liệu bằng khóa công khai RSA
-            byte[] encryptedData = csp.Encrypt(data, false);
+            byte[] encryptedDataBytes = csp.Encrypt(dataBytes, false);
+            string encryptedData = Convert.ToBase64String(encryptedDataBytes);
+
             return encryptedData;
         }
 
-        public static byte[] DecryptData(RSACryptoServiceProvider csp, byte[] encryptedData)
+        public static string DecryptData(string encryptedData)
         {
+            RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
+            byte[] encryptedDataBytes = Convert.FromBase64String(encryptedData);
+
             // Giải mã dữ liệu bằng khóa bí mật RSA
-            byte[] decryptedData = csp.Decrypt(encryptedData, false);
+            byte[] decryptedDataBytes = csp.Decrypt(encryptedDataBytes, false);
+            string decryptedData = Encoding.UTF8.GetString(decryptedDataBytes);
+
             return decryptedData;
-        }        
-        
+        }
+
     }
 }
 
