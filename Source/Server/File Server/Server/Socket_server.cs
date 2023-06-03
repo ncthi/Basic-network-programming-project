@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Server
 {
@@ -94,9 +95,14 @@ namespace Server
         }
         private void _Resgistry(string[] data,NetworkStream stream)
         {
-            string res = database.AddUser(data[0], data[1], data[2]).ToString();
-            sshClinet.AddUser(data[0], data[1]);
-            send(res, stream);
+            bool check = database.checkUserName(data[0]);
+            if (!check)
+            {
+                string res = database.AddUser(data[0], data[1], data[2]).ToString();
+                sshClinet.AddUser(data[0], data[1]);
+                send(res, stream);
+            }
+            else send("false", stream);
         }
         private void Forget(string[] data, NetworkStream stream)
         {

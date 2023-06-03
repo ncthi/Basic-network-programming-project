@@ -99,6 +99,7 @@
             // panel_Body
             // 
             panel_Body.BackColor = Color.Transparent;
+
             panel_Body.Location = new Point(203, -3);
             panel_Body.Name = "panel_Body";
             panel_Body.Size = new Size(728, 529);
@@ -108,7 +109,7 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(931, 526);
+            ClientSize = new Size(933, 534);
             Controls.Add(panel_Body);
             Controls.Add(panel_Left);
             Name = "Form_Dashboard";
