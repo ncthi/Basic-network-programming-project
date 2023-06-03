@@ -29,116 +29,115 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_UsersProfile));
-            this.textBox_username = new System.Windows.Forms.TextBox();
-            this.textBox_email = new System.Windows.Forms.TextBox();
-            this.textBox_password = new System.Windows.Forms.TextBox();
-            this.checkBox_ShowPass = new System.Windows.Forms.CheckBox();
-            this.button_signout = new System.Windows.Forms.Button();
-            this.button_changeEmail = new System.Windows.Forms.Button();
-            this.button_changePassword = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            textBox_username = new TextBox();
+            textBox_email = new TextBox();
+            textBox_password = new TextBox();
+            checkBox_ShowPass = new CheckBox();
+            button_signout = new Button();
+            button_changeEmail = new Button();
+            button_changePassword = new Button();
+            SuspendLayout();
             // 
             // textBox_username
             // 
-            this.textBox_username.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
-            this.textBox_username.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_username.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox_username.ForeColor = System.Drawing.Color.Firebrick;
-            this.textBox_username.Location = new System.Drawing.Point(306, 236);
-            this.textBox_username.Name = "textBox_username";
-            this.textBox_username.ReadOnly = true;
-            this.textBox_username.Size = new System.Drawing.Size(259, 23);
-            this.textBox_username.TabIndex = 0;
+            textBox_username.BackColor = Color.FromArgb(255, 239, 239);
+            textBox_username.BorderStyle = BorderStyle.None;
+            textBox_username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox_username.ForeColor = Color.Firebrick;
+            textBox_username.Location = new Point(271, 244);
+            textBox_username.Name = "textBox_username";
+            textBox_username.ReadOnly = true;
+            textBox_username.Size = new Size(259, 23);
+            textBox_username.TabIndex = 0;
             // 
             // textBox_email
             // 
-            this.textBox_email.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
-            this.textBox_email.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_email.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox_email.ForeColor = System.Drawing.Color.Firebrick;
-            this.textBox_email.Location = new System.Drawing.Point(326, 292);
-            this.textBox_email.Name = "textBox_email";
-            this.textBox_email.ReadOnly = true;
-            this.textBox_email.Size = new System.Drawing.Size(239, 23);
-            this.textBox_email.TabIndex = 1;
+            textBox_email.BackColor = Color.FromArgb(255, 239, 239);
+            textBox_email.BorderStyle = BorderStyle.None;
+            textBox_email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox_email.ForeColor = Color.Firebrick;
+            textBox_email.Location = new Point(298, 302);
+            textBox_email.Name = "textBox_email";
+            textBox_email.ReadOnly = true;
+            textBox_email.Size = new Size(232, 23);
+            textBox_email.TabIndex = 1;
             // 
             // textBox_password
             // 
-            this.textBox_password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
-            this.textBox_password.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_password.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox_password.ForeColor = System.Drawing.Color.Firebrick;
-            this.textBox_password.Location = new System.Drawing.Point(295, 349);
-            this.textBox_password.Name = "textBox_password";
-            this.textBox_password.PasswordChar = '*';
-            this.textBox_password.ReadOnly = true;
-            this.textBox_password.Size = new System.Drawing.Size(256, 23);
-            this.textBox_password.TabIndex = 2;
+            textBox_password.BackColor = Color.FromArgb(255, 239, 239);
+            textBox_password.BorderStyle = BorderStyle.None;
+            textBox_password.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox_password.ForeColor = Color.Firebrick;
+            textBox_password.Location = new Point(269, 360);
+            textBox_password.Name = "textBox_password";
+            textBox_password.PasswordChar = '*';
+            textBox_password.ReadOnly = true;
+            textBox_password.Size = new Size(234, 23);
+            textBox_password.TabIndex = 2;
             // 
             // checkBox_ShowPass
             // 
-            this.checkBox_ShowPass.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox_ShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox_ShowPass.Location = new System.Drawing.Point(557, 353);
-            this.checkBox_ShowPass.Margin = new System.Windows.Forms.Padding(5);
-            this.checkBox_ShowPass.Name = "checkBox_ShowPass";
-            this.checkBox_ShowPass.Size = new System.Drawing.Size(18, 17);
-            this.checkBox_ShowPass.TabIndex = 8;
-            this.checkBox_ShowPass.UseVisualStyleBackColor = false;
+            checkBox_ShowPass.BackColor = Color.Transparent;
+            checkBox_ShowPass.FlatStyle = FlatStyle.Flat;
+            checkBox_ShowPass.Location = new Point(502, 366);
+            checkBox_ShowPass.Margin = new Padding(5);
+            checkBox_ShowPass.Name = "checkBox_ShowPass";
+            checkBox_ShowPass.Size = new Size(18, 17);
+            checkBox_ShowPass.TabIndex = 8;
+            checkBox_ShowPass.UseVisualStyleBackColor = false;
             // 
             // button_signout
             // 
-            this.button_signout.BackColor = System.Drawing.Color.Transparent;
-            this.button_signout.FlatAppearance.BorderSize = 0;
-            this.button_signout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button_signout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_signout.Location = new System.Drawing.Point(339, 421);
-            this.button_signout.Name = "button_signout";
-            this.button_signout.Size = new System.Drawing.Size(137, 41);
-            this.button_signout.TabIndex = 9;
-            this.button_signout.UseVisualStyleBackColor = false;
+            button_signout.BackColor = Color.Transparent;
+            button_signout.FlatAppearance.BorderSize = 0;
+            button_signout.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
+            button_signout.FlatStyle = FlatStyle.Flat;
+            button_signout.Location = new Point(298, 434);
+            button_signout.Name = "button_signout";
+            button_signout.Size = new Size(137, 41);
+            button_signout.TabIndex = 9;
+            button_signout.UseVisualStyleBackColor = false;
             // 
             // button_changeEmail
             // 
-            this.button_changeEmail.BackColor = System.Drawing.Color.Transparent;
-            this.button_changeEmail.FlatAppearance.BorderSize = 0;
-            this.button_changeEmail.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button_changeEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_changeEmail.Location = new System.Drawing.Point(593, 293);
-            this.button_changeEmail.Name = "button_changeEmail";
-            this.button_changeEmail.Size = new System.Drawing.Size(62, 24);
-            this.button_changeEmail.TabIndex = 10;
-            this.button_changeEmail.UseVisualStyleBackColor = false;
+            button_changeEmail.BackColor = Color.Transparent;
+            button_changeEmail.FlatAppearance.BorderSize = 0;
+            button_changeEmail.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
+            button_changeEmail.FlatStyle = FlatStyle.Flat;
+            button_changeEmail.Location = new Point(549, 303);
+            button_changeEmail.Name = "button_changeEmail";
+            button_changeEmail.Size = new Size(62, 24);
+            button_changeEmail.TabIndex = 10;
+            button_changeEmail.UseVisualStyleBackColor = false;
             // 
             // button_changePassword
             // 
-            this.button_changePassword.BackColor = System.Drawing.Color.Transparent;
-            this.button_changePassword.FlatAppearance.BorderSize = 0;
-            this.button_changePassword.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button_changePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_changePassword.Location = new System.Drawing.Point(594, 352);
-            this.button_changePassword.Name = "button_changePassword";
-            this.button_changePassword.Size = new System.Drawing.Size(62, 21);
-            this.button_changePassword.TabIndex = 11;
-            this.button_changePassword.UseVisualStyleBackColor = false;
+            button_changePassword.BackColor = Color.Transparent;
+            button_changePassword.FlatAppearance.BorderSize = 0;
+            button_changePassword.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
+            button_changePassword.FlatStyle = FlatStyle.Flat;
+            button_changePassword.Location = new Point(550, 362);
+            button_changePassword.Name = "button_changePassword";
+            button_changePassword.Size = new Size(62, 21);
+            button_changePassword.TabIndex = 11;
+            button_changePassword.UseVisualStyleBackColor = false;
             // 
             // Form_UsersProfile
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(816, 496);
-            this.Controls.Add(this.button_changePassword);
-            this.Controls.Add(this.button_changeEmail);
-            this.Controls.Add(this.button_signout);
-            this.Controls.Add(this.checkBox_ShowPass);
-            this.Controls.Add(this.textBox_password);
-            this.Controls.Add(this.textBox_email);
-            this.Controls.Add(this.textBox_username);
-            this.Name = "Form_UsersProfile";
-            this.Text = "Form_UsersProfile";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleMode = AutoScaleMode.None;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(816, 543);
+            Controls.Add(button_changePassword);
+            Controls.Add(button_changeEmail);
+            Controls.Add(button_signout);
+            Controls.Add(checkBox_ShowPass);
+            Controls.Add(textBox_password);
+            Controls.Add(textBox_email);
+            Controls.Add(textBox_username);
+            Name = "Form_UsersProfile";
+            Text = "Form_UsersProfile";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
