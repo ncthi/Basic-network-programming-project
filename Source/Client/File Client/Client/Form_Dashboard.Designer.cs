@@ -49,14 +49,13 @@
             panel_Left.Name = "panel_Left";
             panel_Left.Size = new Size(205, 533);
             panel_Left.TabIndex = 0;
-            panel_Left.Paint += panel_Left_Paint;
             // 
             // button3
             // 
             button3.FlatAppearance.BorderSize = 0;
             button3.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(31, 274);
+            button3.Location = new Point(31, 297);
             button3.Name = "button3";
             button3.Size = new Size(140, 37);
             button3.TabIndex = 3;
@@ -67,7 +66,7 @@
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(26, 215);
+            button2.Location = new Point(26, 242);
             button2.Name = "button2";
             button2.Size = new Size(145, 37);
             button2.TabIndex = 2;
@@ -78,7 +77,7 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(23, 155);
+            button1.Location = new Point(23, 176);
             button1.Name = "button1";
             button1.Size = new Size(148, 37);
             button1.TabIndex = 1;
@@ -90,7 +89,7 @@
             button_MyProfile.FlatAppearance.BorderSize = 0;
             button_MyProfile.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_MyProfile.FlatStyle = FlatStyle.Flat;
-            button_MyProfile.Location = new Point(29, 98);
+            button_MyProfile.Location = new Point(29, 120);
             button_MyProfile.Name = "button_MyProfile";
             button_MyProfile.Size = new Size(137, 38);
             button_MyProfile.TabIndex = 0;

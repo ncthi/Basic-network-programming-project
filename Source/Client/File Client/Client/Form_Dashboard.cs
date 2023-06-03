@@ -35,11 +35,6 @@ namespace Client
             childForm.BringToFront();
             childForm.Show();
         }
-        private void panel_Left_Paint(object sender, PaintEventArgs e)
-        {
-
-
-        }
 
         private void button_MyProfile_Click(object sender, EventArgs e)
         {
