@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Reflection.Metadata;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 
 namespace Client
@@ -222,7 +223,7 @@ namespace Client
         {
             try
             {
-                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + remoteFile);
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
 
                 // When in doubt, use these options 
@@ -269,6 +270,84 @@ namespace Client
                 Console.WriteLine(ex.Message);
             }
 
+        }
+
+        // Download Folder
+        public void downloadFolder(string remoteFolder, string localFolder)
+        {
+            try
+            {
+                // Tạo đường dẫn đến thư mục cần tải xuống trên máy chủ FTP
+                string remoteFolderUrl = host + "/" + remoteFolder;
+
+                // Tạo đường dẫn đến thư mục đích để lưu tệp tin và thư mục
+                string localFolderFullPath = Path.GetFullPath(localFolder);
+
+                // Tạo đường dẫn đến thư mục đích cho thư mục hiện tại
+                string currentLocalFolder = Path.Combine(localFolderFullPath, Path.GetFileName(remoteFolder));
+                Directory.CreateDirectory(currentLocalFolder);
+
+                // Tạo yêu cầu lấy danh sách các tệp tin và thư mục trong thư mục cần tải xuống
+                FtpWebRequest listRequest = (FtpWebRequest)WebRequest.Create(remoteFolderUrl);
+                listRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                listRequest.Credentials = new NetworkCredential(user, pass);
+
+                // Lấy danh sách các tệp tin và thư mục trong thư mục cần tải xuống
+                List<string> lines = new List<string>();
+                using (FtpWebResponse listResponse = (FtpWebResponse)listRequest.GetResponse())
+                using (Stream responseStream = listResponse.GetResponseStream())
+                using (StreamReader reader = new StreamReader(responseStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        lines.Add(reader.ReadLine());
+                    }
+                }
+
+                // Tải xuống tất cả các tệp tin và thư mục con trong thư mục cần tải xuống
+                foreach (string line in lines)
+                {
+                    string[] tokens = line.Split(new[] { ' ' }, 9, StringSplitOptions.RemoveEmptyEntries);
+                    string name = tokens[8];
+                    string permissions = tokens[0];
+                    string remoteUrl = remoteFolderUrl + "/" + name;
+                    string localPath = Path.Combine(currentLocalFolder, name);
+
+                    if (permissions[0] == 'd')
+                    {
+                        // Đệ quy tải xuống tất cả các thư mục con trong thư mục cần tải xuống
+                        downloadFolder(remoteFolder + "/" + name, currentLocalFolder);
+                    }
+                    else
+                    {
+                        // Tải xuống tệp tin
+                        FtpWebRequest downloadRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
+                        downloadRequest.Credentials = new NetworkCredential(user, pass);
+                        downloadRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+                        using (Stream downloadStream = downloadRequest.GetResponse().GetResponseStream())
+                        using (FileStream localFileStream = new FileStream(localPath, FileMode.Create))
+                        {
+                            downloadStream.CopyTo(localFileStream);
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                FtpWebResponse response = (FtpWebResponse)ex.Response;
+                if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                {
+                    Console.WriteLine("Folder does not exist: " + remoteFolder);
+                }
+                else
+                {
+                    Console.WriteLine("Failed to download folder: " + remoteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to download folder: " + remoteFolder + " - " + ex.Message);
+            }
         }
 
         // Upload File
@@ -349,28 +428,81 @@ namespace Client
             }
             return;
         }
-        public void deleteFolder(string deleteFolder)
+        public void deleteFolder(string folder)
         {
             try
             {
-                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFolder);
-                ftpRequest.Credentials = new NetworkCredential(user, pass);
-                // When in doubt, use these options
-                ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
-                ftpRequest.KeepAlive = true;
-                // Type of FTP request
-                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
-                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                // Clean resources
-                ftpResponse.Close();
-                ftpRequest = null;
+                // Tạo đường dẫn đến thư mục cần xóa trên máy chủ FTP
+                string deleteFolderUrl = host + "/" + folder;
+
+                // Tạo yêu cầu lấy danh sách các tệp tin và thư mục trong thư mục cần xóa
+                FtpWebRequest listRequest = (FtpWebRequest)WebRequest.Create(deleteFolderUrl);
+                listRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                listRequest.Credentials = new NetworkCredential(user, pass);
+
+                // Lấy danh sách các tệp tin và thư mục trong thư mục cần xóa
+                List<string> lines = new List<string>();
+                using (FtpWebResponse listResponse = (FtpWebResponse)listRequest.GetResponse())
+                using (Stream responseStream = listResponse.GetResponseStream())
+                using (StreamReader reader = new StreamReader(responseStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        lines.Add(reader.ReadLine());
+                    }
+                }
+
+                // Xóa tất cả các tệp tin và thư mục con trong thư mục cần xóa
+                foreach (string line in lines)
+                {
+                    string[] tokens = line.Split(new[] { ' ' }, 9, StringSplitOptions.RemoveEmptyEntries);
+                    string name = tokens[8];
+                    string permissions = tokens[0];
+                    string deleteUrl = deleteFolderUrl + "/" + name;
+
+                    if (permissions[0] == 'd')
+                    {
+                        // Đệ quy xóa tất cả các thư mục con trong thư mục cần xóa
+                        deleteFolder(deleteFolder + "/" + name);
+                    }
+                    else
+                    {
+                        // Xóa tệp tin
+                        FtpWebRequest deleteRequest = (FtpWebRequest)WebRequest.Create(deleteUrl);
+                        deleteRequest.Credentials = new NetworkCredential(user, pass);
+                        deleteRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+                        using (FtpWebResponse deleteResponse = (FtpWebResponse)deleteRequest.GetResponse())
+                        {
+                            Console.WriteLine("File deleted successfully: " + deleteUrl);
+                        }
+                    }
+                }
+
+                // Xóa thư mục cần xóa
+                FtpWebRequest deleteFolderRequest = (FtpWebRequest)WebRequest.Create(deleteFolderUrl);
+                deleteFolderRequest.Credentials = new NetworkCredential(user, pass);
+                deleteFolderRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                using (FtpWebResponse deleteFolderResponse = (FtpWebResponse)deleteFolderRequest.GetResponse())
+                {
+                    Console.WriteLine("Folder deleted successfully: " + deleteFolderUrl);
+                }
+            }
+            catch (WebException ex)
+            {
+                FtpWebResponse response = (FtpWebResponse)ex.Response;
+                if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                {
+                    Console.WriteLine("Folder does not exist: " + deleteFolder);
+                }
+                else
+                {
+                    Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + ex.Message);
             }
-            return;
         }
 
 
@@ -402,7 +534,7 @@ namespace Client
         }
 
         // Copy File
-        public (MemoryStream, string) copy(string copyFile)
+        public (MemoryStream, string) copyFile(string copyFile)
         {
             FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
