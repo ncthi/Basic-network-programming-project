@@ -30,7 +30,7 @@ namespace Server
             server = new TcpListener(iPEndPoint);
             database = new SQL_server();
             database.ConnectSqlServer();
-            sshClinet = new SSH(ipSSh, "caothi", "123456");
+            sshClinet = new SSH("172.20.110.52", "caothi", "123456");
         }
         public static string receive(NetworkStream stream)
         {
@@ -94,7 +94,7 @@ namespace Server
         }
         private void _Resgistry(string[] data,NetworkStream stream)
         {
-            string res = database.AddUser(data[0], data[1], "").ToString();
+            string res = database.AddUser(data[0], data[1], data[2]).ToString();
             sshClinet.AddUser(data[0], data[1]);
             send(res, stream);
         }
