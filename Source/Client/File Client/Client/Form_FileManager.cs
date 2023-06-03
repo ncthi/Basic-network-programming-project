@@ -32,7 +32,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://172.20.130.1/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://172.20.110.52/", "caothi", "123456");
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);

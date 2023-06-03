@@ -47,7 +47,7 @@
             textBox_username.Location = new Point(282, 244);
             textBox_username.Name = "textBox_username";
             textBox_username.ReadOnly = true;
-            textBox_username.Size = new Size(248, 23);
+            textBox_username.Size = new Size(248, 19);
             textBox_username.TabIndex = 0;
             // 
             // textBox_email
@@ -59,7 +59,7 @@
             textBox_email.Location = new Point(298, 302);
             textBox_email.Name = "textBox_email";
             textBox_email.ReadOnly = true;
-            textBox_email.Size = new Size(232, 23);
+            textBox_email.Size = new Size(232, 19);
             textBox_email.TabIndex = 1;
             // 
             // textBox_password
@@ -72,7 +72,7 @@
             textBox_password.Name = "textBox_password";
             textBox_password.PasswordChar = '*';
             textBox_password.ReadOnly = true;
-            textBox_password.Size = new Size(234, 23);
+            textBox_password.Size = new Size(234, 19);
             textBox_password.TabIndex = 2;
             // 
             // checkBox_ShowPass
@@ -125,8 +125,10 @@
             // Form_UsersProfile
             // 
             AutoScaleMode = AutoScaleMode.None;
+            AutoScroll = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(816, 543);
+            ClientSize = new Size(761, 543);
             Controls.Add(button_changePassword);
             Controls.Add(button_changeEmail);
             Controls.Add(button_signout);

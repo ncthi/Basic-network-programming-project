@@ -360,9 +360,9 @@ namespace Client
                 ftpRequest.UsePassive = true;
                 ftpRequest.KeepAlive = true;
                 // Type of FTP request
-                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+                ftpRequest.Method = "RMDIR";
                 ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                // Clean resources
+                // Clean resources1
                 ftpResponse.Close();
                 ftpRequest = null;
             }
