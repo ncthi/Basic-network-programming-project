@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Diagnostics;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Server
 {
@@ -16,11 +19,18 @@ namespace Server
         public IPEndPoint iPEndPoint;
         private static int sizeBuffer = 1024 * 32;
         private bool checkConnect;
+        private SQL_server database;
+        private string ipDatabase;
+        private SSH sshClinet;
+        private string ipSSh;
         public SocketServer(int Port)
         {
             this.port = Port;
             this.iPEndPoint = new IPEndPoint(IPAddress.Any, Port);
             server = new TcpListener(iPEndPoint);
+            database = new SQL_server();
+            database.ConnectSqlServer();
+            sshClinet = new SSH(ipSSh, "caothi", "123456");
         }
         public static string receive(NetworkStream stream)
         {
@@ -57,19 +67,20 @@ namespace Server
                 try
                 {
                     string[] data = receive(stream).Split(',');
-                    SQL_server database= new SQL_server();
-                    database.ConnectSqlServer();
-                    string status = data[2].Trim('\0');
-                    if (status=="registry")
-                    {
-                        string res = database.AddUser(data[0], data[1], "").ToString();
-                        send(res, stream);
-                        return;
-                    }
-                    else
-                    {
-                        send(database.checkUser(data[0], data[1]).ToString(), stream);
-                        return;
+                    string status = data[data.Length-1].Trim('\0');
+                    switch  (status){
+                        case "registry":
+                            _Resgistry(data,stream);
+                            return;
+                        case "forget":
+                            Forget(data,stream);
+                            return;
+                        case "login":
+                            Login(data,stream);
+                            return;
+                        case "changePass":
+                            ChangePass(data,stream);
+                            return;
                     }
                 }
                 catch
@@ -80,6 +91,35 @@ namespace Server
             }
             stream.Close();
             client.Close();
+        }
+        private void _Resgistry(string[] data,NetworkStream stream)
+        {
+            string res = database.AddUser(data[0], data[1], "").ToString();
+            sshClinet.AddUser(data[0], data[1]);
+            send(res, stream);
+        }
+        private void Forget(string[] data, NetworkStream stream)
+        {
+            string passRandom = Email.GenerateRandomPassword();
+            Email email = new Email();
+            email.SendPasswordResetEmail(data[3], data[0], passRandom);
+            database.ChangePass(data[0], passRandom);
+            sshClinet.ChangePassword(data[0],passRandom);
+        }
+        private void Login(string[] data, NetworkStream stream)
+        {
+            send(database.checkUser(data[0], data[1]).ToString(), stream);
+        }
+        private void ChangePass(string[] data, NetworkStream stream)
+        {
+            bool check = database.checkUser(data[0], data[1]);
+            if ( check== true)
+            {
+                send(database.ChangePass(data[0], data[2]).ToString(), stream);
+                sshClinet.ChangePassword(data[0], data[2]);
+                return;
+            }
+            else send("false", stream);
         }
         public void disconect(bool check)
         {
