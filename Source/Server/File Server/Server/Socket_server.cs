@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Diagnostics;
+using Microsoft.Win32;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace Server
 {
@@ -27,7 +31,7 @@ namespace Server
             server = new TcpListener(iPEndPoint);
             database = new SQL_server();
             database.ConnectSqlServer();
-            sshClinet = new SSH(ipSSh, "caothi", "123456");
+            sshClinet = new SSH("172.20.110.52", "caothi", "123456");
         }
         public static string receive(NetworkStream stream)
         {
@@ -64,20 +68,20 @@ namespace Server
                 try
                 {
                     string[] data = receive(stream).Split(',');
-                    string status = data[2].Trim('\0');
-                    string u = data[0];
-                    string p = data[1];
-                    if (status=="registry")
-                    {
-                        string res = database.AddUser(u, p, "").ToString();
-                        sshClinet.AddUser(u, p);
-                        send(res, stream);
-                        return;
-                    }
-                    else
-                    {
-                        send(database.checkUser(data[0], data[1]).ToString(), stream);
-                        return;
+                    string status = data[data.Length-1].Trim('\0');
+                    switch  (status){
+                        case "registry":
+                            _Resgistry(data,stream);
+                            return;
+                        case "forget":
+                            Forget(data,stream);
+                            return;
+                        case "login":
+                            Login(data,stream);
+                            return;
+                        case "changePass":
+                            ChangePass(data,stream);
+                            return;
                     }
                 }
                 catch
@@ -88,6 +92,40 @@ namespace Server
             }
             stream.Close();
             client.Close();
+        }
+        private void _Resgistry(string[] data,NetworkStream stream)
+        {
+            bool check = database.checkUserName(data[0]);
+            if (!check)
+            {
+                string res = database.AddUser(data[0], data[1], data[2]).ToString();
+                sshClinet.AddUser(data[0], data[1]);
+                send(res, stream);
+            }
+            else send("false", stream);
+        }
+        private void Forget(string[] data, NetworkStream stream)
+        {
+            string passRandom = Email.GenerateRandomPassword();
+            Email email = new Email();
+            email.SendPasswordResetEmail(data[3], data[0], passRandom);
+            database.ChangePass(data[0], passRandom);
+            sshClinet.ChangePassword(data[0],passRandom);
+        }
+        private void Login(string[] data, NetworkStream stream)
+        {
+            send(database.checkUser(data[0], data[1]).ToString(), stream);
+        }
+        private void ChangePass(string[] data, NetworkStream stream)
+        {
+            bool check = database.checkUser(data[0], data[1]);
+            if ( check== true)
+            {
+                send(database.ChangePass(data[0], data[2]).ToString(), stream);
+                sshClinet.ChangePassword(data[0], data[2]);
+                return;
+            }
+            else send("false", stream);
         }
         public void disconect(bool check)
         {

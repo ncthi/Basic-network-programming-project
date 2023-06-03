@@ -432,6 +432,7 @@ namespace Client
         {
             try
             {
+
                 // Tạo đường dẫn đến thư mục cần xóa trên máy chủ FTP
                 string deleteFolderUrl = host + "/" + folder;
 
@@ -498,6 +499,7 @@ namespace Client
                 {
                     Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
                 }
+
             }
             catch (Exception ex)
             {
