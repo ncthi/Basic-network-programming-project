@@ -15,7 +15,7 @@ namespace Client
     {
 
 
-        private const string serverIpAddress = "172.30.216.11";
+        private const string serverIpAddress = "127.0.0.1";
         private const int serverPort = 8080;
         public Form_CreateAccount()
         {
@@ -37,6 +37,7 @@ namespace Client
             string username = textBox_CreateUser.Text;
             string password = textBox_CreatePass.Text;
             string confirmPassword = textBox_ConfirmPass.Text;
+            string email=textBox_Email.Text;
 
             //Kiểm tra thông tin nhập vào 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
@@ -71,7 +72,7 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes(username + ',' + password + ",registry");
+                        byte[] info = Encoding.ASCII.GetBytes($"{username},{password},{email},registry");
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);

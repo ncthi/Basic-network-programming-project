@@ -94,8 +94,19 @@
             // iconList
             // 
             iconList.ColorDepth = ColorDepth.Depth32Bit;
-            iconList.ImageSize = new Size(16, 16);
+            iconList.ImageStream = (ImageListStreamer)resources.GetObject("iconList.ImageStream");
             iconList.TransparentColor = Color.Transparent;
+            iconList.Images.SetKeyName(0, "Folder.png");
+            iconList.Images.SetKeyName(1, "Doc.png");
+            iconList.Images.SetKeyName(2, "PDF.png");
+            iconList.Images.SetKeyName(3, "Powerpoint.png");
+            iconList.Images.SetKeyName(4, "Excel.png");
+            iconList.Images.SetKeyName(5, "Image.png");
+            iconList.Images.SetKeyName(6, "Video.png");
+            iconList.Images.SetKeyName(7, "Zip.png");
+            iconList.Images.SetKeyName(8, "AnotherFile.png");
+            iconList.Images.SetKeyName(9, "Music.png");
+            iconList.Images.SetKeyName(10, "Text.png");
             // 
             // button_Go
             // 
