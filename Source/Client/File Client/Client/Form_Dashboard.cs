@@ -26,10 +26,12 @@ namespace Client
             {
                 currentFormChild.Close();
             }
+
             currentFormChild = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
+            childForm.Size = panel_Body.Size;
+            childForm.Location = new Point(0, 0);
             panel_Body.Controls.Add(childForm);
             panel_Body.Tag = childForm;
             childForm.BringToFront();
@@ -46,5 +48,6 @@ namespace Client
         {
             OpenChildForm(new Form_FileManager());
         }
+
     }
 }
