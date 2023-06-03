@@ -47,7 +47,7 @@
             panel_Left.Controls.Add(button_MyProfile);
             panel_Left.Location = new Point(0, -3);
             panel_Left.Name = "panel_Left";
-            panel_Left.Size = new Size(205, 533);
+            panel_Left.Size = new Size(205, 539);
             panel_Left.TabIndex = 0;
             // 
             // button3
@@ -99,10 +99,9 @@
             // panel_Body
             // 
             panel_Body.BackColor = Color.Transparent;
-
             panel_Body.Location = new Point(203, -3);
             panel_Body.Name = "panel_Body";
-            panel_Body.Size = new Size(728, 529);
+            panel_Body.Size = new Size(728, 539);
             panel_Body.TabIndex = 1;
             // 
             // Form_Dashboard
