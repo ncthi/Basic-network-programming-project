@@ -32,7 +32,6 @@ namespace Server
         public void AddUser(string UserName, string Password)
         {
             string stringCmd = $"sudo useradd -m {UserName} -p $(openssl passwd -1 {Password})";
-            MessageBox.Show(sshClient.RunCommand(stringCmd).ToString()); 
             string cmdAddFtp= $"echo \"{UserName}\" | sudo tee -a /etc/vsftpd.userlist";
             sshClient.RunCommand(cmdAddFtp);
         }
@@ -53,7 +52,13 @@ namespace Server
         // Change password of user
         public bool ChangePassword(string UserName,string NewPassword)
         {
-            return false;
+            try
+            {
+                string cmd = $"echo -e \"{NewPassword}\\n{NewPassword}\" | sudo passwd {userName}";
+                sshClient.RunCommand(cmd);
+                return true;
+            }
+            catch { return false; }
         }
         ~SSH() {
             sshClient.Disconnect();
