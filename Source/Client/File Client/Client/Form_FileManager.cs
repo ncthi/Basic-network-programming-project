@@ -334,7 +334,7 @@ namespace Client
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
             // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
+            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
             loadFilesAndDirectories(currentPath);
         }
 
@@ -344,7 +344,7 @@ namespace Client
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
             // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
+            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
 
             bool isFolder = item.ImageIndex == 0;
 

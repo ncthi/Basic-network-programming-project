@@ -534,7 +534,7 @@ namespace Client
         }
 
         // Copy File
-        public (MemoryStream, string) copy(string copyFile)
+        public (MemoryStream, string) copyFile(string copyFile)
         {
             FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + copyFile);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
