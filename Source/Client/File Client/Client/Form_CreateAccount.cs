@@ -1,10 +1,12 @@
-﻿using System;
+﻿using RSA;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -72,7 +74,17 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        byte[] info = Encoding.ASCII.GetBytes($"{username},{password},{email},registry");
+                        // Đọc khóa công khai từ file và nhập vào đối tượng RSA
+                        RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
+                        RSAKeys.ImportPublicKey(csp);
+
+                        // Mã hóa mật khẩu bằng khóa công khai RSA
+                        byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                        byte[] encryptedPassword = RSAKeys.EncryptData(csp, passwordBytes);
+
+                        // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
+                        string message = $"{username},{Convert.ToBase64String(encryptedPassword)},{email},registry";
+                        byte[] info = Encoding.ASCII.GetBytes(message);
 
                         // Gửi thông điệp Tên và Mật khẩu đến server
                         stream.Write(info, 0, info.Length);
