@@ -32,7 +32,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://172.20.130.1/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://172.20.110.52/", "caothi", "123456");
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -271,10 +271,19 @@ namespace Client
                 // Lấy tên tập tin cần tải về
                 string remoteFileName = item.Text;
                 // Lấy đường dẫn tập tin trên máy chủ FTP
-                string remoteFilePath = currentPath + remoteFileName;
+                string remoteFilePath = currentPath + "/" + remoteFileName;
+
+                bool isFolder = item.ImageIndex == 0;
 
                 // Tải tập tin từ máy chủ FTP về máy tính
-                ftpClient.downloadFile(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+                if (isFolder)
+                {
+                    ftpClient.downloadFolder(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+                }
+                else if (!isFolder)
+                {
+                    ftpClient.downloadFile(remoteFilePath, Path.Combine(localFolderPath, remoteFileName));
+                }
 
                 // Cập nhật danh sách tập tin và thư mục hiện tại
                 loadFilesAndDirectories(currentPath);
@@ -325,7 +334,7 @@ namespace Client
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
             // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
+            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
             loadFilesAndDirectories(currentPath);
         }
 
@@ -335,7 +344,7 @@ namespace Client
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
             // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copy(currentPath + "/" + item.Text);
+            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
 
             bool isFolder = item.ImageIndex == 0;
 

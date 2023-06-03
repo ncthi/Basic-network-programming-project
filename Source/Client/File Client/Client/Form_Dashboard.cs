@@ -33,8 +33,6 @@ namespace Client
             childForm.Size = panel_Body.Size;
             childForm.Location = new Point(0, 0);
             panel_Body.Controls.Add(childForm);
-            panel_Body.Tag = childForm;
-            childForm.BringToFront();
             childForm.Show();
         }
 

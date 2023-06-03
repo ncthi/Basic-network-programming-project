@@ -78,6 +78,20 @@ namespace Server
             if (temp == "") return false;
             else return true;
         }
+        public bool checkUserName(string user)
+        {
+            string temp = "";
+            string stringSelect = $"SELECT* FROM dbo.account WHERE UserName='{user}'";
+            SqlCommand cm = new SqlCommand(stringSelect, sqlConnection);
+            SqlDataReader reader = cm.ExecuteReader();
+            while (reader.Read())
+            {
+                temp += reader["UserName"].ToString();
+            }
+            reader.Close();
+            if (temp == "") return false;
+            else return true;
+        }
         public bool ChangePass(string UserName, string NewPass)
         {
             try
