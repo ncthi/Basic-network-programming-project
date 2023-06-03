@@ -44,10 +44,10 @@
             textBox_username.BorderStyle = BorderStyle.None;
             textBox_username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_username.ForeColor = Color.Firebrick;
-            textBox_username.Location = new Point(271, 244);
+            textBox_username.Location = new Point(282, 244);
             textBox_username.Name = "textBox_username";
             textBox_username.ReadOnly = true;
-            textBox_username.Size = new Size(259, 23);
+            textBox_username.Size = new Size(248, 23);
             textBox_username.TabIndex = 0;
             // 
             // textBox_email
@@ -68,7 +68,7 @@
             textBox_password.BorderStyle = BorderStyle.None;
             textBox_password.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_password.ForeColor = Color.Firebrick;
-            textBox_password.Location = new Point(269, 360);
+            textBox_password.Location = new Point(269, 361);
             textBox_password.Name = "textBox_password";
             textBox_password.PasswordChar = '*';
             textBox_password.ReadOnly = true;
@@ -79,7 +79,7 @@
             // 
             checkBox_ShowPass.BackColor = Color.Transparent;
             checkBox_ShowPass.FlatStyle = FlatStyle.Flat;
-            checkBox_ShowPass.Location = new Point(502, 366);
+            checkBox_ShowPass.Location = new Point(507, 366);
             checkBox_ShowPass.Margin = new Padding(5);
             checkBox_ShowPass.Name = "checkBox_ShowPass";
             checkBox_ShowPass.Size = new Size(18, 17);
@@ -92,7 +92,7 @@
             button_signout.FlatAppearance.BorderSize = 0;
             button_signout.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
             button_signout.FlatStyle = FlatStyle.Flat;
-            button_signout.Location = new Point(298, 434);
+            button_signout.Location = new Point(298, 442);
             button_signout.Name = "button_signout";
             button_signout.Size = new Size(137, 41);
             button_signout.TabIndex = 9;
@@ -102,7 +102,7 @@
             // 
             button_changeEmail.BackColor = Color.Transparent;
             button_changeEmail.FlatAppearance.BorderSize = 0;
-            button_changeEmail.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
+            button_changeEmail.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_changeEmail.FlatStyle = FlatStyle.Flat;
             button_changeEmail.Location = new Point(549, 303);
             button_changeEmail.Name = "button_changeEmail";
@@ -114,9 +114,9 @@
             // 
             button_changePassword.BackColor = Color.Transparent;
             button_changePassword.FlatAppearance.BorderSize = 0;
-            button_changePassword.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
+            button_changePassword.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_changePassword.FlatStyle = FlatStyle.Flat;
-            button_changePassword.Location = new Point(550, 362);
+            button_changePassword.Location = new Point(551, 363);
             button_changePassword.Name = "button_changePassword";
             button_changePassword.Size = new Size(62, 21);
             button_changePassword.TabIndex = 11;

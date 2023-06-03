@@ -47,7 +47,7 @@
             panel_Left.Controls.Add(button_MyProfile);
             panel_Left.Location = new Point(0, -3);
             panel_Left.Name = "panel_Left";
-            panel_Left.Size = new Size(194, 498);
+            panel_Left.Size = new Size(205, 533);
             panel_Left.TabIndex = 0;
             panel_Left.Paint += panel_Left_Paint;
             // 
@@ -100,17 +100,16 @@
             // panel_Body
             // 
             panel_Body.BackColor = Color.Transparent;
-            panel_Body.Location = new Point(192, 0);
+            panel_Body.Location = new Point(211, 0);
             panel_Body.Name = "panel_Body";
-            panel_Body.Size = new Size(627, 495);
+            panel_Body.Size = new Size(720, 530);
             panel_Body.TabIndex = 1;
             // 
             // Form_Dashboard
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(818, 495);
+            ClientSize = new Size(931, 526);
             Controls.Add(panel_Body);
             Controls.Add(panel_Left);
             Name = "Form_Dashboard";
