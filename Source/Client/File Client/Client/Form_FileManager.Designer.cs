@@ -210,10 +210,11 @@
             // 
             // Form_FileManager
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(700, 481);
+            ClientSize = new Size(800, 526);
+
             Controls.Add(label_FileName);
             Controls.Add(button_Go);
             Controls.Add(listView_Dialog);
