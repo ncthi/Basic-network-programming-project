@@ -78,11 +78,33 @@ namespace Server
             if (temp == "") return false;
             else return true;
         }
-        public void Resetpassword(string userName)
+        public bool checkUserName(string user)
         {
-            string stringSet = $"UPDATE dbo.account SET Pass='123456' WHERE UserName='{userName}';";
-            SqlCommand cm = new SqlCommand(stringSet,sqlConnection);
-            cm.ExecuteNonQuery();
+            string temp = "";
+            string stringSelect = $"SELECT* FROM dbo.account WHERE UserName='{user}'";
+            SqlCommand cm = new SqlCommand(stringSelect, sqlConnection);
+            SqlDataReader reader = cm.ExecuteReader();
+            while (reader.Read())
+            {
+                temp += reader["UserName"].ToString();
+            }
+            reader.Close();
+            if (temp == "") return false;
+            else return true;
+        }
+        public bool ChangePass(string UserName, string NewPass)
+        {
+            try
+            {
+                string passEncode = EncodePass(NewPass);
+                string stringSet = $"UPDATE dbo.account SET Pass={passEncode} WHERE UserName={UserName}';";
+                SqlCommand cm = new SqlCommand(stringSet, sqlConnection);
+                cm.ExecuteNonQuery();
+                return true;
+            }
+            catch {
+                return false;
+            }
         }
         public List<string> ListUser()
         {

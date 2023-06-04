@@ -9,7 +9,7 @@ namespace Client
     public partial class Form_Login : Form
     {
 
-        private const string serverIpAddress = "172.20.120.105";
+        private const string serverIpAddress = "127.0.0.1";
         private const int serverPort = 8080;
         public Form_Login()
         {
@@ -66,10 +66,10 @@ namespace Client
                         if (result == "True")
                         {
                             MessageBox.Show("Login succesfully!");
-                            Form_FileManager form_FileManager = new Form_FileManager();
+                            Form_Dashboard form_Dashboard = new Form_Dashboard();
                             //ẩn forrm
                             this.Hide();
-                            form_FileManager.ShowDialog();
+                            form_Dashboard.ShowDialog();
                             this.Close();
                         }
                         else
