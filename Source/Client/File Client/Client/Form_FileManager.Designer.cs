@@ -180,33 +180,34 @@
             contextMenuStrip_Function2.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function2.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_CreateFolder, toolStripMenuItem_UploadFolder, toolStripMenuItem_UploadFile, toolStripMenuItem_Paste });
             contextMenuStrip_Function2.Name = "contextMenuStrip_Function2";
-            contextMenuStrip_Function2.Size = new Size(208, 100);
+            contextMenuStrip_Function2.Size = new Size(211, 128);
             // 
             // toolStripMenuItem_CreateFolder
             // 
             toolStripMenuItem_CreateFolder.Name = "toolStripMenuItem_CreateFolder";
-            toolStripMenuItem_CreateFolder.Size = new Size(207, 24);
+            toolStripMenuItem_CreateFolder.Size = new Size(210, 24);
             toolStripMenuItem_CreateFolder.Text = "Create New Folder";
             toolStripMenuItem_CreateFolder.Click += toolStripMenuItem_CreateFolder_Click;
             // 
             // toolStripMenuItem_UploadFolder
             // 
             toolStripMenuItem_UploadFolder.Name = "toolStripMenuItem_UploadFolder";
-            toolStripMenuItem_UploadFolder.Size = new Size(207, 24);
+            toolStripMenuItem_UploadFolder.Size = new Size(210, 24);
             toolStripMenuItem_UploadFolder.Text = "Upload New Folder";
             toolStripMenuItem_UploadFolder.Click += toolStripMenuItem_UploadFolder_Click;
             // 
             // toolStripMenuItem_UploadFile
             // 
             toolStripMenuItem_UploadFile.Name = "toolStripMenuItem_UploadFile";
-            toolStripMenuItem_UploadFile.Size = new Size(207, 24);
+            toolStripMenuItem_UploadFile.Size = new Size(210, 24);
             toolStripMenuItem_UploadFile.Text = "Upload New File";
             toolStripMenuItem_UploadFile.Click += toolStripMenuItem_UploadFile_Click;
             // 
             // toolStripMenuItem_Paste
             // 
+            toolStripMenuItem_Paste.Enabled = false;
             toolStripMenuItem_Paste.Name = "toolStripMenuItem_Paste";
-            toolStripMenuItem_Paste.Size = new Size(207, 24);
+            toolStripMenuItem_Paste.Size = new Size(210, 24);
             toolStripMenuItem_Paste.Text = "Paste";
             toolStripMenuItem_Paste.Click += toolStripMenuItem_Paste_Click;
             // 

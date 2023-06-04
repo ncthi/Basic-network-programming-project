@@ -347,6 +347,7 @@ namespace Client
                 (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
             }
             loadFilesAndDirectories(currentPath);
+            toolStripMenuItem_Paste.Enabled = true;
         }
 
         private void toolStripMenuItem_Cut_Click(object sender, EventArgs e)
@@ -369,6 +370,7 @@ namespace Client
                 ftpClient.deleteFile(currentPath + "/" + item.Text);
             }
             loadFilesAndDirectories(currentPath);
+            toolStripMenuItem_Paste.Enabled = true;
         }
 
         private void toolStripMenuItem_Delete_Click(object sender, EventArgs e)
