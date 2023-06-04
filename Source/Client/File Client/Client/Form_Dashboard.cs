@@ -49,10 +49,10 @@ namespace Client
 
         private void button_Logout_Click(object sender, EventArgs e)
         {
-            Form_Login formLogin = new Form_Login();
+            Form_Login form_Login = new Form_Login();
             this.Hide();
-            formLogin.Show();
-
+            form_Login.ShowDialog();
+            this.Close();
         }
     }
 }

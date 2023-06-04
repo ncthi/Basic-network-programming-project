@@ -21,7 +21,7 @@ namespace Client
 
         private void button_changePassword_Click(object sender, EventArgs e)
         {
-            if (textBox_NewPass.Visible && textBox_ConfirmPass.Visible && button_Save.Visible  && checkBox_ShowPass3.Visible && label_CurrentPass.Visible && label_NewPass.Visible && textBox_ConfirmPass.Visible && label_Confirm.Visible)
+            if (textBox_NewPass.Visible && textBox_ConfirmPass.Visible && button_Save.Visible && checkBox_ShowPass3.Visible && label_CurrentPass.Visible && label_NewPass.Visible && textBox_ConfirmPass.Visible && label_Confirm.Visible)
             {
                 textBox_ConfirmPass.Visible = false;
                 textBox_NewPass.Visible = false;
@@ -45,6 +45,15 @@ namespace Client
                 label_Confirm.Visible = true;
 
             }
+        }
+
+        private void button_signout_Click(object sender, EventArgs e)
+        {
+            Form_Login form_Login = new Form_Login();
+            Form_Dashboard formDashboard = (Form_Dashboard)this.ParentForm;
+            formDashboard.Hide();
+            form_Login.ShowDialog();
+            formDashboard.Close();
         }
     }
 }
