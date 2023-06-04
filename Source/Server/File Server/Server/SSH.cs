@@ -32,7 +32,7 @@ namespace Server
         public void AddUser(string UserName, string Password)
         {
             string stringCmd = $"sudo useradd -m {UserName} -p $(openssl passwd -1 {Password})";
-            MessageBox.Show(sshClient.RunCommand(stringCmd).ToString()); 
+            sshClient.RunCommand(stringCmd);
             string cmdAddFtp= $"echo \"{UserName}\" | sudo tee -a /etc/vsftpd.userlist";
             sshClient.RunCommand(cmdAddFtp);
         }

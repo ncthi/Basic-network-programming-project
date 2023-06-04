@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.IO;
+using System.Security.Cryptography;
+using RSA;
 
 namespace Server
 {
@@ -17,7 +19,7 @@ namespace Server
         public TcpListener server;
         public int port;
         public IPEndPoint iPEndPoint;
-        private static int sizeBuffer = 1024 * 32;
+        private static int sizeBuffer = 256;
         private bool checkConnect;
         private SQL_server database;
         private string ipDatabase;
@@ -30,13 +32,13 @@ namespace Server
             server = new TcpListener(iPEndPoint);
             database = new SQL_server();
             database.ConnectSqlServer();
-            sshClinet = new SSH("172.20.110.52", "caothi", "123456");
+            sshClinet = new SSH("192.168.126.150", "caothi", "123456");
         }
-        public static string receive(NetworkStream stream)
+        public static byte[] receive(NetworkStream stream)
         {
             byte[] buffer = new byte[sizeBuffer];
-            stream.Read(buffer, 0, buffer.Length);
-            return Encoding.UTF8.GetString(buffer);
+            stream.Read(buffer, 0,buffer.Length);
+            return buffer;
         }
         public static void send(string data, NetworkStream stream)
         {
@@ -66,7 +68,9 @@ namespace Server
             {
                 try
                 {
-                    string[] data = receive(stream).Split(',');
+                    byte[] dataEncryptBytes =receive(stream);
+                    string dataDecrypt=RSAKeys.DecryptData(dataEncryptBytes);
+                    string[] data = dataDecrypt.Split(',');
                     string status = data[data.Length-1].Trim('\0');
                     switch  (status){
                         case "registry":
@@ -94,9 +98,14 @@ namespace Server
         }
         private void _Resgistry(string[] data,NetworkStream stream)
         {
-            string res = database.AddUser(data[0], data[1], data[2]).ToString();
-            sshClinet.AddUser(data[0], data[1]);
-            send(res, stream);
+            bool check = database.checkUserName(data[0]);
+            if (!check)
+            {
+                string res = database.AddUser(data[0], data[1], data[2]).ToString();
+                sshClinet.AddUser(data[0], data[1]);
+                send(res, stream);
+            }
+            else send("false", stream);
         }
         private void Forget(string[] data, NetworkStream stream)
         {

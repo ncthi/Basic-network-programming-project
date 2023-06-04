@@ -58,18 +58,19 @@
             button_Back.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_Back.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Back.FlatStyle = FlatStyle.Flat;
-            button_Back.Location = new Point(26, 24);
+            button_Back.Location = new Point(33, 25);
             button_Back.Margin = new Padding(3, 2, 3, 2);
             button_Back.Name = "button_Back";
-            button_Back.Size = new Size(44, 20);
+            button_Back.Size = new Size(44, 40);
             button_Back.TabIndex = 0;
             button_Back.UseVisualStyleBackColor = false;
+            button_Back.Click += button_Back_Click;
             // 
             // textBox_Path
             // 
             textBox_Path.BackColor = Color.FromArgb(252, 194, 197);
             textBox_Path.BorderStyle = BorderStyle.None;
-            textBox_Path.Location = new Point(129, 27);
+            textBox_Path.Location = new Point(150, 36);
             textBox_Path.Margin = new Padding(3, 2, 3, 2);
             textBox_Path.Name = "textBox_Path";
             textBox_Path.Size = new Size(430, 16);
@@ -81,10 +82,10 @@
             listView_Dialog.BorderStyle = BorderStyle.None;
             listView_Dialog.GroupImageList = iconList;
             listView_Dialog.LargeImageList = iconList;
-            listView_Dialog.Location = new Point(26, 61);
+            listView_Dialog.Location = new Point(71, 93);
             listView_Dialog.Margin = new Padding(3, 2, 3, 2);
             listView_Dialog.Name = "listView_Dialog";
-            listView_Dialog.Size = new Size(584, 224);
+            listView_Dialog.Size = new Size(584, 275);
             listView_Dialog.TabIndex = 3;
             listView_Dialog.UseCompatibleStateImageBehavior = false;
             listView_Dialog.ItemSelectionChanged += listView_Dialog_ItemSelectionChanged;
@@ -115,10 +116,10 @@
             button_Go.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_Go.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Go.FlatStyle = FlatStyle.Flat;
-            button_Go.Location = new Point(576, 24);
+            button_Go.Location = new Point(662, 25);
             button_Go.Margin = new Padding(3, 2, 3, 2);
             button_Go.Name = "button_Go";
-            button_Go.Size = new Size(47, 20);
+            button_Go.Size = new Size(47, 40);
             button_Go.TabIndex = 5;
             button_Go.UseVisualStyleBackColor = false;
             // 
@@ -126,7 +127,7 @@
             // 
             label_FileName.AutoSize = true;
             label_FileName.BackColor = Color.Transparent;
-            label_FileName.Location = new Point(229, 354);
+            label_FileName.Location = new Point(270, 474);
             label_FileName.Name = "label_FileName";
             label_FileName.Size = new Size(0, 15);
             label_FileName.TabIndex = 7;
@@ -210,10 +211,9 @@
             // 
             // Form_FileManager
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(700, 481);
+            ClientSize = new Size(800, 526);
             Controls.Add(label_FileName);
             Controls.Add(button_Go);
             Controls.Add(listView_Dialog);

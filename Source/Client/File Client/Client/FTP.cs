@@ -432,6 +432,7 @@ namespace Client
         {
             try
             {
+
                 // Tạo đường dẫn đến thư mục cần xóa trên máy chủ FTP
                 string deleteFolderUrl = host + "/" + folder;
 
