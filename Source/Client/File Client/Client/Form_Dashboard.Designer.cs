@@ -84,7 +84,7 @@
             button_Filemanage.Size = new Size(148, 37);
             button_Filemanage.TabIndex = 1;
             button_Filemanage.UseVisualStyleBackColor = true;
-            button_Filemanage.Click += button1_Click;
+            button_Filemanage.Click += button_Filemanage_Click;
             // 
             // button_MyProfile
             // 
