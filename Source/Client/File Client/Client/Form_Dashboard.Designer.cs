@@ -29,26 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Dashboard));
-            this.panel_Left = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button_Filemanage = new System.Windows.Forms.Button();
-            this.button_MyProfile = new System.Windows.Forms.Button();
-            this.panel_Body = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel_Left.SuspendLayout();
-            this.SuspendLayout();
+            panel_Left = new Panel();
+            button3 = new Button();
+            button2 = new Button();
+            button_Filemanage = new Button();
+            button_MyProfile = new Button();
+            panel_Body = new FlowLayoutPanel();
+            button_Logout = new Button();
+            panel_Left.SuspendLayout();
+            SuspendLayout();
             // 
             // panel_Left
             // 
-            this.panel_Left.BackColor = System.Drawing.Color.Transparent;
-            this.panel_Left.Controls.Add(this.button3);
-            this.panel_Left.Controls.Add(this.button2);
-            this.panel_Left.Controls.Add(this.button_Filemanage);
-            this.panel_Left.Controls.Add(this.button_MyProfile);
-            this.panel_Left.Location = new System.Drawing.Point(0, -3);
-            this.panel_Left.Name = "panel_Left";
-            this.panel_Left.Size = new System.Drawing.Size(205, 533);
-            this.panel_Left.TabIndex = 0;
+            panel_Left.BackColor = Color.Transparent;
+            panel_Left.Controls.Add(button_Logout);
+            panel_Left.Controls.Add(button3);
+            panel_Left.Controls.Add(button2);
+            panel_Left.Controls.Add(button_Filemanage);
+            panel_Left.Controls.Add(button_MyProfile);
+            panel_Left.Location = new Point(0, -3);
+            panel_Left.Name = "panel_Left";
+            panel_Left.Size = new Size(205, 539);
+            panel_Left.TabIndex = 0;
             // 
             // button3
             // 
@@ -97,11 +99,24 @@
             // 
             // panel_Body
             // 
-            this.panel_Body.BackColor = System.Drawing.Color.Transparent;
-            this.panel_Body.Location = new System.Drawing.Point(203, -3);
-            this.panel_Body.Name = "panel_Body";
-            this.panel_Body.Size = new System.Drawing.Size(728, 533);
-            this.panel_Body.TabIndex = 1;
+            panel_Body.BackColor = Color.Transparent;
+            panel_Body.Location = new Point(203, -3);
+            panel_Body.Name = "panel_Body";
+            panel_Body.Size = new Size(728, 539);
+            panel_Body.TabIndex = 1;
+            // 
+            // button_Logout
+            // 
+            button_Logout.FlatAppearance.BorderSize = 0;
+            button_Logout.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Logout.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Logout.FlatStyle = FlatStyle.Flat;
+            button_Logout.Location = new Point(156, 486);
+            button_Logout.Name = "button_Logout";
+            button_Logout.Size = new Size(41, 29);
+            button_Logout.TabIndex = 4;
+            button_Logout.UseVisualStyleBackColor = true;
+            button_Logout.Click += button_Logout_Click;
             // 
             // Form_Dashboard
             // 
@@ -125,5 +140,6 @@
         private Button button_Filemanage;
         private Button button_MyProfile;
         private FlowLayoutPanel panel_Body;
+        private Button button_Logout;
     }
 }

@@ -128,13 +128,12 @@
             // 
             // label_FileName
             // 
-
-            this.label_FileName.AutoSize = true;
-            this.label_FileName.BackColor = System.Drawing.Color.Transparent;
-            this.label_FileName.Location = new System.Drawing.Point(255, 472);
-            this.label_FileName.Name = "label_FileName";
-            this.label_FileName.Size = new System.Drawing.Size(0, 20);
-            this.label_FileName.TabIndex = 7;
+            label_FileName.AutoSize = true;
+            label_FileName.BackColor = Color.Transparent;
+            label_FileName.Location = new Point(224, 474);
+            label_FileName.Name = "label_FileName";
+            label_FileName.Size = new Size(0, 20);
+            label_FileName.TabIndex = 7;
             // 
             // contextMenuStrip_Function1
             // 
