@@ -499,7 +499,6 @@ namespace Client
                 {
                     Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
                 }
-
             }
             catch (Exception ex)
             {
