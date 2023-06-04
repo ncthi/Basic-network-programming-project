@@ -6,7 +6,7 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
-
+using Org.BouncyCastle.Utilities;
 
 namespace RSA
 {
@@ -14,46 +14,26 @@ namespace RSA
     {
         public static RSACryptoServiceProvider ImportPrivateKey(RSACryptoServiceProvider csp)
         {
-            string pem = File.ReadAllText(@"\privateKey.pem");
+            //lấy đường dẫn thư mục server
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
+            //Lấy đường dẫn key
+            string keyPath = basePath + "\\key\\privateKey.pem";
+            string pem = File.ReadAllText(keyPath);
             PemReader pr = new PemReader(new StringReader(pem));
             AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
             RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);
-
             csp.ImportParameters(rsaParams);
             return csp;
         }
-        //public static RSACryptoServiceProvider ImportPublicKey(RSACryptoServiceProvider csp)
-        //{
-        //    string pem = File.ReadAllText(@"\publicKey.pem");
-        //    PemReader pr = new PemReader(new StringReader(pem));
-        //    AsymmetricKeyParameter publicKey = (AsymmetricKeyParameter)pr.ReadObject();
-        //    RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaKeyParameters)publicKey);
-
-        //    csp.ImportParameters(rsaParams);
-        //    return csp;
-        //}
-        public static string EncryptData(string data)
+        public static string DecryptData(byte[] encryptedDataBytes)
         {
             RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
-            byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-
-            // Mã hóa dữ liệu bằng khóa công khai RSA
-            byte[] encryptedDataBytes = csp.Encrypt(dataBytes, false);
-            string encryptedData = Convert.ToBase64String(encryptedDataBytes);
-
-            return encryptedData;
-        }
-
-        public static string DecryptData(string encryptedData)
-        {
-            RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
-            byte[] encryptedDataBytes = Convert.FromBase64String(encryptedData);
-
             // Giải mã dữ liệu bằng khóa bí mật RSA
+            csp = ImportPrivateKey(csp);
             byte[] decryptedDataBytes = csp.Decrypt(encryptedDataBytes, false);
-            string decryptedData = Encoding.UTF8.GetString(decryptedDataBytes);
-
-            return decryptedData;
+            string plainText = Encoding.UTF8.GetString(decryptedDataBytes);
+            return plainText;
         }
 
     }
