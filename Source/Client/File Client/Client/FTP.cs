@@ -52,7 +52,7 @@ namespace Client
         }
         public List<string> directoryListSimple(string directory)
         {
-            List <string> listDirectory = new List<string>();
+            List<string> listDirectory = new List<string>();
             try
             {
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + directory);
@@ -91,7 +91,7 @@ namespace Client
                 Console.WriteLine(ex.ToString());
                 return listDirectory;
             }
-            
+
         }
         /* List Directory Contents in Detail (Name, Size, Created, etc.) */
         public List<string> directoryListDetailed(string directory)
@@ -500,7 +500,6 @@ namespace Client
                 {
                     Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
                 }
-
             }
             catch (Exception ex)
             {
@@ -830,7 +829,7 @@ namespace Client
             // Trả về mảng chuỗi rỗng nếu xảy ra lỗi
             return new string[] { "" };
         }
-       
+
 
         //Create a new directory on FTP server
         public void createDirectory(string newDirectory)
@@ -894,7 +893,7 @@ namespace Client
         public string WorkingDirectory()
         {
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(host);
-            request.Credentials = new NetworkCredential(user,pass);
+            request.Credentials = new NetworkCredential(user, pass);
             request.Method = WebRequestMethods.Ftp.PrintWorkingDirectory;
             using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
             {
@@ -902,7 +901,6 @@ namespace Client
             }
         }
     }
-    
-}
 
+}
 

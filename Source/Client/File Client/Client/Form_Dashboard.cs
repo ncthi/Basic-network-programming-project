@@ -13,9 +13,13 @@ namespace Client
 {
     public partial class Form_Dashboard : Form
     {
-        public Form_Dashboard()
+        string user;
+        string pass;
+        public Form_Dashboard(string userName, string password)
         {
             InitializeComponent();
+            user = userName;
+            pass = password;
         }
 
         private Form currentFormChild;
@@ -26,11 +30,12 @@ namespace Client
             {
                 currentFormChild.Close();
             }
+
             currentFormChild = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            panel_Body.Controls.Clear();
+            childForm.Size = panel_Body.Size;
+            childForm.Location = new Point(0, 0);
             panel_Body.Controls.Add(childForm);
             childForm.Show();
         }
@@ -41,7 +46,7 @@ namespace Client
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Filemanage_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Form_FileManager());
         }
