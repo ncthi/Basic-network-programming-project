@@ -16,6 +16,7 @@ namespace Client
         public Form_Dashboard()
         {
             InitializeComponent();
+            OpenChildForm(new Form_FileManager());
         }
 
         private Form currentFormChild;
