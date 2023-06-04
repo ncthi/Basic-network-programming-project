@@ -64,6 +64,7 @@
             button_Back.Size = new Size(44, 20);
             button_Back.TabIndex = 0;
             button_Back.UseVisualStyleBackColor = false;
+            button_Back.Click += button_Back_Click;
             // 
             // textBox_Path
             // 
@@ -121,6 +122,7 @@
             button_Go.Size = new Size(47, 20);
             button_Go.TabIndex = 5;
             button_Go.UseVisualStyleBackColor = false;
+            button_Go.Click += button_Go_Click;
             // 
             // label_FileName
             // 

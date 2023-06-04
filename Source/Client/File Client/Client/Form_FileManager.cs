@@ -333,7 +333,7 @@ namespace Client
         {
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
-            
+
             bool isFolder = item.ImageIndex == 0;
 
             // Copy item
