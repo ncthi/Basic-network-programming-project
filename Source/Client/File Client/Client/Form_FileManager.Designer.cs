@@ -126,7 +126,7 @@
             // 
             label_FileName.AutoSize = true;
             label_FileName.BackColor = Color.Transparent;
-            label_FileName.Location = new Point(270, 474);
+            label_FileName.Location = new Point(224, 474);
             label_FileName.Name = "label_FileName";
             label_FileName.Size = new Size(0, 20);
             label_FileName.TabIndex = 7;

@@ -35,12 +35,14 @@
             button_Filemanage = new Button();
             button_MyProfile = new Button();
             panel_Body = new FlowLayoutPanel();
+            button_Logout = new Button();
             panel_Left.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Left
             // 
             panel_Left.BackColor = Color.Transparent;
+            panel_Left.Controls.Add(button_Logout);
             panel_Left.Controls.Add(button3);
             panel_Left.Controls.Add(button2);
             panel_Left.Controls.Add(button_Filemanage);
@@ -104,6 +106,19 @@
             panel_Body.Size = new Size(728, 539);
             panel_Body.TabIndex = 1;
             // 
+            // button_Logout
+            // 
+            button_Logout.FlatAppearance.BorderSize = 0;
+            button_Logout.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Logout.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Logout.FlatStyle = FlatStyle.Flat;
+            button_Logout.Location = new Point(156, 486);
+            button_Logout.Name = "button_Logout";
+            button_Logout.Size = new Size(41, 29);
+            button_Logout.TabIndex = 4;
+            button_Logout.UseVisualStyleBackColor = true;
+            button_Logout.Click += button_Logout_Click;
+            // 
             // Form_Dashboard
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -125,5 +140,6 @@
         private Button button_Filemanage;
         private Button button_MyProfile;
         private FlowLayoutPanel panel_Body;
+        private Button button_Logout;
     }
 }

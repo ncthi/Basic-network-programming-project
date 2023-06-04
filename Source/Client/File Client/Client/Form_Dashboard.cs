@@ -47,5 +47,12 @@ namespace Client
             OpenChildForm(new Form_FileManager());
         }
 
+        private void button_Logout_Click(object sender, EventArgs e)
+        {
+            Form_Login formLogin = new Form_Login();
+            this.Hide();
+            formLogin.Show();
+
+        }
     }
 }
