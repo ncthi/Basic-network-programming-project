@@ -354,18 +354,18 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
-
             bool isFolder = item.ImageIndex == 0;
 
-            // Xóa item
+            // Copy item vào MemoryStream và xóa
             if (isFolder)
             {
+                (memoryStream, filename) = ftpClient.copyFolder(currentPath + "/" + item.Text);
                 ftpClient.deleteFolder(currentPath + "/" + item.Text);
+                isDirectory = true;
             }
             else if (!isFolder)
             {
+                (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
                 ftpClient.deleteFile(currentPath + "/" + item.Text);
             }
             loadFilesAndDirectories(currentPath);
