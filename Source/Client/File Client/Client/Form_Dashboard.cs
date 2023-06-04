@@ -17,9 +17,10 @@ namespace Client
         string pass;
         public Form_Dashboard(string userName, string password)
         {
-            InitializeComponent();
             user = userName;
             pass = password;
+            InitializeComponent();
+            OpenChildForm(new Form_FileManager(user,pass));
         }
 
         private Form currentFormChild;
