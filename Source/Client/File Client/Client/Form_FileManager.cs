@@ -100,8 +100,8 @@ namespace Client
                                     item.ImageIndex = 1;
                                     listView_Dialog.Items.Add(item);
                                     break;
-                                case "xsl":
-                                case "xslx":
+                                case "xls":
+                                case "xlsx":
                                     item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
