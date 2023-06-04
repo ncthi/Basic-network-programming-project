@@ -125,7 +125,6 @@
             this.button_Go.TabIndex = 5;
             this.button_Go.UseVisualStyleBackColor = false;
             button_Go.Click += button_Go_Click;
-
             // 
             // label_FileName
             // 
