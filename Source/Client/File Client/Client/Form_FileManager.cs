@@ -32,7 +32,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://172.20.110.52/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://192.168.112.142/", "caothi", "123456");
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -99,8 +99,8 @@ namespace Client
                                     item.ImageIndex = 1;
                                     listView_Dialog.Items.Add(item);
                                     break;
-                                case "xsl":
-                                case "xslx":
+                                case "xls":
+                                case "xlsx":
                                     item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
@@ -429,5 +429,7 @@ namespace Client
             ftpClient.paste(currentPath, memoryStream, filename);
             loadFilesAndDirectories(currentPath);
         }
+
+        
     }
 }
