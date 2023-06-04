@@ -68,7 +68,7 @@ namespace Client
                         if (result == "True")
                         {
                             MessageBox.Show("Login succesfully!");
-                            Form_Dashboard form_Dashboard = new Form_Dashboard();
+                            Form_Dashboard form_Dashboard = new Form_Dashboard(username,password);
                             //ẩn forrm
                             this.Hide();
                             form_Dashboard.ShowDialog();
