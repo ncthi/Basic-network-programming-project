@@ -78,7 +78,6 @@ namespace Client
                         // Mã hóa mật khẩu bằng khóa công khai RSA
                         string data = $"{username},{password},{email},registry";
                         //string dataEncrypt = RSAKeys.EncryptData(data);
-
                         // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
                         byte[] dataBytes= RSAKeys.EncryptData(data);
                         // Gửi thông điệp Tên và Mật khẩu đến server

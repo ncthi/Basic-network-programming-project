@@ -46,10 +46,9 @@ namespace Client
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Filemanage_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form_FileManager(user,pass));
+            OpenChildForm(new Form_FileManager());
         }
-
     }
 }
