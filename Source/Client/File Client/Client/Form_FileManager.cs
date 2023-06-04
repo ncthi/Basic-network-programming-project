@@ -11,20 +11,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace Client
 {
     public partial class Form_FileManager : Form
     {
         FTP ftpClient;
+        private string user;
+        private string pass;
         private string filePath = "";
         private bool isFile = false;
+        private bool isDirectory = false;
         private string currentPath = "";
         private string filename = "";
         MemoryStream memoryStream;
 
-        public Form_FileManager()
+        public Form_FileManager(string userName,string Pasword)
         {
+            user = userName;
+            pass = Pasword;
             InitializeComponent();
             loadFilesAndDirectories("");
         }
@@ -32,7 +39,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://172.20.110.52/", "caothi", "123456");
+            ftpClient = new FTP(@"ftp://192.168.126.150/",user, pass);
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -99,8 +106,8 @@ namespace Client
                                     item.ImageIndex = 1;
                                     listView_Dialog.Items.Add(item);
                                     break;
-                                case "xsl":
-                                case "xslx":
+                                case "xls":
+                                case "xlsx":
                                     item = new ListViewItem();
                                     item.Tag = "File";
                                     item.Text = file;
@@ -235,7 +242,42 @@ namespace Client
                     currentPath += '/' + nameItem;
                     loadFilesAndDirectories(currentPath);
                 }
+                else
+                {
+                    var currentDirectory = Directory.GetCurrentDirectory();
+                    var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
+                    string localPath = basePath + "\\temp\\" + nameItem;
+                    ftpClient.downloadFile(currentPath + "/" + nameItem, localPath);
+                    Process process = new Process();
+                    process.StartInfo.FileName = localPath;
+                    process.StartInfo.UseShellExecute = true;
+                    process.StartInfo.Verb = "open";
+                    process.Start();
+                    process.EnableRaisingEvents = true;
+                    process.Exited += (sender, e) => process_Exited(sender, e, localPath);
+                    FileSystemWatcher watcher = new FileSystemWatcher();
+                    watcher.Path =basePath+"//temp"; 
+                    watcher.Filter = "*.jpg";
+                    watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.FileName;
+                    watcher.EnableRaisingEvents = true;
+                    watcher.Changed += (sender, e) => Watcher_Changed(sender,e,localPath);
+                }
             }
+        }
+
+        private void Watcher_Changed(object sender, FileSystemEventArgs e,string localPath)
+        {
+            System.IO.File.Delete(localPath);
+        }
+
+        private void Process_Disposed(object? sender, EventArgs e,string localPath)
+        {
+            System.IO.File.Delete(localPath);
+        }
+
+        private void process_Exited(object sender, EventArgs e, string localPath)
+        {
+            System.IO.File.Delete(localPath);
         }
 
         private void listView_Dialog_MouseDown(object sender, MouseEventArgs e)
@@ -333,9 +375,20 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
+            bool isFolder = item.ImageIndex == 0;
+
+            // Copy item
+            if (isFolder)
+            {
+                (memoryStream, filename) = ftpClient.copyFolder(currentPath + "/" + item.Text);
+                isDirectory = true;
+            }
+            else if (!isFolder)
+            {
+                (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
+            }
             loadFilesAndDirectories(currentPath);
+            toolStripMenuItem_Paste.Enabled = true;
         }
 
         private void toolStripMenuItem_Cut_Click(object sender, EventArgs e)
@@ -343,21 +396,22 @@ namespace Client
             // Lấy item được chọn
             ListViewItem item = listView_Dialog.SelectedItems[0];
 
-            // Sao chép item và lấy tên tệp tin
-            (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
-
             bool isFolder = item.ImageIndex == 0;
 
-            // Xóa item
+            // Copy item vào MemoryStream và xóa
             if (isFolder)
             {
+                (memoryStream, filename) = ftpClient.copyFolder(currentPath + "/" + item.Text);
                 ftpClient.deleteFolder(currentPath + "/" + item.Text);
+                isDirectory = true;
             }
             else if (!isFolder)
             {
+                (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
                 ftpClient.deleteFile(currentPath + "/" + item.Text);
             }
             loadFilesAndDirectories(currentPath);
+            toolStripMenuItem_Paste.Enabled = true;
         }
 
         private void toolStripMenuItem_Delete_Click(object sender, EventArgs e)
@@ -425,9 +479,17 @@ namespace Client
 
         private void toolStripMenuItem_Paste_Click(object sender, EventArgs e)
         {
-            // Dán file 
-            ftpClient.paste(currentPath, memoryStream, filename);
+            // Dán item
+            if (isDirectory)
+            {
+                ftpClient.pasteFolder(currentPath, memoryStream, filename);
+            }
+            else if (!isDirectory)
+            {
+                ftpClient.pasteFile(currentPath, memoryStream, filename);
+            }
             loadFilesAndDirectories(currentPath);
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Reflection.Metadata;
 using System.Security.Policy;
@@ -51,7 +52,7 @@ namespace Client
         }
         public List<string> directoryListSimple(string directory)
         {
-            List <string> listDirectory = new List<string>();
+            List<string> listDirectory = new List<string>();
             try
             {
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + directory);
@@ -90,7 +91,7 @@ namespace Client
                 Console.WriteLine(ex.ToString());
                 return listDirectory;
             }
-            
+
         }
         /* List Directory Contents in Detail (Name, Size, Created, etc.) */
         public List<string> directoryListDetailed(string directory)
@@ -499,7 +500,6 @@ namespace Client
                 {
                     Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
                 }
-
             }
             catch (Exception ex)
             {
@@ -570,8 +570,108 @@ namespace Client
             return (memoryStream, filename);
         }
 
+        // Copy Folder
+        public (MemoryStream, string) copyFolder(string remoteFolder)
+        {
+            try
+            {
+                // Tạo đường dẫn đến thư mục cần sao chép trên máy chủ FTP
+                string remoteFolderUrl = host + "/" + remoteFolder;
+
+                // Tạo yêu cầu lấy danh sách các tệp tin và thư mục trong thư mục cần sao chép
+                FtpWebRequest listRequest = (FtpWebRequest)WebRequest.Create(remoteFolderUrl);
+                listRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                listRequest.Credentials = new NetworkCredential(user, pass);
+
+                // Lấy danh sách các tệp tin và thư mục trong thư mục cần sao chép
+                List<string> lines = new List<string>();
+                using (FtpWebResponse listResponse = (FtpWebResponse)listRequest.GetResponse())
+                using (Stream responseStream = listResponse.GetResponseStream())
+                using (StreamReader reader = new StreamReader(responseStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        lines.Add(reader.ReadLine());
+                    }
+                }
+
+                // Nén tất cả các tệp tin và thư mục con trong thư mục cần sao chép vào MemoryStream
+                var memoryStream = new MemoryStream();
+                using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                {
+                    foreach (string line in lines)
+                    {
+                        string[] tokens = line.Split(new[] { ' ' }, 9, StringSplitOptions.RemoveEmptyEntries);
+                        string name = tokens[8];
+                        string permissions = tokens[0];
+                        string remoteUrl = remoteFolderUrl + "/" + name;
+
+                        if (permissions[0] == 'd')
+                        {
+                            // Đệ quy nén tất cả các thư mục con trong thư mục cần sao chép vào MemoryStream
+                            var (subMemoryStream, subDirectory) = copyFolder(remoteFolder + "/" + name);
+                            if (subMemoryStream != null)
+                            {
+                                var entryName = Path.Combine(subDirectory, name) + ".zip";
+                                var entry = archive.CreateEntry(entryName, CompressionLevel.Optimal);
+
+                                // Ghi dữ liệu từ thư mục con vào entry trong ZIP archive
+                                subMemoryStream.Position = 0;
+                                using (var entryStream = entry.Open())
+                                {
+                                    subMemoryStream.CopyTo(entryStream);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Nén tệp tin vào entry trong ZIP archive
+                            var entryName = Path.GetFileName(remoteUrl);
+                            var entry = archive.CreateEntry(entryName, CompressionLevel.Optimal);
+
+                            FtpWebRequest downloadRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
+                            downloadRequest.Credentials = new NetworkCredential(user, pass);
+                            downloadRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+
+                            using (Stream downloadStream = downloadRequest.GetResponse().GetResponseStream())
+                            using (var entryStream = entry.Open())
+                            {
+                                var buffer = new byte[32 * 1024];
+                                int read;
+                                while ((read = downloadStream.Read(buffer, 0, buffer.Length)) > 0)
+                                {
+                                    entryStream.Write(buffer, 0, read);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Trả về MemoryStream và tên thư mục gốc của nó
+                return (memoryStream, Path.GetFileName(remoteFolder));
+            }
+            catch (WebException ex)
+            {
+                FtpWebResponse response = (FtpWebResponse)ex.Response;
+                if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                {
+                    Console.WriteLine("Folder does not exist: " + remoteFolder);
+                }
+                else
+                {
+                    Console.WriteLine("Failed to copy folder: " + remoteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to copy folder: " + remoteFolder + " - " + ex.Message);
+            }
+
+            return (null, null);
+        }
+
         // Paste File
-        public void paste(string currentPath, MemoryStream memoryStream, string filename)
+        public void pasteFile(string currentPath, MemoryStream memoryStream, string filename)
         {
             FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + currentPath + "/" + filename);
             ftpRequest.Credentials = new NetworkCredential(user, pass);
@@ -587,6 +687,99 @@ namespace Client
             memoryStream.Dispose();
             ftpStream.Close();
             ftpStream.Dispose();
+        }
+
+        // Paste Folder
+        public void pasteFolder(string remoteFolder, MemoryStream zipStream, string filename)
+        {
+            try
+            {
+                // Tạo đường dẫn đến thư mục trên máy chủ FTP để giải nén tệp tin ZIP vào
+                string remoteFolderUrl = host + "/" + remoteFolder + "/" + filename;
+
+                // Tạo yêu cầu tạo thư mục trên máy chủ FTP nếu thư mục chưa tồn tại
+                FtpWebRequest createFolderRequest = (FtpWebRequest)WebRequest.Create(remoteFolderUrl);
+                createFolderRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
+                createFolderRequest.Credentials = new NetworkCredential(user, pass);
+
+                try
+                {
+                    using (FtpWebResponse createFolderResponse = (FtpWebResponse)createFolderRequest.GetResponse())
+                    {
+                        // Thư mục đã được tạo thành công
+                    }
+                }
+                catch (WebException ex)
+                {
+                    // Thư mục đã tồn tại trên máy chủ FTP
+                    FtpWebResponse response = (FtpWebResponse)ex.Response;
+                    if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
+                    {
+                        Console.WriteLine("Failed to create directory: " + remoteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
+                        return;
+                    }
+                }
+
+                // Giải nén tệp tin ZIP vào thư mục trên máy chủ FTP
+                using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Read))
+                {
+                    foreach (var entry in archive.Entries)
+                    {
+                        // Tạo đường dẫn đến entry trong ZIP archive trên máy chủ FTP
+                        string remoteUrl = remoteFolderUrl + "/" + entry.FullName;
+
+                        // Nếu entry là thư mục, tạo thư mục trên máy chủ FTP
+                        if (entry.FullName.EndsWith("/") || entry.FullName.EndsWith("\\"))
+                        {
+                            FtpWebRequest createSubFolderRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
+                            createSubFolderRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
+                            createSubFolderRequest.Credentials = new NetworkCredential(user, pass);
+
+                            try
+                            {
+                                using (FtpWebResponse createSubFolderResponse = (FtpWebResponse)createSubFolderRequest.GetResponse())
+                                {
+                                    // Thư mục đã được tạo thành công
+                                }
+                            }
+                            catch (WebException ex)
+                            {
+                                // Thư mục đã tồn tại trên máy chủ FTP
+                                FtpWebResponse response = (FtpWebResponse)ex.Response;
+                                if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
+                                {
+                                    Console.WriteLine("Failed to create directory: " + remoteUrl + " - " + response.StatusCode + " - " + response.StatusDescription);
+                                    return;
+                                }
+                            }
+                        }
+                        // Nếu entry là tệp tin, tải tệp tin lên máy chủ FTP
+                        else
+                        {
+                            FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
+                            uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                            uploadRequest.Credentials = new NetworkCredential(user, pass);
+
+                            using (Stream uploadStream = uploadRequest.GetRequestStream())
+                            using (Stream entryStream = entry.Open())
+                            {
+                                var buffer = new byte[32 * 1024];
+                                int read;
+                                while ((read = entryStream.Read(buffer, 0, buffer.Length)) > 0)
+                                {
+                                    uploadStream.Write(buffer, 0, read);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Console.WriteLine("Paste operation completed successfully.");
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine("Failed to paste from ZIP: " + ex.Message);
+            }
         }
 
         //Browse all files that have been stored in FTP server
@@ -636,7 +829,7 @@ namespace Client
             // Trả về mảng chuỗi rỗng nếu xảy ra lỗi
             return new string[] { "" };
         }
-       
+
 
         //Create a new directory on FTP server
         public void createDirectory(string newDirectory)
@@ -700,7 +893,7 @@ namespace Client
         public string WorkingDirectory()
         {
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(host);
-            request.Credentials = new NetworkCredential(user,pass);
+            request.Credentials = new NetworkCredential(user, pass);
             request.Method = WebRequestMethods.Ftp.PrintWorkingDirectory;
             using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
             {
@@ -708,7 +901,6 @@ namespace Client
             }
         }
     }
-    
-}
 
+}
 
