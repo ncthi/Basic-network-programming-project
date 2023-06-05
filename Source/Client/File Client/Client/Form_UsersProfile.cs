@@ -21,27 +21,39 @@ namespace Client
 
         private void button_changePassword_Click(object sender, EventArgs e)
         {
-            if (textBox_CurrentPass.Visible && textBox_NewPass.Visible && button_Save.Visible && checkBox_ShowPass2.Visible && checkBox_ShowPass3.Visible && label_CurrentPass.Visible && label_NewPass.Visible)
+            if (textBox_NewPass.Visible && textBox_ConfirmPass.Visible && button_Save.Visible && checkBox_ShowPass3.Visible && label_CurrentPass.Visible && label_NewPass.Visible && textBox_ConfirmPass.Visible && label_Confirm.Visible)
             {
+                textBox_ConfirmPass.Visible = false;
                 textBox_NewPass.Visible = false;
-                textBox_CurrentPass.Visible = false;
                 button_Save.Visible = false;
-                checkBox_ShowPass2.Visible = false;
                 checkBox_ShowPass3.Visible = false;
                 label_CurrentPass.Visible = false;
                 label_NewPass.Visible = false;
+                textBox_ConfirmPass.Visible = false;
+                label_Confirm.Visible = false;
 
             }
             else
             {   // Hiển thị TextBox nếu nó đang ẩn
+                textBox_ConfirmPass.Visible = true;
                 textBox_NewPass.Visible = true;
-                textBox_CurrentPass.Visible = true;
                 button_Save.Visible = true;
-                checkBox_ShowPass2.Visible = true;
                 checkBox_ShowPass3.Visible = true;
                 label_CurrentPass.Visible = true;
                 label_NewPass.Visible = true;
+                textBox_ConfirmPass.Visible = true;
+                label_Confirm.Visible = true;
+
             }
+        }
+
+        private void button_signout_Click(object sender, EventArgs e)
+        {
+            Form_Login form_Login = new Form_Login();
+            Form_Dashboard formDashboard = (Form_Dashboard)this.ParentForm;
+            formDashboard.Hide();
+            form_Login.ShowDialog();
+            formDashboard.Close();
         }
     }
 }

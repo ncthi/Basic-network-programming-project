@@ -24,16 +24,6 @@ namespace Client
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form_CreateAccount_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private async void button_CreateAcc_Click(object sender, EventArgs e)
         {
             string username = textBox_CreateUser.Text;
