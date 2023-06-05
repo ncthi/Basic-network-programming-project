@@ -732,28 +732,6 @@ namespace Client
                         // Nếu entry là thư mục, tạo thư mục trên máy chủ FTP và tiếp tục đệ quy để tải lên các tệp tin và thư mục con của nó
                         if (entry.FullName.EndsWith(".zip"))
                         {
-                            //FtpWebRequest createSubFolderRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
-                            //createSubFolderRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
-                            //createSubFolderRequest.Credentials = new NetworkCredential(user, pass);
-
-                            //try
-                            //{
-                            //    using (FtpWebResponse createSubFolderResponse = (FtpWebResponse)createSubFolderRequest.GetResponse())
-                            //    {
-                            //        // Thư mục đã được tạo thành công
-                            //    }
-                            //}
-                            //catch (WebException ex)
-                            //{
-                            //    // Thư mục đã tồn tại trên máy chủ FTP
-                            //    FtpWebResponse response = (FtpWebResponse)ex.Response;
-                            //    if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
-                            //    {
-                            //        Console.WriteLine("Failed to create directory: " + remoteUrl + " - " + response.StatusCode + " - " + response.StatusDescription);
-                            //        return;
-                            //    }
-                            //}
-
                             // Tiếp tục đệ quy để tải lên các tệp tin và thư mục con của thư mục này
                             using (MemoryStream entryStream = new MemoryStream())
                             {
