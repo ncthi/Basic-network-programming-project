@@ -110,9 +110,14 @@ namespace Server
         private void Forget(string[] data, NetworkStream stream)
         {
             string passRandom = Email.GenerateRandomPassword();
-            Email email = new Email();
-            email.SendPasswordResetEmail(data[3], data[0], passRandom);
-            database.ChangePass(data[0], passRandom);
+            string email=database.getEmail(data[0]);
+            if (email == "") {
+                send("false", stream);
+                return;
+            }
+            Email SMTP= new Email();
+            SMTP.SendPasswordResetEmail(email, data[0], passRandom);
+            send(database.ChangePass(data[0], passRandom).ToString(),stream);
             sshClinet.ChangePassword(data[0],passRandom);
         }
         private void Login(string[] data, NetworkStream stream)
