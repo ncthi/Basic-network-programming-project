@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics;
 using Microsoft.Win32;
+using System.Globalization;
 
 namespace Client
 {
@@ -39,7 +40,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.91.141/", user, pass);
+            ftpClient = new FTP(@"ftp://192.168.126.150/", user, pass);
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -244,9 +245,10 @@ namespace Client
                 }
                 else
                 {
-                    var currentDirectory = Directory.GetCurrentDirectory();
-                    var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
+                    var directoryBin = Directory.GetCurrentDirectory();
+                    var basePath = directoryBin.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
                     string localPath = basePath + "\\temp\\" + nameItem;
+                    string extension = nameItem.Split('.')[nameItem.Split('.').Length - 1];
                     ftpClient.downloadFile(currentPath + "/" + nameItem, localPath);
                     Process process = new Process();
                     process.StartInfo.FileName = localPath;
@@ -255,29 +257,27 @@ namespace Client
                     process.Start();
                     process.EnableRaisingEvents = true;
                     process.Exited += (sender, e) => process_Exited(sender, e, localPath);
-                    FileSystemWatcher watcher = new FileSystemWatcher();
-                    watcher.Path = basePath + "//temp";
-                    watcher.Filter = "*.jpg";
-                    watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.FileName;
-                    watcher.EnableRaisingEvents = true;
-                    watcher.Changed += (sender, e) => Watcher_Changed(sender, e, localPath);
                 }
             }
         }
-
-        private void Watcher_Changed(object sender, FileSystemEventArgs e, string localPath)
-        {
-            System.IO.File.Delete(localPath);
-        }
-
-        private void Process_Disposed(object? sender, EventArgs e, string localPath)
-        {
-            System.IO.File.Delete(localPath);
-        }
-
         private void process_Exited(object sender, EventArgs e, string localPath)
         {
             System.IO.File.Delete(localPath);
+        }
+        private void deleteDiritoryTemp()
+        {
+            var directoryBin = Directory.GetCurrentDirectory();
+            var basePath = directoryBin.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
+            string tempPath = basePath + "\\temp\\";
+            string[] files = Directory.GetFiles(tempPath);
+            foreach (string file in files)
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch { }
+            }
         }
 
         private void listView_Dialog_MouseDown(object sender, MouseEventArgs e)
@@ -489,6 +489,11 @@ namespace Client
                 ftpClient.pasteFile(currentPath, memoryStream, filename);
             }
             loadFilesAndDirectories(currentPath);
+        }
+
+        private void Form_FileManager_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            deleteDiritoryTemp();
         }
     }
 }

@@ -77,7 +77,7 @@ namespace Server
         {
             string body = File.ReadAllText(htmlBodyPath);
             body = body.Replace("{newPassword}", newPassword);
-            body = body.Replace("{name}", name);
+            body = body.Replace("{userName}", name);
             return body;
         }
         private string GetAuthenticationCodeEmailBody(string htmlBodyPath, string name, string code)
