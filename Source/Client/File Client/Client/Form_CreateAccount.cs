@@ -29,7 +29,7 @@ namespace Client
             string username = textBox_CreateUser.Text;
             string password = textBox_CreatePass.Text;
             string confirmPassword = textBox_ConfirmPass.Text;
-            string email=textBox_Email.Text;
+            string email = textBox_Email.Text;
 
             //Kiểm tra thông tin nhập vào 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
@@ -67,11 +67,10 @@ namespace Client
 
                         // Mã hóa mật khẩu bằng khóa công khai RSA
                         string data = $"{username},{password},{email},registry";
-                        //string dataEncrypt = RSAKeys.EncryptData(data);
                         // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
-                        byte[] dataBytes= RSAKeys.EncryptData(data);
+                        byte[] dataBytes = RSAKeys.EncryptData(data);
                         // Gửi thông điệp Tên và Mật khẩu đến server
-                        stream.Write(dataBytes,0, dataBytes.Length);
+                        stream.Write(dataBytes, 0, dataBytes.Length);
 
                         // Nhận kết quả từ server, đã đăng nhập thành công hay chưa 
                         byte[] buffer = new byte[1024];
@@ -117,6 +116,6 @@ namespace Client
                 textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
         }
-       
+
     }
 }

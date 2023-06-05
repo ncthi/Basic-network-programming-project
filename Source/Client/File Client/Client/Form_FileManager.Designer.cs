@@ -73,7 +73,7 @@
             textBox_Path.Location = new Point(150, 36);
             textBox_Path.Margin = new Padding(3, 2, 3, 2);
             textBox_Path.Name = "textBox_Path";
-            textBox_Path.Size = new Size(430, 20);
+            textBox_Path.Size = new Size(430, 16);
             textBox_Path.TabIndex = 2;
             // 
             // listView_Dialog
@@ -128,9 +128,10 @@
             // 
             label_FileName.AutoSize = true;
             label_FileName.BackColor = Color.Transparent;
-            label_FileName.Location = new Point(255, 472);
+            label_FileName.Location = new Point(224, 474);
             label_FileName.Name = "label_FileName";
-            label_FileName.Size = new Size(0, 20);
+            label_FileName.Size = new Size(0, 15);
+
             label_FileName.TabIndex = 7;
             // 
             // contextMenuStrip_Function1
@@ -143,35 +144,35 @@
             // toolStripMenuItem_Download
             // 
             toolStripMenuItem_Download.Name = "toolStripMenuItem_Download";
-            toolStripMenuItem_Download.Size = new Size(147, 24);
+            toolStripMenuItem_Download.Size = new Size(128, 22);
             toolStripMenuItem_Download.Text = "Download";
             toolStripMenuItem_Download.Click += toolStripMenuItem_Download_Click;
             // 
             // toolStripMenuItem_Rename
             // 
             toolStripMenuItem_Rename.Name = "toolStripMenuItem_Rename";
-            toolStripMenuItem_Rename.Size = new Size(147, 24);
+            toolStripMenuItem_Rename.Size = new Size(128, 22);
             toolStripMenuItem_Rename.Text = "Rename";
             toolStripMenuItem_Rename.Click += toolStripMenuItem_Rename_Click;
             // 
             // toolStripMenuItem_Copy
             // 
             toolStripMenuItem_Copy.Name = "toolStripMenuItem_Copy";
-            toolStripMenuItem_Copy.Size = new Size(147, 24);
+            toolStripMenuItem_Copy.Size = new Size(128, 22);
             toolStripMenuItem_Copy.Text = "Copy";
             toolStripMenuItem_Copy.Click += toolStripMenuItem_Copy_Click;
             // 
             // toolStripMenuItem_Cut
             // 
             toolStripMenuItem_Cut.Name = "toolStripMenuItem_Cut";
-            toolStripMenuItem_Cut.Size = new Size(147, 24);
+            toolStripMenuItem_Cut.Size = new Size(128, 22);
             toolStripMenuItem_Cut.Text = "Cut";
             toolStripMenuItem_Cut.Click += toolStripMenuItem_Cut_Click;
             // 
             // toolStripMenuItem_Delete
             // 
             toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
-            toolStripMenuItem_Delete.Size = new Size(147, 24);
+            toolStripMenuItem_Delete.Size = new Size(128, 22);
             toolStripMenuItem_Delete.Text = "Delete";
             toolStripMenuItem_Delete.Click += toolStripMenuItem_Delete_Click;
             // 
@@ -185,14 +186,14 @@
             // toolStripMenuItem_CreateFolder
             // 
             toolStripMenuItem_CreateFolder.Name = "toolStripMenuItem_CreateFolder";
-            toolStripMenuItem_CreateFolder.Size = new Size(210, 24);
+            toolStripMenuItem_CreateFolder.Size = new Size(175, 22);
             toolStripMenuItem_CreateFolder.Text = "Create New Folder";
             toolStripMenuItem_CreateFolder.Click += toolStripMenuItem_CreateFolder_Click;
             // 
             // toolStripMenuItem_UploadFolder
             // 
             toolStripMenuItem_UploadFolder.Name = "toolStripMenuItem_UploadFolder";
-            toolStripMenuItem_UploadFolder.Size = new Size(210, 24);
+            toolStripMenuItem_UploadFolder.Size = new Size(175, 22);
             toolStripMenuItem_UploadFolder.Text = "Upload New Folder";
             toolStripMenuItem_UploadFolder.Click += toolStripMenuItem_UploadFolder_Click;
             // 
@@ -205,9 +206,8 @@
             // 
             // toolStripMenuItem_Paste
             // 
-            toolStripMenuItem_Paste.Enabled = false;
             toolStripMenuItem_Paste.Name = "toolStripMenuItem_Paste";
-            toolStripMenuItem_Paste.Size = new Size(210, 24);
+            toolStripMenuItem_Paste.Size = new Size(175, 22);
             toolStripMenuItem_Paste.Text = "Paste";
             toolStripMenuItem_Paste.Click += toolStripMenuItem_Paste_Click;
             // 
@@ -224,6 +224,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "Form_FileManager";
             Text = "Form_FileManager";
+            FormClosed += Form_FileManager_FormClosed;
             contextMenuStrip_Function1.ResumeLayout(false);
             contextMenuStrip_Function2.ResumeLayout(false);
             ResumeLayout(false);
