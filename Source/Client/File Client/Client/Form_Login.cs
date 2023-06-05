@@ -24,20 +24,6 @@ namespace Client
             f1.Show();
         }
 
-        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox_ShowPass.Checked)
-            {
-                textBox_Password.UseSystemPasswordChar = false;
-
-            }
-            else
-            {
-                textBox_Password.UseSystemPasswordChar = true;
-
-            }
-        }
-
         private void button_Login_Click(object sender, EventArgs e)
         {
             string username = textBox_Username.Text;
@@ -68,7 +54,7 @@ namespace Client
                         if (result == "True")
                         {
                             MessageBox.Show("Login succesfully!");
-                            Form_Dashboard form_Dashboard = new Form_Dashboard(username,password);
+                            Form_Dashboard form_Dashboard = new Form_Dashboard(username, password);
                             //ẩn forrm
                             this.Hide();
                             form_Dashboard.ShowDialog();
@@ -87,6 +73,18 @@ namespace Client
             }
         }
 
-        
+        private void checkBox_ShowPass_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox_ShowPass.Checked)
+            {
+                textBox_Password.UseSystemPasswordChar = false;
+
+            }
+            else
+            {
+                textBox_Password.UseSystemPasswordChar = true;
+
+            }
+        }
     }
 }
