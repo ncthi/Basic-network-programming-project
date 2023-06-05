@@ -465,7 +465,7 @@ namespace Client
                     if (permissions[0] == 'd')
                     {
                         // Đệ quy xóa tất cả các thư mục con trong thư mục cần xóa
-                        deleteFolder(deleteFolder + "/" + name);
+                        deleteFolder(folder + "/" + name);
                     }
                     else
                     {
@@ -494,16 +494,16 @@ namespace Client
                 FtpWebResponse response = (FtpWebResponse)ex.Response;
                 if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
                 {
-                    Console.WriteLine("Folder does not exist: " + deleteFolder);
+                    Console.WriteLine("Folder does not exist: " + folder);
                 }
                 else
                 {
-                    Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + response.StatusCode + " - " + response.StatusDescription);
+                    Console.WriteLine("Failed to delete folder: " + folder + " - " + response.StatusCode + " - " + response.StatusDescription);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Failed to delete folder: " + deleteFolder + " - " + ex.Message);
+                Console.WriteLine("Failed to delete folder: " + folder + " - " + ex.Message);
             }
         }
 
@@ -695,7 +695,8 @@ namespace Client
             try
             {
                 // Tạo đường dẫn đến thư mục trên máy chủ FTP để giải nén tệp tin ZIP vào
-                string remoteFolderUrl = host + "/" + remoteFolder + "/" + filename;
+                string zipFileName = Path.GetFileNameWithoutExtension(filename);
+                string remoteFolderUrl = host + "/" + remoteFolder + "/" + zipFileName;
 
                 // Tạo yêu cầu tạo thư mục trên máy chủ FTP nếu thư mục chưa tồn tại
                 FtpWebRequest createFolderRequest = (FtpWebRequest)WebRequest.Create(remoteFolderUrl);
@@ -726,31 +727,38 @@ namespace Client
                     foreach (var entry in archive.Entries)
                     {
                         // Tạo đường dẫn đến entry trong ZIP archive trên máy chủ FTP
-                        string remoteUrl = remoteFolderUrl + "/" + entry.FullName;
+                        string remoteUrl = remoteFolderUrl + "/" + entry.Name;
 
-                        // Nếu entry là thư mục, tạo thư mục trên máy chủ FTP
-                        if (entry.FullName.EndsWith("/") || entry.FullName.EndsWith("\\"))
+                        // Nếu entry là thư mục, tạo thư mục trên máy chủ FTP và tiếp tục đệ quy để tải lên các tệp tin và thư mục con của nó
+                        if (entry.FullName.EndsWith(".zip"))
                         {
-                            FtpWebRequest createSubFolderRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
-                            createSubFolderRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
-                            createSubFolderRequest.Credentials = new NetworkCredential(user, pass);
+                            //FtpWebRequest createSubFolderRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
+                            //createSubFolderRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
+                            //createSubFolderRequest.Credentials = new NetworkCredential(user, pass);
 
-                            try
+                            //try
+                            //{
+                            //    using (FtpWebResponse createSubFolderResponse = (FtpWebResponse)createSubFolderRequest.GetResponse())
+                            //    {
+                            //        // Thư mục đã được tạo thành công
+                            //    }
+                            //}
+                            //catch (WebException ex)
+                            //{
+                            //    // Thư mục đã tồn tại trên máy chủ FTP
+                            //    FtpWebResponse response = (FtpWebResponse)ex.Response;
+                            //    if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
+                            //    {
+                            //        Console.WriteLine("Failed to create directory: " + remoteUrl + " - " + response.StatusCode + " - " + response.StatusDescription);
+                            //        return;
+                            //    }
+                            //}
+
+                            // Tiếp tục đệ quy để tải lên các tệp tin và thư mục con của thư mục này
+                            using (MemoryStream entryStream = new MemoryStream())
                             {
-                                using (FtpWebResponse createSubFolderResponse = (FtpWebResponse)createSubFolderRequest.GetResponse())
-                                {
-                                    // Thư mục đã được tạo thành công
-                                }
-                            }
-                            catch (WebException ex)
-                            {
-                                // Thư mục đã tồn tại trên máy chủ FTP
-                                FtpWebResponse response = (FtpWebResponse)ex.Response;
-                                if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
-                                {
-                                    Console.WriteLine("Failed to create directory: " + remoteUrl + " - " + response.StatusCode + " - " + response.StatusDescription);
-                                    return;
-                                }
+                                entry.Open().CopyTo(entryStream);
+                                pasteFolder(remoteFolder + "/" + filename, entryStream, entry.Name);
                             }
                         }
                         // Nếu entry là tệp tin, tải tệp tin lên máy chủ FTP
@@ -781,6 +789,7 @@ namespace Client
                 Console.WriteLine("Failed to paste from ZIP: " + ex.Message);
             }
         }
+
 
         //Browse all files that have been stored in FTP server
         public string[] browseFile(string directory)

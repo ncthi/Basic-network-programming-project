@@ -28,7 +28,7 @@ namespace Client
         private string filename = "";
         MemoryStream memoryStream;
 
-        public Form_FileManager(string userName,string Pasword)
+        public Form_FileManager(string userName, string Pasword)
         {
             user = userName;
             pass = Pasword;
@@ -39,7 +39,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.126.150/",user, pass);
+            ftpClient = new FTP(@"ftp://192.168.91.141/", user, pass);
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -256,21 +256,21 @@ namespace Client
                     process.EnableRaisingEvents = true;
                     process.Exited += (sender, e) => process_Exited(sender, e, localPath);
                     FileSystemWatcher watcher = new FileSystemWatcher();
-                    watcher.Path =basePath+"//temp"; 
+                    watcher.Path = basePath + "//temp";
                     watcher.Filter = "*.jpg";
                     watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.FileName;
                     watcher.EnableRaisingEvents = true;
-                    watcher.Changed += (sender, e) => Watcher_Changed(sender,e,localPath);
+                    watcher.Changed += (sender, e) => Watcher_Changed(sender, e, localPath);
                 }
             }
         }
 
-        private void Watcher_Changed(object sender, FileSystemEventArgs e,string localPath)
+        private void Watcher_Changed(object sender, FileSystemEventArgs e, string localPath)
         {
             System.IO.File.Delete(localPath);
         }
 
-        private void Process_Disposed(object? sender, EventArgs e,string localPath)
+        private void Process_Disposed(object? sender, EventArgs e, string localPath)
         {
             System.IO.File.Delete(localPath);
         }
@@ -490,6 +490,5 @@ namespace Client
             }
             loadFilesAndDirectories(currentPath);
         }
-
     }
 }
