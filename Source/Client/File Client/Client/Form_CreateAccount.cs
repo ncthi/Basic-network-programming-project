@@ -24,16 +24,6 @@ namespace Client
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form_CreateAccount_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private async void button_CreateAcc_Click(object sender, EventArgs e)
         {
             string username = textBox_CreateUser.Text;
@@ -74,20 +64,14 @@ namespace Client
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        // Đọc khóa công khai từ file và nhập vào đối tượng RSA
-                        RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
-                        RSAKeys.ImportPublicKey(csp);
 
                         // Mã hóa mật khẩu bằng khóa công khai RSA
-                        byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                        byte[] encryptedPassword = RSAKeys.EncryptData(csp, passwordBytes);
-
+                        string data = $"{username},{password},{email},registry";
+                        //string dataEncrypt = RSAKeys.EncryptData(data);
                         // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
-                        string message = $"{username},{Convert.ToBase64String(encryptedPassword)},{email},registry";
-                        byte[] info = Encoding.ASCII.GetBytes(message);
-
+                        byte[] dataBytes= RSAKeys.EncryptData(data);
                         // Gửi thông điệp Tên và Mật khẩu đến server
-                        stream.Write(info, 0, info.Length);
+                        stream.Write(dataBytes,0, dataBytes.Length);
 
                         // Nhận kết quả từ server, đã đăng nhập thành công hay chưa 
                         byte[] buffer = new byte[1024];

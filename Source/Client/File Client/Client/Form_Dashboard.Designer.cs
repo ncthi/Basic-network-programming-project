@@ -54,49 +54,48 @@
             // 
             // button3
             // 
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(31, 297);
-            button3.Name = "button3";
-            button3.Size = new Size(140, 37);
-            button3.TabIndex = 3;
-            button3.UseVisualStyleBackColor = true;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(31, 297);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(140, 37);
+            this.button3.TabIndex = 3;
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(26, 242);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 37);
-            button2.TabIndex = 2;
-            button2.UseVisualStyleBackColor = true;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(31, 236);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(145, 37);
+            this.button2.TabIndex = 2;
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // button_Filemanage
             // 
-            button_Filemanage.FlatAppearance.BorderSize = 0;
-            button_Filemanage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_Filemanage.FlatStyle = FlatStyle.Flat;
-            button_Filemanage.Location = new Point(23, 176);
-            button_Filemanage.Name = "button_Filemanage";
-            button_Filemanage.Size = new Size(148, 37);
-            button_Filemanage.TabIndex = 1;
-            button_Filemanage.UseVisualStyleBackColor = true;
-            button_Filemanage.Click += button_Filemanage_Click;
+            this.button_Filemanage.FlatAppearance.BorderSize = 0;
+            this.button_Filemanage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button_Filemanage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Filemanage.Location = new System.Drawing.Point(31, 176);
+            this.button_Filemanage.Name = "button_Filemanage";
+            this.button_Filemanage.Size = new System.Drawing.Size(145, 37);
+            this.button_Filemanage.TabIndex = 1;
+            this.button_Filemanage.UseVisualStyleBackColor = true;
+            this.button_Filemanage.Click += new System.EventHandler(this.button_Filemanage_Click);
             // 
             // button_MyProfile
             // 
-            button_MyProfile.FlatAppearance.BorderSize = 0;
-            button_MyProfile.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_MyProfile.FlatStyle = FlatStyle.Flat;
-            button_MyProfile.Location = new Point(29, 120);
-            button_MyProfile.Name = "button_MyProfile";
-            button_MyProfile.Size = new Size(137, 38);
-            button_MyProfile.TabIndex = 0;
-            button_MyProfile.UseVisualStyleBackColor = true;
-            button_MyProfile.Click += button_MyProfile_Click;
+            this.button_MyProfile.FlatAppearance.BorderSize = 0;
+            this.button_MyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button_MyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_MyProfile.Location = new System.Drawing.Point(31, 120);
+            this.button_MyProfile.Name = "button_MyProfile";
+            this.button_MyProfile.Size = new System.Drawing.Size(140, 38);
+            this.button_MyProfile.TabIndex = 0;
+            this.button_MyProfile.UseVisualStyleBackColor = true;
             // 
             // panel_Body
             // 
@@ -121,15 +120,16 @@
             // 
             // Form_Dashboard
             // 
-            AutoScaleMode = AutoScaleMode.None;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(933, 534);
-            Controls.Add(panel_Body);
-            Controls.Add(panel_Left);
-            Name = "Form_Dashboard";
-            Text = "Form_Dashboard";
-            panel_Left.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(933, 528);
+            this.Controls.Add(this.panel_Body);
+            this.Controls.Add(this.panel_Left);
+            this.Name = "Form_Dashboard";
+            this.Text = "Form_Dashboard";
+            this.panel_Left.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

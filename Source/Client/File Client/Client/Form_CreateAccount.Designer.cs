@@ -47,7 +47,6 @@
             textBox_CreateUser.Name = "textBox_CreateUser";
             textBox_CreateUser.Size = new Size(251, 23);
             textBox_CreateUser.TabIndex = 0;
-            textBox_CreateUser.TextChanged += textBox1_TextChanged;
             // 
             // textBox_Email
             // 

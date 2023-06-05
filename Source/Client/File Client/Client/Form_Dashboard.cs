@@ -47,8 +47,8 @@ namespace Client
         }
 
         private void button_Filemanage_Click(object sender, EventArgs e)
-        {   
-            OpenChildForm(new Form_FileManager());
+        {
+            OpenChildForm(new Form_FileManager(user,pass));
         }
         private void button_Logout_Click(object sender, EventArgs e)
         {
