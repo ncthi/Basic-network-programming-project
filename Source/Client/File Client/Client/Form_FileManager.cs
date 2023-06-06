@@ -40,7 +40,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.91.141/", user, pass);
+            ftpClient = new FTP(@"ftp://192.168.137.27/", user, pass);
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -336,12 +336,17 @@ namespace Client
         {
             Form prompt = new Form();
             prompt.Width = 500;
-            prompt.Height = 170;
+            prompt.Height = 180;
             prompt.Text = title;
+            prompt.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFEFEF");
             Label textLabel = new Label() { Left = 50, Top = 20, Text = promptText };
             textLabel.AutoSize = true;
             System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 50, Width = 400, Text = defaultValue };
-            System.Windows.Forms.Button confirmation = new System.Windows.Forms.Button() { Text = "OK", Left = 350, Width = 100, Height = 30, Top = 80 };
+            System.Windows.Forms.Button confirmation = new System.Windows.Forms.Button() { Text = "OK", Left = 350, Width = 100, Height = 30, Top = 90 };
+            confirmation.BackColor = System.Drawing.ColorTranslator.FromHtml("#FD7660");
+            confirmation.ForeColor = Color.White;
+            confirmation.FlatStyle = FlatStyle.Flat;
+            confirmation.Font = new Font(confirmation.Font, FontStyle.Bold);
             confirmation.Click += (sender, e) => { prompt.Close(); };
             prompt.Controls.Add(textBox);
             prompt.Controls.Add(confirmation);
@@ -386,6 +391,7 @@ namespace Client
             else if (!isFolder)
             {
                 (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
+                isDirectory = false;
             }
             loadFilesAndDirectories(currentPath);
             toolStripMenuItem_Paste.Enabled = true;
@@ -409,6 +415,7 @@ namespace Client
             {
                 (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
                 ftpClient.deleteFile(currentPath + "/" + item.Text);
+                isDirectory = false;
             }
             loadFilesAndDirectories(currentPath);
             toolStripMenuItem_Paste.Enabled = true;
@@ -435,12 +442,27 @@ namespace Client
 
         private void toolStripMenuItem_CreateFolder_Click(object sender, EventArgs e)
         {
-            string newName = ShowInputDialog("Rename", "Enter new name for: ", "");
+            string newName = ShowInputDialog("New folder", "Enter new name for this folder: ", "");
+
             if (newName != null)
             {
                 ftpClient.createDirectory(currentPath + "/" + newName);
                 loadFilesAndDirectories(currentPath);
             }
+        }
+
+        private void ToolStripMenuItem_Properties_Click(object sender, EventArgs e)
+        {
+            // Lấy item được chọn
+            ListViewItem item = listView_Dialog.SelectedItems[0];
+
+            // Lấy thông tin file
+            string Size = ftpClient.getSize(currentPath + "/" + item.Text);
+            string DateTime = ftpClient.getDateTime(currentPath + "/" + item.Text);
+
+            // Hiển thị thông tin về file
+            string message = $"Name: {item.Text}\nSize: {Size} bytes\nDateTime: {DateTime}";
+            MessageBox.Show(message, "Properties", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
