@@ -117,11 +117,28 @@ namespace Client
             }
         }
 
+
         private void button_Home_Click(object sender, EventArgs e)
         {
             Form_Login form_Login = new Form_Login();
             this.Close();
             form_Login.Show();
+        }
+
+        private void button_Verify_Click(object sender, EventArgs e)
+        {
+            if (textBox_VerCode.Visible && label_EnterCode.Visible && button_CreateAcc.Visible)
+            {
+                textBox_ConfirmPass.Visible = false;
+                label_EnterCode.Visible = false;
+                button_CreateAcc.Visible = false;
+            }
+            else
+            {
+                textBox_VerCode.Visible = true;
+                label_EnterCode.Visible = true;
+                button_CreateAcc.Visible = true;
+            }
         }
     }
 }

@@ -79,7 +79,7 @@ namespace Client
             string username = textBox_Username.Text;
             if (username == "")
             {
-                MessageBox.Show("Plase, enter user name");
+                MessageBox.Show("Please, enter user name");
                 return;
             }
             try
@@ -112,6 +112,18 @@ namespace Client
             catch (Exception ex)
             {
                 MessageBox.Show($"Error get new password: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_ShowPass.Checked)
+            {
+                textBox_Password.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                textBox_Password.UseSystemPasswordChar = true;
             }
         }
     }
