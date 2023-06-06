@@ -47,6 +47,7 @@
             toolStripMenuItem_UploadFolder = new ToolStripMenuItem();
             toolStripMenuItem_UploadFile = new ToolStripMenuItem();
             toolStripMenuItem_Paste = new ToolStripMenuItem();
+            button_Refresh = new Button();
             contextMenuStrip_Function1.SuspendLayout();
             contextMenuStrip_Function2.SuspendLayout();
             SuspendLayout();
@@ -70,7 +71,6 @@
             // 
             textBox_Path.BackColor = Color.FromArgb(252, 194, 197);
             textBox_Path.BorderStyle = BorderStyle.None;
-
             textBox_Path.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_Path.Location = new Point(150, 36);
             textBox_Path.Margin = new Padding(3, 2, 3, 2);
@@ -183,9 +183,7 @@
             contextMenuStrip_Function2.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function2.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_CreateFolder, toolStripMenuItem_UploadFolder, toolStripMenuItem_UploadFile, toolStripMenuItem_Paste });
             contextMenuStrip_Function2.Name = "contextMenuStrip_Function2";
-
             contextMenuStrip_Function2.Size = new Size(208, 100);
-
             // 
             // toolStripMenuItem_CreateFolder
             // 
@@ -215,11 +213,25 @@
             toolStripMenuItem_Paste.Text = "Paste";
             toolStripMenuItem_Paste.Click += toolStripMenuItem_Paste_Click;
             // 
+            // button_Refresh
+            // 
+            button_Refresh.BackColor = Color.Transparent;
+            button_Refresh.Cursor = Cursors.AppStarting;
+            button_Refresh.FlatAppearance.BorderSize = 0;
+            button_Refresh.FlatStyle = FlatStyle.Flat;
+            button_Refresh.Location = new Point(601, 34);
+            button_Refresh.Name = "button_Refresh";
+            button_Refresh.Size = new Size(38, 29);
+            button_Refresh.TabIndex = 8;
+            button_Refresh.UseVisualStyleBackColor = false;
+            button_Refresh.Click += button_Refresh_Click;
+            // 
             // Form_FileManager
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 526);
+            Controls.Add(button_Refresh);
             Controls.Add(label_FileName);
             Controls.Add(button_Go);
             Controls.Add(listView_Dialog);
@@ -254,5 +266,6 @@
         private ToolStripMenuItem toolStripMenuItem_UploadFile;
         private ToolStripMenuItem toolStripMenuItem_Paste;
         private ToolStripMenuItem toolStripMenuItem_UploadFolder;
+        private Button button_Refresh;
     }
 }
