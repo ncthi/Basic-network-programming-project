@@ -391,6 +391,7 @@ namespace Client
             else if (!isFolder)
             {
                 (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
+                isDirectory = false;
             }
             loadFilesAndDirectories(currentPath);
             toolStripMenuItem_Paste.Enabled = true;
