@@ -25,7 +25,7 @@ namespace Client
         NetworkStream stream;
         public Form_CreateAccount()
         {
-            stream=client.GetStream();
+            stream = client.GetStream();
             InitializeComponent();
         }
 
@@ -55,9 +55,14 @@ namespace Client
                     MessageBox.Show("Account successfully created!");
                     this.Close();
                 }
-                else
+                else if (result=="False")
                 {
                     MessageBox.Show("Invalid authentication code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show(result);
                     return;
                 }
             }
@@ -168,6 +173,12 @@ namespace Client
             {
                 MessageBox.Show($"Error creating account: {ex.Message}");
             }
+        }
+
+        private void Form_CreateAccount_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            stream.Close();
+            client.Close();
         }
     }
 }
