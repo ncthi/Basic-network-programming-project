@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Client
     {
 
 
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "192.168.137.208";
         private const int serverPort = 8080;
         private TcpClient client = new TcpClient(serverIpAddress, serverPort);
         NetworkStream stream;
@@ -28,7 +29,18 @@ namespace Client
             stream = client.GetStream();
             InitializeComponent();
         }
-
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mailAddress = new MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private async void button_CreateAcc_Click(object sender, EventArgs e)
         {
             string username = textBox_CreateUser.Text;
@@ -137,6 +149,11 @@ namespace Client
                 MessageBox.Show("Password must contain at least 6 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }    
             try
             {
                 // Mã hóa mật khẩu bằng khóa công khai RSA
@@ -165,26 +182,43 @@ namespace Client
                         label_EnterCode.Visible = true;
                         button_CreateAcc.Visible = true;
                     }
-                    MessageBox.Show("Please check your email to get authentication code!");
+                    MessageBox.Show("Please check your email to get authentication code!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textBox_CreatePass.ReadOnly = true;
+                    textBox_ConfirmPass.ReadOnly = true;
+                    textBox_CreateUser.ReadOnly = true;
+                    textBox_Email.ReadOnly = true;
+                    textBox_Email.BackColor = textBox_CreatePass.BackColor = textBox_ConfirmPass.BackColor = textBox_CreateUser.BackColor = Color.White;
+                    button_Verify.Visible = false;
+                    button_Verify.Enabled = false;
                 }
-                else
+                else if (result == "False")
                 {
                     MessageBox.Show("Username or Email already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     client = new TcpClient(serverIpAddress, serverPort);
                     stream = client.GetStream();
+                    return;
                 }
-                return;
+                else
+                {
+                    MessageBox.Show(result);
+                    client = new TcpClient(serverIpAddress, serverPort);
+                    stream = client.GetStream();
+                    return;
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error creating account: {ex.Message}");
-            }
+            catch { } 
         }
 
         private void Form_CreateAccount_FormClosed(object sender, FormClosedEventArgs e)
         {
             stream.Close();
             client.Close();
+        }
+
+        private void button_back_Click(object sender, EventArgs e)
+        {
+            this.Controls.Clear();
+            InitializeComponent();
         }
     }
 }
