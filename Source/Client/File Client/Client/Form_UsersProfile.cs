@@ -31,7 +31,7 @@ namespace Client
             InitializeComponent();
         }
         private void getEmail()
-        {            
+        {
             using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
             {
                 using (NetworkStream stream = client.GetStream())

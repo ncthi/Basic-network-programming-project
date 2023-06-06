@@ -12,7 +12,7 @@ namespace Client
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form_FileManager("caothi","123456"));
+            Application.Run(new Form_Login());
         }
     }
 }

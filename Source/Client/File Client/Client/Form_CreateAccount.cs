@@ -67,7 +67,7 @@ namespace Client
                     MessageBox.Show("Account successfully created!");
                     this.Close();
                 }
-                else if (result=="False")
+                else if (result == "False")
                 {
                     MessageBox.Show("Invalid authentication code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -96,7 +96,7 @@ namespace Client
         }
 
         //Nút hiện mật khẩu 
-        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e) 
+        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_ShowPass.Checked)
             {
@@ -153,7 +153,7 @@ namespace Client
             {
                 MessageBox.Show("Please enter a valid email!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            }    
+            }
             try
             {
                 // Mã hóa mật khẩu bằng khóa công khai RSA
@@ -206,7 +206,7 @@ namespace Client
                     return;
                 }
             }
-            catch { } 
+            catch { }
         }
 
         private void Form_CreateAccount_FormClosed(object sender, FormClosedEventArgs e)

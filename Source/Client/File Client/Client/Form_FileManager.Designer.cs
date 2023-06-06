@@ -132,7 +132,7 @@
             label_FileName.AutoSize = true;
             label_FileName.BackColor = Color.Transparent;
             label_FileName.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label_FileName.Location = new Point(224, 474);
+            label_FileName.Location = new Point(224, 471);
             label_FileName.Name = "label_FileName";
             label_FileName.Size = new Size(0, 23);
             label_FileName.TabIndex = 7;
@@ -142,13 +142,12 @@
             contextMenuStrip_Function1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_Download, toolStripMenuItem_Rename, toolStripMenuItem_Copy, toolStripMenuItem_Cut, toolStripMenuItem_Delete, ToolStripMenuItem_Properties });
             contextMenuStrip_Function1.Name = "contextMenuStrip_Function";
-            contextMenuStrip_Function1.Size = new Size(211, 176);
+            contextMenuStrip_Function1.Size = new Size(148, 148);
             // 
             // toolStripMenuItem_Download
             // 
             toolStripMenuItem_Download.Name = "toolStripMenuItem_Download";
             toolStripMenuItem_Download.Size = new Size(147, 24);
-
             toolStripMenuItem_Download.Text = "Download";
             toolStripMenuItem_Download.Click += toolStripMenuItem_Download_Click;
             // 
@@ -183,7 +182,7 @@
             // ToolStripMenuItem_Properties
             // 
             ToolStripMenuItem_Properties.Name = "ToolStripMenuItem_Properties";
-            ToolStripMenuItem_Properties.Size = new Size(210, 24);
+            ToolStripMenuItem_Properties.Size = new Size(147, 24);
             ToolStripMenuItem_Properties.Text = "Properties";
             ToolStripMenuItem_Properties.Click += ToolStripMenuItem_Properties_Click;
             // 
