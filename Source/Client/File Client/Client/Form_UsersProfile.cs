@@ -25,21 +25,32 @@ namespace Client
         public string Password { get; set; }
         public Form_UsersProfile(string username, string password)
         {
-            InitializeComponent();
             UserName = username;
             Password = password;
+            getEmail();
+            InitializeComponent();
         }
+        private void getEmail()
+        {            
+            using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
+            {
+                using (NetworkStream stream = client.GetStream())
+                {
+                    // Mã hóa mật khẩu bằng khóa công khai RSA
+                    string data = $"{UserName},{Password},getEmail";
+                    byte[] dataEncrypt = RSAKeys.EncryptData(data);
 
+                    // Gửi thông điệp Tên và Mật khẩu đến server
+                    stream.Write(dataEncrypt, 0, dataEncrypt.Length);
 
-        private bool HasSpecialCharacters(string str)
-        {
-            string specialCharacters = @"!@#$%^&*()-=_+[]{}|;:,.<>?";
-            return str.IndexOfAny(specialCharacters.ToCharArray()) != -1;
-        }
+                    // Nhận kết quả từ server
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Email = result;
+                }
+            }
 
-        private bool HasUppercaseLetters(string str)
-        {
-            return str.Any(char.IsUpper);
         }
         private void button_changePassword_Click(object sender, EventArgs e)
         {

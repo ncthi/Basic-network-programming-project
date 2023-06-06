@@ -64,6 +64,7 @@ namespace Server
         private void acceptClient(TcpClient client)
         {
             NetworkStream stream = client.GetStream();
+            string authentication = "";
             while (checkConnect)
             {
                 try
@@ -85,6 +86,12 @@ namespace Server
                         case "changePass":
                             ChangePass(data,stream);
                             return;
+                        case "getEmail":
+                            getEmail(data,stream);
+                            return;
+                        case "check":
+                            if (checkEmailVsUser(data, stream) != "") break;
+                            else return;
                     }
                 }
                 catch
@@ -95,6 +102,15 @@ namespace Server
             }
             stream.Close();
             client.Close();
+        }
+        private void getEmail(string[] data, NetworkStream stream)
+        {
+            try
+            {
+                send(database.getEmail(data[0]), stream);
+            }
+            catch
+            { }
         }
         private void _Resgistry(string[] data,NetworkStream stream)
         {
@@ -134,6 +150,23 @@ namespace Server
                 return;
             }
             else send("false", stream);
+        }   
+        private string checkEmailVsUser(string[] data, NetworkStream stream)
+        {
+            bool check = database.checkEmailAndUser(data[0], data[1]);
+            string authrnticationCode = "";
+            if (!check)
+            {
+                Email SMTP = new Email();
+                authrnticationCode=Email.GenerateRandomNumber();
+                SMTP.SendAuthenticationCode(data[1],authrnticationCode);
+                send("true", stream);
+            }
+            else {
+                send("false", stream);
+                authrnticationCode = "";
+            }
+            return authrnticationCode;
         }
         public void disconect(bool check)
         {

@@ -56,6 +56,7 @@
             textBox_username.ReadOnly = true;
             textBox_username.Size = new Size(248, 19);
             textBox_username.TabIndex = 0;
+            textBox_username.Text = UserName;
             // 
             // textBox_email
             // 
@@ -68,6 +69,7 @@
             textBox_email.ReadOnly = true;
             textBox_email.Size = new Size(232, 19);
             textBox_email.TabIndex = 1;
+            textBox_email.Text = Email;
             // 
             // textBox_password
             // 

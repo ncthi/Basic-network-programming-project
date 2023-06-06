@@ -93,6 +93,20 @@ namespace Server
             if (temp == "") return false;
             else return true;
         }
+        public bool checkEmailAndUser(string user, string email)
+        {
+            string temp = "";
+            string stringSelect = $"SELECT* FROM dbo.account WHERE UserName='{user}' or Email='{email}'";
+            SqlCommand cm = new SqlCommand(stringSelect, sqlConnection);
+            SqlDataReader reader = cm.ExecuteReader();
+            while (reader.Read())
+            {
+                temp += reader["UserName"].ToString();
+            }
+            reader.Close();
+            if (temp == "") return false;
+            else return true;
+        }
         public bool ChangePass(string UserName, string NewPass)
         {
             try
@@ -110,7 +124,7 @@ namespace Server
         public string getEmail(string UserName)
         {
             string temp = "";
-            string stringSelect = $"SELECT Email FROM dbo.account WHERE UserName='{UserName}'";
+            string stringSelect = $"SELECT Email FROM dbo.account WHERE UserName='{UserName}';";
             SqlCommand cm = new SqlCommand(stringSelect, sqlConnection);
             SqlDataReader reader = cm.ExecuteReader();
             while (reader.Read())
