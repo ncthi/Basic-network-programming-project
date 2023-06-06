@@ -70,6 +70,7 @@
             // 
             textBox_Path.BackColor = Color.FromArgb(252, 194, 197);
             textBox_Path.BorderStyle = BorderStyle.None;
+
             textBox_Path.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_Path.Location = new Point(150, 36);
             textBox_Path.Margin = new Padding(3, 2, 3, 2);
@@ -182,7 +183,9 @@
             contextMenuStrip_Function2.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function2.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_CreateFolder, toolStripMenuItem_UploadFolder, toolStripMenuItem_UploadFile, toolStripMenuItem_Paste });
             contextMenuStrip_Function2.Name = "contextMenuStrip_Function2";
+
             contextMenuStrip_Function2.Size = new Size(208, 100);
+
             // 
             // toolStripMenuItem_CreateFolder
             // 
@@ -225,6 +228,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "Form_FileManager";
             Text = "Form_FileManager";
+            FormClosed += Form_FileManager_FormClosed;
             contextMenuStrip_Function1.ResumeLayout(false);
             contextMenuStrip_Function2.ResumeLayout(false);
             ResumeLayout(false);

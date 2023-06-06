@@ -34,7 +34,6 @@
             textBox_password = new TextBox();
             checkBox_ShowPass1 = new CheckBox();
             button_signout = new Button();
-            button_changeEmail = new Button();
             button_changePassword = new Button();
             textBox_NewPass = new TextBox();
             label_CurrentPass = new Label();
@@ -55,7 +54,7 @@
             textBox_username.Location = new Point(277, 187);
             textBox_username.Name = "textBox_username";
             textBox_username.ReadOnly = true;
-            textBox_username.Size = new Size(248, 23);
+            textBox_username.Size = new Size(248, 19);
             textBox_username.TabIndex = 0;
             // 
             // textBox_email
@@ -67,7 +66,7 @@
             textBox_email.Location = new Point(298, 254);
             textBox_email.Name = "textBox_email";
             textBox_email.ReadOnly = true;
-            textBox_email.Size = new Size(232, 23);
+            textBox_email.Size = new Size(232, 19);
             textBox_email.TabIndex = 1;
             // 
             // textBox_password
@@ -80,7 +79,7 @@
             textBox_password.Name = "textBox_password";
             textBox_password.PasswordChar = '*';
             textBox_password.ReadOnly = true;
-            textBox_password.Size = new Size(234, 23);
+            textBox_password.Size = new Size(234, 19);
             textBox_password.TabIndex = 2;
             // 
             // checkBox_ShowPass1
@@ -106,19 +105,6 @@
             button_signout.Size = new Size(136, 41);
             button_signout.TabIndex = 9;
             button_signout.UseVisualStyleBackColor = false;
-            button_signout.Click += button_signout_Click;
-            // 
-            // button_changeEmail
-            // 
-            button_changeEmail.BackColor = Color.Transparent;
-            button_changeEmail.FlatAppearance.BorderSize = 0;
-            button_changeEmail.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_changeEmail.FlatStyle = FlatStyle.Flat;
-            button_changeEmail.Location = new Point(548, 265);
-            button_changeEmail.Name = "button_changeEmail";
-            button_changeEmail.Size = new Size(62, 24);
-            button_changeEmail.TabIndex = 10;
-            button_changeEmail.UseVisualStyleBackColor = false;
             // 
             // button_changePassword
             // 
@@ -152,7 +138,7 @@
             label_CurrentPass.ForeColor = Color.FromArgb(254, 80, 45);
             label_CurrentPass.Location = new Point(185, 325);
             label_CurrentPass.Name = "label_CurrentPass";
-            label_CurrentPass.Size = new Size(133, 20);
+            label_CurrentPass.Size = new Size(102, 15);
             label_CurrentPass.TabIndex = 13;
             label_CurrentPass.Text = "Current password:";
             label_CurrentPass.Visible = false;
@@ -176,7 +162,7 @@
             label_NewPass.ForeColor = Color.FromArgb(254, 80, 45);
             label_NewPass.Location = new Point(152, 369);
             label_NewPass.Name = "label_NewPass";
-            label_NewPass.Size = new Size(108, 20);
+            label_NewPass.Size = new Size(84, 15);
             label_NewPass.TabIndex = 15;
             label_NewPass.Text = "New password";
             label_NewPass.Visible = false;
@@ -188,7 +174,7 @@
             checkBox_ShowPass3.FlatStyle = FlatStyle.Flat;
             checkBox_ShowPass3.Location = new Point(518, 405);
             checkBox_ShowPass3.Name = "checkBox_ShowPass3";
-            checkBox_ShowPass3.Size = new Size(14, 13);
+            checkBox_ShowPass3.Size = new Size(12, 11);
             checkBox_ShowPass3.TabIndex = 17;
             checkBox_ShowPass3.UseVisualStyleBackColor = false;
             checkBox_ShowPass3.Visible = false;
@@ -208,15 +194,16 @@
             button_Save.Text = "Save";
             button_Save.UseVisualStyleBackColor = false;
             button_Save.Visible = false;
+            button_Save.Click += button_Save_Click;
             // 
             // textBox_CurrentPass
             // 
             textBox_CurrentPass.BackColor = Color.FromArgb(255, 239, 239);
             textBox_CurrentPass.BorderStyle = BorderStyle.None;
-            textBox_CurrentPass.Location = new Point(315, 328);
+            textBox_CurrentPass.Location = new Point(318, 325);
             textBox_CurrentPass.Name = "textBox_CurrentPass";
             textBox_CurrentPass.PasswordChar = '*';
-            textBox_CurrentPass.Size = new Size(195, 20);
+            textBox_CurrentPass.Size = new Size(195, 16);
             textBox_CurrentPass.TabIndex = 19;
             // 
             // label_Confirm
@@ -227,7 +214,7 @@
             label_Confirm.ForeColor = Color.FromArgb(254, 80, 45);
             label_Confirm.Location = new Point(356, 372);
             label_Confirm.Name = "label_Confirm";
-            label_Confirm.Size = new Size(132, 20);
+            label_Confirm.Size = new Size(103, 15);
             label_Confirm.TabIndex = 20;
             label_Confirm.Text = "Confirm password";
             label_Confirm.Visible = false;
@@ -248,7 +235,6 @@
             Controls.Add(label_CurrentPass);
             Controls.Add(textBox_NewPass);
             Controls.Add(button_changePassword);
-            Controls.Add(button_changeEmail);
             Controls.Add(button_signout);
             Controls.Add(checkBox_ShowPass1);
             Controls.Add(textBox_password);
@@ -267,7 +253,6 @@
         private TextBox textBox_password;
         private CheckBox checkBox_ShowPass1;
         private Button button_signout;
-        private Button button_changeEmail;
         private Button button_changePassword;
         private TextBox textBox_NewPass;
         private Label label_CurrentPass;

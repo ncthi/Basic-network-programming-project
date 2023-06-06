@@ -47,7 +47,7 @@
             textBox_CreateUser.ForeColor = Color.Black;
             textBox_CreateUser.Location = new Point(472, 118);
             textBox_CreateUser.Name = "textBox_CreateUser";
-            textBox_CreateUser.Size = new Size(251, 23);
+            textBox_CreateUser.Size = new Size(251, 19);
             textBox_CreateUser.TabIndex = 0;
             // 
             // textBox_Email

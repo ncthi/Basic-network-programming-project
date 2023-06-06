@@ -39,6 +39,7 @@
             // 
             // textBox_Username
             // 
+
             textBox_Username.BorderStyle = BorderStyle.None;
             textBox_Username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_Username.ForeColor = Color.Black;
@@ -73,16 +74,19 @@
             // 
             // button_ForgotPass
             // 
-            button_ForgotPass.BackColor = Color.Transparent;
-            button_ForgotPass.FlatAppearance.BorderSize = 0;
-            button_ForgotPass.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button_ForgotPass.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_ForgotPass.FlatStyle = FlatStyle.Flat;
-            button_ForgotPass.Location = new Point(234, 309);
-            button_ForgotPass.Name = "button_ForgotPass";
-            button_ForgotPass.Size = new Size(134, 20);
-            button_ForgotPass.TabIndex = 3;
-            button_ForgotPass.UseVisualStyleBackColor = false;
+
+            this.button_ForgotPass.BackColor = System.Drawing.Color.Transparent;
+            this.button_ForgotPass.FlatAppearance.BorderSize = 0;
+            this.button_ForgotPass.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button_ForgotPass.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button_ForgotPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_ForgotPass.Location = new System.Drawing.Point(234, 309);
+            this.button_ForgotPass.Name = "button_ForgotPass";
+            this.button_ForgotPass.Size = new System.Drawing.Size(134, 20);
+            this.button_ForgotPass.TabIndex = 3;
+            this.button_ForgotPass.UseVisualStyleBackColor = false;
+            this.button_ForgotPass.Click += new System.EventHandler(this.button_ForgotPass_Click);
+
             // 
             // button_CreateAcc
             // 

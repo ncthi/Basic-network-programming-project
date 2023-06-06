@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Security.Cryptography;
 using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace Server
 {
@@ -97,7 +98,7 @@ namespace Server
             try
             {
                 string passEncode = EncodePass(NewPass);
-                string stringSet = $"UPDATE dbo.account SET Pass={passEncode} WHERE UserName={UserName}';";
+                string stringSet = $"UPDATE dbo.account SET Pass='{passEncode}' WHERE UserName='{UserName}';";
                 SqlCommand cm = new SqlCommand(stringSet, sqlConnection);
                 cm.ExecuteNonQuery();
                 return true;
@@ -105,6 +106,19 @@ namespace Server
             catch {
                 return false;
             }
+        }
+        public string getEmail(string UserName)
+        {
+            string temp = "";
+            string stringSelect = $"SELECT Email FROM dbo.account WHERE UserName='{UserName}'";
+            SqlCommand cm = new SqlCommand(stringSelect, sqlConnection);
+            SqlDataReader reader = cm.ExecuteReader();
+            while (reader.Read())
+            {
+                temp += reader["Email"].ToString();
+            }
+            reader.Close();
+            return temp;
         }
         public List<string> ListUser()
         {

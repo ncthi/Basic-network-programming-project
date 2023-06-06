@@ -5,6 +5,7 @@ using System.Diagnostics.Metrics;
 using System.Net.Sockets;
 using System.Numerics;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Client
 {
@@ -73,17 +74,44 @@ namespace Client
             }
         }
 
-        private void checkBox_ShowPass_CheckedChanged_1(object sender, EventArgs e)
+        private void button_ForgotPass_Click(object sender, EventArgs e)
         {
-            if (checkBox_ShowPass.Checked)
+            string username = textBox_Username.Text;
+            if (username == "")
             {
-                textBox_Password.UseSystemPasswordChar = false;
-
+                MessageBox.Show("Plase, enter user name");
+                return;
             }
-            else
+            try
             {
-                textBox_Password.UseSystemPasswordChar = true;
-
+                using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
+                {
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        string data = $"{username},forget";
+                        byte[] dataBytes = new byte[2048];
+                        dataBytes = RSAKeys.EncryptData(data);
+                        // Gửi thông điệp Tên đăng nhập đến server
+                        stream.Write(dataBytes, 0, dataBytes.Length);
+                        // Nhận kết quả từ server, đã tạo thành công hay chưa 
+                        byte[] buffer = new byte[2048];
+                        int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                        string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        if (result == "True")
+                        {
+                            MessageBox.Show("Check email to get your new password!");
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Can't get your new password. Server is not responding!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error get new password: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
