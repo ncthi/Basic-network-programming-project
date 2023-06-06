@@ -103,7 +103,8 @@ namespace Client
             return str.Any(char.IsUpper);
         }
 
-        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e) //Nút hiện mật khẩu 
+        //Nút hiện mật khẩu 
+        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e) 
         {
             if (checkBox_ShowPass.Checked)
             {

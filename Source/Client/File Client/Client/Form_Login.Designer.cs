@@ -60,6 +60,7 @@
             // button_Login
             // 
             button_Login.BackColor = Color.Transparent;
+            button_Login.FlatAppearance.BorderColor = Color.FromArgb(255, 128, 128);
             button_Login.FlatAppearance.BorderSize = 0;
             button_Login.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_Login.FlatAppearance.MouseOverBackColor = Color.Transparent;
