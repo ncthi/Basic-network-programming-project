@@ -227,6 +227,8 @@
             button_Refresh.BackColor = Color.Transparent;
             button_Refresh.Cursor = Cursors.AppStarting;
             button_Refresh.FlatAppearance.BorderSize = 0;
+            button_Refresh.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Refresh.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Refresh.FlatStyle = FlatStyle.Flat;
             button_Refresh.Location = new Point(601, 34);
             button_Refresh.Name = "button_Refresh";
