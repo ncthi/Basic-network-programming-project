@@ -31,20 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Dashboard));
             panel_Left = new Panel();
             button_Logout = new Button();
-            button3 = new Button();
-            button2 = new Button();
             button_Filemanage = new Button();
             button_MyProfile = new Button();
             panel_Body = new FlowLayoutPanel();
+            button_AboutUs = new Button();
             panel_Left.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Left
             // 
             panel_Left.BackColor = Color.Transparent;
+            panel_Left.Controls.Add(button_AboutUs);
             panel_Left.Controls.Add(button_Logout);
-            panel_Left.Controls.Add(button3);
-            panel_Left.Controls.Add(button2);
             panel_Left.Controls.Add(button_Filemanage);
             panel_Left.Controls.Add(button_MyProfile);
             panel_Left.Location = new Point(0, -3);
@@ -54,45 +52,25 @@
             // 
             // button_Logout
             // 
+            button_Logout.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
             button_Logout.FlatAppearance.BorderSize = 0;
             button_Logout.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_Logout.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Logout.FlatStyle = FlatStyle.Flat;
-            button_Logout.Location = new Point(156, 486);
+            button_Logout.Location = new Point(31, 356);
             button_Logout.Name = "button_Logout";
-            button_Logout.Size = new Size(41, 29);
+            button_Logout.Size = new Size(145, 29);
             button_Logout.TabIndex = 4;
             button_Logout.UseVisualStyleBackColor = true;
             button_Logout.Click += button_Logout_Click;
             // 
-            // button3
-            // 
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(31, 297);
-            button3.Name = "button3";
-            button3.Size = new Size(140, 37);
-            button3.TabIndex = 3;
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(31, 236);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 37);
-            button2.TabIndex = 2;
-            button2.UseVisualStyleBackColor = true;
-            // 
             // button_Filemanage
             // 
+            button_Filemanage.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
             button_Filemanage.FlatAppearance.BorderSize = 0;
             button_Filemanage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_Filemanage.FlatStyle = FlatStyle.Flat;
-            button_Filemanage.Location = new Point(31, 176);
+            button_Filemanage.Location = new Point(31, 207);
             button_Filemanage.Name = "button_Filemanage";
             button_Filemanage.Size = new Size(145, 37);
             button_Filemanage.TabIndex = 1;
@@ -101,10 +79,11 @@
             // 
             // button_MyProfile
             // 
+            button_MyProfile.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
             button_MyProfile.FlatAppearance.BorderSize = 0;
             button_MyProfile.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_MyProfile.FlatStyle = FlatStyle.Flat;
-            button_MyProfile.Location = new Point(31, 120);
+            button_MyProfile.Location = new Point(36, 132);
             button_MyProfile.Name = "button_MyProfile";
             button_MyProfile.Size = new Size(140, 38);
             button_MyProfile.TabIndex = 0;
@@ -118,6 +97,17 @@
             panel_Body.Name = "panel_Body";
             panel_Body.Size = new Size(728, 539);
             panel_Body.TabIndex = 1;
+            // 
+            // button_AboutUs
+            // 
+            button_AboutUs.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
+            button_AboutUs.FlatAppearance.BorderSize = 0;
+            button_AboutUs.FlatStyle = FlatStyle.Flat;
+            button_AboutUs.Location = new Point(38, 285);
+            button_AboutUs.Name = "button_AboutUs";
+            button_AboutUs.Size = new Size(138, 29);
+            button_AboutUs.TabIndex = 5;
+            button_AboutUs.UseVisualStyleBackColor = true;
             // 
             // Form_Dashboard
             // 
@@ -135,11 +125,10 @@
         #endregion
 
         private Panel panel_Left;
-        private Button button3;
-        private Button button2;
         private Button button_Filemanage;
         private Button button_MyProfile;
         private FlowLayoutPanel panel_Body;
         private Button button_Logout;
+        private Button button_AboutUs;
     }
 }
