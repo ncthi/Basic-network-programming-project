@@ -60,5 +60,10 @@ namespace Client
             form_Login.ShowDialog();
             this.Close();
         }
+
+        private void button_AboutUs_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Form_AboutUs());
+        }
     }
 }
