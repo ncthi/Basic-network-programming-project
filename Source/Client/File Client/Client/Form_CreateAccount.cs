@@ -10,6 +10,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Client
 {
@@ -19,8 +21,11 @@ namespace Client
 
         private const string serverIpAddress = "127.0.0.1";
         private const int serverPort = 8080;
+        private TcpClient client = new TcpClient(serverIpAddress, serverPort);
+        NetworkStream stream;
         public Form_CreateAccount()
         {
+            stream=client.GetStream();
             InitializeComponent();
         }
 
@@ -30,60 +35,30 @@ namespace Client
             string password = textBox_CreatePass.Text;
             string confirmPassword = textBox_ConfirmPass.Text;
             string email = textBox_Email.Text;
-
-            //Kiểm tra thông tin nhập vào 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
-            {
-                MessageBox.Show("Please enter full information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (password != confirmPassword)
-            {
-                MessageBox.Show("Password and confirm password do not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Kiểm tra ràng buộc tên người dùng
-            if (username.Contains(" ") || HasSpecialCharacters(username) || HasUppercaseLetters(username))
-            {
-                MessageBox.Show("Invalid username! The name cannot contain spaces, special characters and capital letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Kiểm tra ràng buộc độ dài mật khẩu
-            if (password.Length < 6)
-            {
-                MessageBox.Show("Password must contain at least 6 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
+            string authenticationCode = textBox_VerCode.Text;
             try
             {
-                using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
+                // Mã hóa mật khẩu bằng khóa công khai RSA
+                string data = $"{username},{password},{email},{authenticationCode},registry";
+                // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
+                byte[] dataBytes = RSAKeys.EncryptData(data);
+                // Gửi thông điệp Tên và Mật khẩu đến server
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
+                // Nhận kết quả từ server, đã đăng nhập thành công hay chưa 
+                byte[] buffer = new byte[1024];
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                stream.Flush();
+                if (result == "True")
                 {
-                    using (NetworkStream stream = client.GetStream())
-                    {
-
-                        // Mã hóa mật khẩu bằng khóa công khai RSA
-                        string data = $"{username},{password},{email},registry";
-                        // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
-                        byte[] dataBytes = RSAKeys.EncryptData(data);
-                        // Gửi thông điệp Tên và Mật khẩu đến server
-                        stream.Write(dataBytes, 0, dataBytes.Length);
-
-                        // Nhận kết quả từ server, đã đăng nhập thành công hay chưa 
-                        byte[] buffer = new byte[1024];
-                        int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                        string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                        if (result == "True")
-                        {
-                            MessageBox.Show("Account successfully created!");
-                            this.Close();
-                        }
-                        else MessageBox.Show("You can not create an account!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                    MessageBox.Show("Account successfully created!");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid authentication code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
             }
             catch (Exception ex)
@@ -127,17 +102,71 @@ namespace Client
 
         private void button_Verify_Click(object sender, EventArgs e)
         {
-            if (textBox_VerCode.Visible && label_EnterCode.Visible && button_CreateAcc.Visible)
+            string username = textBox_CreateUser.Text;
+            string password = textBox_CreatePass.Text;
+            string confirmPassword = textBox_ConfirmPass.Text;
+            string email = textBox_Email.Text;
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {
-                textBox_ConfirmPass.Visible = false;
-                label_EnterCode.Visible = false;
-                button_CreateAcc.Visible = false;
+                MessageBox.Show("Please enter full information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            if (password != confirmPassword)
             {
-                textBox_VerCode.Visible = true;
-                label_EnterCode.Visible = true;
-                button_CreateAcc.Visible = true;
+                MessageBox.Show("Password and confirm password do not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Kiểm tra ràng buộc tên người dùng
+            if (username.Contains(" ") || HasSpecialCharacters(username) || HasUppercaseLetters(username))
+            {
+                MessageBox.Show("Invalid username! The name cannot contain spaces, special characters and capital letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Kiểm tra ràng buộc độ dài mật khẩu
+            if (password.Length < 6)
+            {
+                MessageBox.Show("Password must contain at least 6 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                // Mã hóa mật khẩu bằng khóa công khai RSA
+                string data = $"{username},{email},check";
+                // Gửi thông điệp Tên, Mật khẩu và Email (đã được mã hóa) đến server
+                byte[] dataBytes = RSAKeys.EncryptData(data);
+                // Gửi thông điệp Tên và Mật khẩu đến server
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
+                // Nhận kết quả từ server, đã đăng nhập thành công hay chưa 
+                byte[] buffer = new byte[1024];
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                stream.Flush();
+                if (result == "True")
+                {
+                    if (textBox_VerCode.Visible && label_EnterCode.Visible && button_CreateAcc.Visible)
+                    {
+                        textBox_ConfirmPass.Visible = false;
+                        label_EnterCode.Visible = false;
+                        button_CreateAcc.Visible = false;
+                    }
+                    else
+                    {
+                        textBox_VerCode.Visible = true;
+                        label_EnterCode.Visible = true;
+                        button_CreateAcc.Visible = true;
+                    }
+                    MessageBox.Show("Please check your email to get authentication code!");
+                }
+                else MessageBox.Show("Username or Email already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating account: {ex.Message}");
             }
         }
     }

@@ -36,8 +36,7 @@ namespace Server
             // Lấy đường dẫn EmailAuthentication.html
             string htmlFilePath = basePath + "\\Email\\EmailAuthentication.html";
             string body = GetAuthenticationCodeEmailBody(htmlFilePath,code);
-
-            Send(userEmail, subject, code); //gửi email đến địa chỉ email của người nhận 
+            Send(userEmail, subject,body); //gửi email đến địa chỉ email của người nhận 
 
         }
         // Gửi password random

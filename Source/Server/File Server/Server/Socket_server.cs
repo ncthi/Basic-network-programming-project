@@ -65,17 +65,24 @@ namespace Server
         {
             NetworkStream stream = client.GetStream();
             string authentication = "";
+            DateTime time = DateTime.Now;
             while (checkConnect)
             {
                 try
                 {
+                    if ((DateTime.Now.Ticks - time.Ticks) == 1000000)
+                    {
+                        send("Connection to server timed out",stream);
+                        return;
+                    }
                     byte[] dataEncryptBytes =receive(stream);
+                    stream.Flush();
                     string dataDecrypt=RSAKeys.DecryptData(dataEncryptBytes);
                     string[] data = dataDecrypt.Split(',');
                     string status = data[data.Length-1].Trim('\0');
                     switch  (status){
                         case "registry":
-                            _Resgistry(data,stream);
+                            _Resgistry(data,authentication,stream);
                             return;
                         case "forget":
                             Forget(data,stream);
@@ -90,14 +97,14 @@ namespace Server
                             getEmail(data,stream);
                             return;
                         case "check":
-                            if (checkEmailVsUser(data, stream) != "") break;
+                            authentication=checkEmailVsUser(data,stream);
+                            if (authentication!= "") break;
                             else return;
                     }
                 }
                 catch
                 {
-                    send("false", stream);
-                    return;
+                   send("False", stream);
                 }
             }
             stream.Close();
@@ -112,23 +119,23 @@ namespace Server
             catch
             { }
         }
-        private void _Resgistry(string[] data,NetworkStream stream)
+        private void _Resgistry(string[] data,string authenticatonCode, NetworkStream stream)
         {
             bool check = database.checkUserName(data[0]);
-            if (!check)
+            if (!check && data[3]==authenticatonCode)
             {
                 string res = database.AddUser(data[0], data[1], data[2]).ToString();
                 sshClinet.AddUser(data[0], data[1]);
                 send(res, stream);
             }
-            else send("false", stream);
+            else send("False", stream);
         }
         private void Forget(string[] data, NetworkStream stream)
         {
             string passRandom = Email.GenerateRandomPassword();
             string email=database.getEmail(data[0]);
             if (email == "") {
-                send("false", stream);
+                send("False", stream);
                 return;
             }
             Email SMTP= new Email();
@@ -149,24 +156,24 @@ namespace Server
                 sshClinet.ChangePassword(data[0], data[2]);
                 return;
             }
-            else send("false", stream);
+            else send("False", stream);
         }   
         private string checkEmailVsUser(string[] data, NetworkStream stream)
         {
             bool check = database.checkEmailAndUser(data[0], data[1]);
-            string authrnticationCode = "";
+            string authenticationCode = "";
             if (!check)
             {
                 Email SMTP = new Email();
-                authrnticationCode=Email.GenerateRandomNumber();
-                SMTP.SendAuthenticationCode(data[1],authrnticationCode);
-                send("true", stream);
+                authenticationCode=Email.GenerateRandomNumber();
+                SMTP.SendAuthenticationCode(data[1],authenticationCode);
+                send("True", stream);
             }
             else {
-                send("false", stream);
-                authrnticationCode = "";
+                send("False", stream);
+                authenticationCode = "";
             }
-            return authrnticationCode;
+            return authenticationCode;
         }
         public void disconect(bool check)
         {

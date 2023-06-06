@@ -48,7 +48,7 @@
             textBox_CreateUser.ForeColor = Color.Black;
             textBox_CreateUser.Location = new Point(472, 118);
             textBox_CreateUser.Name = "textBox_CreateUser";
-            textBox_CreateUser.Size = new Size(251, 23);
+            textBox_CreateUser.Size = new Size(251, 19);
             textBox_CreateUser.TabIndex = 0;
             // 
             // textBox_Email
@@ -57,7 +57,7 @@
             textBox_Email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_Email.Location = new Point(472, 200);
             textBox_Email.Name = "textBox_Email";
-            textBox_Email.Size = new Size(251, 23);
+            textBox_Email.Size = new Size(251, 19);
             textBox_Email.TabIndex = 1;
             // 
             // textBox_CreatePass
@@ -65,7 +65,7 @@
             textBox_CreatePass.BorderStyle = BorderStyle.None;
             textBox_CreatePass.Location = new Point(466, 288);
             textBox_CreatePass.Name = "textBox_CreatePass";
-            textBox_CreatePass.Size = new Size(110, 20);
+            textBox_CreatePass.Size = new Size(110, 16);
             textBox_CreatePass.TabIndex = 2;
             textBox_CreatePass.UseSystemPasswordChar = true;
             // 
@@ -74,7 +74,7 @@
             textBox_ConfirmPass.BorderStyle = BorderStyle.None;
             textBox_ConfirmPass.Location = new Point(611, 288);
             textBox_ConfirmPass.Name = "textBox_ConfirmPass";
-            textBox_ConfirmPass.Size = new Size(112, 20);
+            textBox_ConfirmPass.Size = new Size(112, 16);
             textBox_ConfirmPass.TabIndex = 3;
             textBox_ConfirmPass.UseSystemPasswordChar = true;
             // 
@@ -139,7 +139,7 @@
             label_EnterCode.ForeColor = Color.FromArgb(254, 80, 45);
             label_EnterCode.Location = new Point(439, 331);
             label_EnterCode.Name = "label_EnterCode";
-            label_EnterCode.Size = new Size(163, 20);
+            label_EnterCode.Size = new Size(125, 15);
             label_EnterCode.TabIndex = 9;
             label_EnterCode.Text = "Enter verification code\n";
             label_EnterCode.Visible = false;
@@ -175,6 +175,7 @@
             Controls.Add(textBox_CreateUser);
             Name = "Form_CreateAccount";
             Text = "Form_CreateAccount";
+            FormClosed += Form_CreateAccount_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
