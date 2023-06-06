@@ -770,6 +770,7 @@ namespace Client
             }
         }
 
+        // Get DateTime
         public string getDateTime(string filePath)
         {
             try
@@ -804,7 +805,7 @@ namespace Client
             return "";
         }
 
-        // Lấy Size File
+        // Get Size
         public string getSize(string filePath)
         {
             try
