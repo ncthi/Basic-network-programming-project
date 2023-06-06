@@ -54,7 +54,6 @@ namespace Client
                         string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                         if (result == "True")
                         {
-                            MessageBox.Show("Login succesfully!");
                             Form_Dashboard form_Dashboard = new Form_Dashboard(username, password);
                             //ẩn forrm
                             this.Hide();

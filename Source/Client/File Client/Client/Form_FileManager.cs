@@ -440,7 +440,7 @@ namespace Client
 
         private void toolStripMenuItem_CreateFolder_Click(object sender, EventArgs e)
         {
-            string newName = ShowInputDialog("Rename", "Enter new name for: ", "");
+            string newName = ShowInputDialog("New folder", "Enter new name for this folder: ", "");
             if (newName != null)
             {
                 ftpClient.createDirectory(currentPath + "/" + newName);
