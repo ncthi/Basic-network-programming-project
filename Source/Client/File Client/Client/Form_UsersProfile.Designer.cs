@@ -50,7 +50,7 @@
             textBox_username.BackColor = Color.FromArgb(255, 239, 239);
             textBox_username.BorderStyle = BorderStyle.None;
             textBox_username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_username.ForeColor = Color.Firebrick;
+            textBox_username.ForeColor = Color.Black;
             textBox_username.Location = new Point(277, 187);
             textBox_username.Name = "textBox_username";
             textBox_username.ReadOnly = true;
@@ -62,7 +62,7 @@
             textBox_email.BackColor = Color.FromArgb(255, 239, 239);
             textBox_email.BorderStyle = BorderStyle.None;
             textBox_email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_email.ForeColor = Color.Firebrick;
+            textBox_email.ForeColor = Color.Black;
             textBox_email.Location = new Point(298, 254);
             textBox_email.Name = "textBox_email";
             textBox_email.ReadOnly = true;
@@ -92,6 +92,7 @@
             checkBox_ShowPass1.Size = new Size(18, 17);
             checkBox_ShowPass1.TabIndex = 8;
             checkBox_ShowPass1.UseVisualStyleBackColor = false;
+            checkBox_ShowPass1.CheckedChanged += checkBox_ShowPass1_CheckedChanged;
             // 
             // button_signout
             // 
@@ -177,6 +178,7 @@
             checkBox_ShowPass3.TabIndex = 17;
             checkBox_ShowPass3.UseVisualStyleBackColor = false;
             checkBox_ShowPass3.Visible = false;
+            checkBox_ShowPass3.CheckedChanged += checkBox_ShowPass3_CheckedChanged;
             // 
             // button_Save
             // 
