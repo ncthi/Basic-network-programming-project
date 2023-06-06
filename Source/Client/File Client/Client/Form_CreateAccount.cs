@@ -167,7 +167,12 @@ namespace Client
                     }
                     MessageBox.Show("Please check your email to get authentication code!");
                 }
-                else MessageBox.Show("Username or Email already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    MessageBox.Show("Username or Email already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    client = new TcpClient(serverIpAddress, serverPort);
+                    stream = client.GetStream();
+                }
                 return;
             }
             catch (Exception ex)

@@ -83,7 +83,7 @@ namespace Server
                     switch  (status){
                         case "registry":
                             _Resgistry(data,authentication,stream);
-                            return;
+                            break;
                         case "forget":
                             Forget(data,stream);
                             return;
@@ -104,7 +104,7 @@ namespace Server
                 }
                 catch
                 {
-                   send("False", stream);
+                   
                 }
             }
             stream.Close();
@@ -166,7 +166,11 @@ namespace Server
             {
                 Email SMTP = new Email();
                 authenticationCode=Email.GenerateRandomNumber();
-                SMTP.SendAuthenticationCode(data[1],authenticationCode);
+                try { SMTP.SendAuthenticationCode(data[1], authenticationCode); }
+                catch {
+                    send("Invalid email", stream);
+                    return "";
+                }
                 send("True", stream);
             }
             else {
