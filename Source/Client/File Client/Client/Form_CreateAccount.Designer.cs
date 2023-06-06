@@ -36,8 +36,9 @@
             button_CreateAcc = new Button();
             button_Home = new Button();
             checkBox_ShowPass = new CheckBox();
-            textBox1 = new TextBox();
-            label1 = new Label();
+            textBox_VerCode = new TextBox();
+            label_EnterCode = new Label();
+            button_Verify = new Button();
             SuspendLayout();
             // 
             // textBox_CreateUser
@@ -47,7 +48,7 @@
             textBox_CreateUser.ForeColor = Color.Black;
             textBox_CreateUser.Location = new Point(472, 118);
             textBox_CreateUser.Name = "textBox_CreateUser";
-            textBox_CreateUser.Size = new Size(251, 19);
+            textBox_CreateUser.Size = new Size(251, 23);
             textBox_CreateUser.TabIndex = 0;
             // 
             // textBox_Email
@@ -79,16 +80,20 @@
             // 
             // button_CreateAcc
             // 
-            button_CreateAcc.BackColor = Color.Transparent;
+            button_CreateAcc.BackColor = Color.FromArgb(254, 80, 45);
             button_CreateAcc.FlatAppearance.BorderSize = 0;
             button_CreateAcc.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button_CreateAcc.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_CreateAcc.FlatStyle = FlatStyle.Flat;
-            button_CreateAcc.Location = new Point(448, 414);
+            button_CreateAcc.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
+            button_CreateAcc.ForeColor = Color.FromArgb(224, 224, 224);
+            button_CreateAcc.Location = new Point(66, 75);
             button_CreateAcc.Name = "button_CreateAcc";
-            button_CreateAcc.Size = new Size(275, 29);
+            button_CreateAcc.Size = new Size(275, 41);
             button_CreateAcc.TabIndex = 4;
+            button_CreateAcc.Text = "Create";
             button_CreateAcc.UseVisualStyleBackColor = false;
+            button_CreateAcc.Visible = false;
             button_CreateAcc.Click += button_CreateAcc_Click;
             // 
             // button_Home
@@ -117,35 +122,50 @@
             checkBox_ShowPass.UseVisualStyleBackColor = false;
             checkBox_ShowPass.CheckedChanged += checkBox_ShowPass_CheckedChanged;
             // 
-            // textBox1
+            // textBox_VerCode
             // 
-            textBox1.Location = new Point(439, 358);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(295, 34);
-            textBox1.TabIndex = 8;
-            textBox1.Visible = false;
+            textBox_VerCode.Location = new Point(439, 354);
+            textBox_VerCode.Multiline = true;
+            textBox_VerCode.Name = "textBox_VerCode";
+            textBox_VerCode.Size = new Size(295, 38);
+            textBox_VerCode.TabIndex = 8;
+            textBox_VerCode.Visible = false;
             // 
-            // label1
+            // label_EnterCode
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.FromArgb(254, 80, 45);
-            label1.Location = new Point(439, 331);
-            label1.Name = "label1";
-            label1.Size = new Size(163, 20);
-            label1.TabIndex = 9;
-            label1.Text = "Enter verification code\n";
-            label1.Visible = false;
+            label_EnterCode.AutoSize = true;
+            label_EnterCode.BackColor = Color.Transparent;
+            label_EnterCode.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label_EnterCode.ForeColor = Color.FromArgb(254, 80, 45);
+            label_EnterCode.Location = new Point(439, 331);
+            label_EnterCode.Name = "label_EnterCode";
+            label_EnterCode.Size = new Size(163, 20);
+            label_EnterCode.TabIndex = 9;
+            label_EnterCode.Text = "Enter verification code\n";
+            label_EnterCode.Visible = false;
+            // 
+            // button_Verify
+            // 
+            button_Verify.BackColor = Color.Transparent;
+            button_Verify.FlatAppearance.BorderSize = 0;
+            button_Verify.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Verify.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Verify.FlatStyle = FlatStyle.Flat;
+            button_Verify.Location = new Point(444, 413);
+            button_Verify.Name = "button_Verify";
+            button_Verify.Size = new Size(267, 29);
+            button_Verify.TabIndex = 10;
+            button_Verify.UseVisualStyleBackColor = false;
+            button_Verify.Click += button_Verify_Click;
             // 
             // Form_CreateAccount
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 492);
-            Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(button_Verify);
+            Controls.Add(label_EnterCode);
+            Controls.Add(textBox_VerCode);
             Controls.Add(checkBox_ShowPass);
             Controls.Add(button_Home);
             Controls.Add(button_CreateAcc);
@@ -168,7 +188,8 @@
         private Button button_CreateAcc;
         private Button button_Home;
         private CheckBox checkBox_ShowPass;
-        private TextBox textBox1;
-        private Label label1;
+        private TextBox textBox_VerCode;
+        private Label label_EnterCode;
+        private Button button_Verify;
     }
 }

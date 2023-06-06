@@ -128,20 +128,6 @@ namespace Client
             catch (Exception ex)
             {
                 MessageBox.Show($"Error change password: {ex.Message}");
-
-        private void checkBox_ShowPass3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox_ShowPass3.Checked)
-            {
-                textBox_NewPass.UseSystemPasswordChar = false;
-                textBox_ConfirmPass.UseSystemPasswordChar = false;
-
-            }
-            else
-            {
-                textBox_NewPass.UseSystemPasswordChar = true;
-                textBox_ConfirmPass.UseSystemPasswordChar = true;
-
             }
         }
 
@@ -150,11 +136,24 @@ namespace Client
             if (checkBox_ShowPass1.Checked)
             {
                 textBox_CurrentPass.UseSystemPasswordChar = false;
-
             }
             else
             {
                 textBox_CurrentPass.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void checkBox_ShowPass3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_ShowPass3.Checked)
+            {
+                textBox_NewPass.UseSystemPasswordChar = false;
+                textBox_ConfirmPass.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                textBox_NewPass.UseSystemPasswordChar = true;
+                textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
         }
     }
