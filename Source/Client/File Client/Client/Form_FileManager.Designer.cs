@@ -131,6 +131,7 @@
             label_FileName.Location = new Point(224, 474);
             label_FileName.Name = "label_FileName";
             label_FileName.Size = new Size(0, 15);
+
             label_FileName.TabIndex = 7;
             // 
             // contextMenuStrip_Function1
@@ -138,7 +139,7 @@
             contextMenuStrip_Function1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_Download, toolStripMenuItem_Rename, toolStripMenuItem_Copy, toolStripMenuItem_Cut, toolStripMenuItem_Delete });
             contextMenuStrip_Function1.Name = "contextMenuStrip_Function";
-            contextMenuStrip_Function1.Size = new Size(129, 114);
+            contextMenuStrip_Function1.Size = new Size(148, 124);
             // 
             // toolStripMenuItem_Download
             // 
@@ -180,7 +181,7 @@
             contextMenuStrip_Function2.ImageScalingSize = new Size(20, 20);
             contextMenuStrip_Function2.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_CreateFolder, toolStripMenuItem_UploadFolder, toolStripMenuItem_UploadFile, toolStripMenuItem_Paste });
             contextMenuStrip_Function2.Name = "contextMenuStrip_Function2";
-            contextMenuStrip_Function2.Size = new Size(176, 92);
+            contextMenuStrip_Function2.Size = new Size(211, 128);
             // 
             // toolStripMenuItem_CreateFolder
             // 
@@ -199,7 +200,7 @@
             // toolStripMenuItem_UploadFile
             // 
             toolStripMenuItem_UploadFile.Name = "toolStripMenuItem_UploadFile";
-            toolStripMenuItem_UploadFile.Size = new Size(175, 22);
+            toolStripMenuItem_UploadFile.Size = new Size(210, 24);
             toolStripMenuItem_UploadFile.Text = "Upload New File";
             toolStripMenuItem_UploadFile.Click += toolStripMenuItem_UploadFile_Click;
             // 

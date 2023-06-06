@@ -91,6 +91,11 @@ namespace Client
         private void button_ForgotPass_Click(object sender, EventArgs e)
         {
             string username = textBox_Username.Text;
+            if (username == "")
+            {
+                MessageBox.Show("Plase, enter user name");
+                return;
+            }
             try
             {
                 using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
