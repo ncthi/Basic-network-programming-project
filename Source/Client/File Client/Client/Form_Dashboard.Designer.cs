@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Dashboard));
             panel_Left = new Panel();
+            button_AboutUs = new Button();
             button_Logout = new Button();
             button_Filemanage = new Button();
             button_MyProfile = new Button();
             panel_Body = new FlowLayoutPanel();
-            button_AboutUs = new Button();
             panel_Left.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,6 +49,18 @@
             panel_Left.Name = "panel_Left";
             panel_Left.Size = new Size(205, 539);
             panel_Left.TabIndex = 0;
+            // 
+            // button_AboutUs
+            // 
+            button_AboutUs.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
+            button_AboutUs.FlatAppearance.BorderSize = 0;
+            button_AboutUs.FlatStyle = FlatStyle.Flat;
+            button_AboutUs.Location = new Point(38, 285);
+            button_AboutUs.Name = "button_AboutUs";
+            button_AboutUs.Size = new Size(138, 29);
+            button_AboutUs.TabIndex = 5;
+            button_AboutUs.UseVisualStyleBackColor = true;
+            button_AboutUs.Click += button_AboutUs_Click;
             // 
             // button_Logout
             // 
@@ -97,17 +109,6 @@
             panel_Body.Name = "panel_Body";
             panel_Body.Size = new Size(728, 539);
             panel_Body.TabIndex = 1;
-            // 
-            // button_AboutUs
-            // 
-            button_AboutUs.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
-            button_AboutUs.FlatAppearance.BorderSize = 0;
-            button_AboutUs.FlatStyle = FlatStyle.Flat;
-            button_AboutUs.Location = new Point(38, 285);
-            button_AboutUs.Name = "button_AboutUs";
-            button_AboutUs.Size = new Size(138, 29);
-            button_AboutUs.TabIndex = 5;
-            button_AboutUs.UseVisualStyleBackColor = true;
             // 
             // Form_Dashboard
             // 
