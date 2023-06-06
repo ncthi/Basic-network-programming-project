@@ -12,7 +12,7 @@ namespace Client
     public partial class Form_Login : Form
     {
 
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "192.168.137.208";
         private const int serverPort = 8080;
         public Form_Login()
         {
@@ -54,7 +54,6 @@ namespace Client
                         string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                         if (result == "True")
                         {
-                            MessageBox.Show("Login succesfully!");
                             Form_Dashboard form_Dashboard = new Form_Dashboard(username, password);
                             //ẩn forrm
                             this.Hide();
