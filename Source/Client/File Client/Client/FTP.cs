@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Utilities.Net;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -768,6 +770,75 @@ namespace Client
             }
         }
 
+        public string getDateTime(string filePath)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + filePath);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                ftpStream = ftpResponse.GetResponseStream();
+                StreamReader ftpReader = new StreamReader(ftpStream);
+
+                string fileInfo = null;
+                try { fileInfo = ftpReader.ReadToEnd(); }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+                ftpReader.Close();
+                ftpStream.Close();
+                ftpResponse.Close();
+                ftpRequest = null;
+
+                string[] fileDetails = fileInfo.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string modifiedTime = fileDetails[5] + " " + fileDetails[6] + " " + fileDetails[7];
+
+                return modifiedTime;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            return "";
+        }
+
+        // Lấy Size File
+        public string getSize(string filePath)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + filePath);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                ftpStream = ftpResponse.GetResponseStream();
+                StreamReader ftpReader = new StreamReader(ftpStream);
+
+                string fileInfo = null;
+                try { fileInfo = ftpReader.ReadToEnd(); }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+                ftpReader.Close();
+                ftpStream.Close();
+                ftpResponse.Close();
+                ftpRequest = null;
+
+                string[] fileDetails = fileInfo.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string size = fileDetails[4];
+
+                return size;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+            return "";
+        }
 
         //Browse all files that have been stored in FTP server
         public string[] browseFile(string directory)
