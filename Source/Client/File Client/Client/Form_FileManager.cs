@@ -514,5 +514,10 @@ namespace Client
         {
             deleteDiritoryTemp();
         }
+
+        private void button_Refresh_Click(object sender, EventArgs e)
+        {
+            loadButtonAction();
+        }
     }
 }

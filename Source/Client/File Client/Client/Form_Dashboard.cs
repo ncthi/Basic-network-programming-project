@@ -20,7 +20,7 @@ namespace Client
             user = userName;
             pass = password;
             InitializeComponent();
-            OpenChildForm(new Form_FileManager(user,pass));
+            OpenChildForm(new Form_FileManager(user, pass));
         }
 
         private Form currentFormChild;
@@ -45,7 +45,7 @@ namespace Client
 
         private void button_MyProfile_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form_UsersProfile(user,pass));
+            OpenChildForm(new Form_UsersProfile(user, pass));
 
         }
 
