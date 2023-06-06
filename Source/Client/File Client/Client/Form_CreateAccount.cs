@@ -84,7 +84,7 @@ namespace Client
                         else MessageBox.Show("You can not create an account!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                }
+                } 
             }
             catch (Exception ex)
             {
