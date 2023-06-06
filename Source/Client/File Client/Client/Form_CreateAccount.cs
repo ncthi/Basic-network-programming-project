@@ -118,5 +118,11 @@ namespace Client
             }
         }
 
+        private void button_Home_Click(object sender, EventArgs e)
+        {
+            Form_Login form_Login = new Form_Login();
+            this.Close();
+            form_Login.Show();
+        }
     }
 }
