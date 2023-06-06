@@ -13,16 +13,19 @@ namespace Client
 {
     public partial class Form_Dashboard : Form
     {
-        string user;
-        string pass;
+        private static string user;
+        private static string pass;
         public Form_Dashboard(string userName, string password)
         {
-            InitializeComponent();
             user = userName;
             pass = password;
+            InitializeComponent();
+            OpenChildForm(new Form_FileManager(user, pass));
         }
 
         private Form currentFormChild;
+
+        public static string Pass { set => pass = value; }
 
         private void OpenChildForm(Form childForm)
         {
@@ -42,7 +45,7 @@ namespace Client
 
         private void button_MyProfile_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form_UsersProfile());
+            OpenChildForm(new Form_UsersProfile(user, pass));
 
         }
 

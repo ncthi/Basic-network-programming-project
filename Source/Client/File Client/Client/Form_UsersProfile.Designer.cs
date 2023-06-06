@@ -34,7 +34,6 @@
             textBox_password = new TextBox();
             checkBox_ShowPass1 = new CheckBox();
             button_signout = new Button();
-            button_changeEmail = new Button();
             button_changePassword = new Button();
             textBox_NewPass = new TextBox();
             label_CurrentPass = new Label();
@@ -51,24 +50,26 @@
             textBox_username.BackColor = Color.FromArgb(255, 239, 239);
             textBox_username.BorderStyle = BorderStyle.None;
             textBox_username.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_username.ForeColor = Color.Firebrick;
+            textBox_username.ForeColor = Color.Black;
             textBox_username.Location = new Point(277, 187);
             textBox_username.Name = "textBox_username";
             textBox_username.ReadOnly = true;
             textBox_username.Size = new Size(248, 23);
             textBox_username.TabIndex = 0;
+            textBox_username.Text = UserName;
             // 
             // textBox_email
             // 
             textBox_email.BackColor = Color.FromArgb(255, 239, 239);
             textBox_email.BorderStyle = BorderStyle.None;
             textBox_email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_email.ForeColor = Color.Firebrick;
+            textBox_email.ForeColor = Color.Black;
             textBox_email.Location = new Point(298, 254);
             textBox_email.Name = "textBox_email";
             textBox_email.ReadOnly = true;
             textBox_email.Size = new Size(232, 23);
             textBox_email.TabIndex = 1;
+            textBox_email.Text = Email;
             // 
             // textBox_password
             // 
@@ -93,6 +94,7 @@
             checkBox_ShowPass1.Size = new Size(18, 17);
             checkBox_ShowPass1.TabIndex = 8;
             checkBox_ShowPass1.UseVisualStyleBackColor = false;
+            checkBox_ShowPass1.CheckedChanged += checkBox_ShowPass1_CheckedChanged;
             // 
             // button_signout
             // 
@@ -105,19 +107,6 @@
             button_signout.Size = new Size(136, 41);
             button_signout.TabIndex = 9;
             button_signout.UseVisualStyleBackColor = false;
-            button_signout.Click += button_signout_Click;
-            // 
-            // button_changeEmail
-            // 
-            button_changeEmail.BackColor = Color.Transparent;
-            button_changeEmail.FlatAppearance.BorderSize = 0;
-            button_changeEmail.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button_changeEmail.FlatStyle = FlatStyle.Flat;
-            button_changeEmail.Location = new Point(548, 265);
-            button_changeEmail.Name = "button_changeEmail";
-            button_changeEmail.Size = new Size(62, 24);
-            button_changeEmail.TabIndex = 10;
-            button_changeEmail.UseVisualStyleBackColor = false;
             // 
             // button_changePassword
             // 
@@ -191,6 +180,7 @@
             checkBox_ShowPass3.TabIndex = 17;
             checkBox_ShowPass3.UseVisualStyleBackColor = false;
             checkBox_ShowPass3.Visible = false;
+            checkBox_ShowPass3.CheckedChanged += checkBox_ShowPass3_CheckedChanged;
             // 
             // button_Save
             // 
@@ -206,12 +196,13 @@
             button_Save.Text = "Save";
             button_Save.UseVisualStyleBackColor = false;
             button_Save.Visible = false;
+            button_Save.Click += button_Save_Click;
             // 
             // textBox_CurrentPass
             // 
             textBox_CurrentPass.BackColor = Color.FromArgb(255, 239, 239);
             textBox_CurrentPass.BorderStyle = BorderStyle.None;
-            textBox_CurrentPass.Location = new Point(315, 328);
+            textBox_CurrentPass.Location = new Point(318, 325);
             textBox_CurrentPass.Name = "textBox_CurrentPass";
             textBox_CurrentPass.PasswordChar = '*';
             textBox_CurrentPass.Size = new Size(195, 20);
@@ -246,7 +237,6 @@
             Controls.Add(label_CurrentPass);
             Controls.Add(textBox_NewPass);
             Controls.Add(button_changePassword);
-            Controls.Add(button_changeEmail);
             Controls.Add(button_signout);
             Controls.Add(checkBox_ShowPass1);
             Controls.Add(textBox_password);
@@ -265,7 +255,6 @@
         private TextBox textBox_password;
         private CheckBox checkBox_ShowPass1;
         private Button button_signout;
-        private Button button_changeEmail;
         private Button button_changePassword;
         private TextBox textBox_NewPass;
         private Label label_CurrentPass;

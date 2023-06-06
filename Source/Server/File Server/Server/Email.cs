@@ -27,7 +27,7 @@ namespace Server
             return htmlContent;
         }
         // Gửi mã xác thực
-        public void SendAuthenticationCode(string userEmail, string name, string code)
+        public void SendAuthenticationCode(string userEmail, string code)
         {
             string subject = "Authentication Code";
             //lấy đường dẫn thư mục server
@@ -35,9 +35,8 @@ namespace Server
             var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
             // Lấy đường dẫn EmailAuthentication.html
             string htmlFilePath = basePath + "\\Email\\EmailAuthentication.html";
-            string body = GetAuthenticationCodeEmailBody(htmlFilePath, name, code);
-
-            Send(userEmail, subject, code); //gửi email đến địa chỉ email của người nhận 
+            string body = GetAuthenticationCodeEmailBody(htmlFilePath,code);
+            Send(userEmail, subject,body); //gửi email đến địa chỉ email của người nhận 
 
         }
         // Gửi password random
@@ -77,14 +76,13 @@ namespace Server
         {
             string body = File.ReadAllText(htmlBodyPath);
             body = body.Replace("{newPassword}", newPassword);
-            body = body.Replace("{name}", name);
+            body = body.Replace("{userName}", name);
             return body;
         }
-        private string GetAuthenticationCodeEmailBody(string htmlBodyPath, string name, string code)
+        private string GetAuthenticationCodeEmailBody(string htmlBodyPath,string code)
         {
             string body = File.ReadAllText(htmlBodyPath);
             body = body.Replace("{authenticationCode}", code);
-            body = body.Replace("{name}", name);
             return body;
         }
         private void Send(string userEmail, string subject, string body)

@@ -29,108 +29,155 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CreateAccount));
-            this.textBox_CreateUser = new System.Windows.Forms.TextBox();
-            this.textBox_Email = new System.Windows.Forms.TextBox();
-            this.textBox_CreatePass = new System.Windows.Forms.TextBox();
-            this.textBox_ConfirmPass = new System.Windows.Forms.TextBox();
-            this.button_CreateAcc = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.checkBox_ShowPass = new System.Windows.Forms.CheckBox();
-            this.SuspendLayout();
+            textBox_CreateUser = new TextBox();
+            textBox_Email = new TextBox();
+            textBox_CreatePass = new TextBox();
+            textBox_ConfirmPass = new TextBox();
+            button_CreateAcc = new Button();
+            button_Home = new Button();
+            checkBox_ShowPass = new CheckBox();
+            textBox_VerCode = new TextBox();
+            label_EnterCode = new Label();
+            button_Verify = new Button();
+            SuspendLayout();
             // 
             // textBox_CreateUser
-
+            // 
             textBox_CreateUser.BorderStyle = BorderStyle.None;
             textBox_CreateUser.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_CreateUser.ForeColor = Color.Black;
-            textBox_CreateUser.Location = new Point(472, 146);
+            textBox_CreateUser.Location = new Point(472, 118);
             textBox_CreateUser.Name = "textBox_CreateUser";
-            textBox_CreateUser.Size = new Size(251, 23);
+            textBox_CreateUser.Size = new Size(251, 19);
             textBox_CreateUser.TabIndex = 0;
             // 
             // textBox_Email
             // 
             textBox_Email.BorderStyle = BorderStyle.None;
             textBox_Email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox_Email.Location = new Point(448, 232);
+            textBox_Email.Location = new Point(472, 200);
             textBox_Email.Name = "textBox_Email";
-            textBox_Email.Size = new Size(275, 23);
+            textBox_Email.Size = new Size(251, 19);
             textBox_Email.TabIndex = 1;
             // 
             // textBox_CreatePass
             // 
-            this.textBox_CreatePass.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_CreatePass.Location = new System.Drawing.Point(445, 326);
-            this.textBox_CreatePass.Name = "textBox_CreatePass";
-            this.textBox_CreatePass.Size = new System.Drawing.Size(126, 20);
-            this.textBox_CreatePass.TabIndex = 2;
-            this.textBox_CreatePass.UseSystemPasswordChar = true;
+            textBox_CreatePass.BorderStyle = BorderStyle.None;
+            textBox_CreatePass.Location = new Point(466, 288);
+            textBox_CreatePass.Name = "textBox_CreatePass";
+            textBox_CreatePass.Size = new Size(110, 16);
+            textBox_CreatePass.TabIndex = 2;
+            textBox_CreatePass.UseSystemPasswordChar = true;
             // 
             // textBox_ConfirmPass
             // 
-            this.textBox_ConfirmPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_ConfirmPass.Location = new System.Drawing.Point(611, 326);
-            this.textBox_ConfirmPass.Name = "textBox_ConfirmPass";
-            this.textBox_ConfirmPass.Size = new System.Drawing.Size(112, 20);
-            this.textBox_ConfirmPass.TabIndex = 3;
-            this.textBox_ConfirmPass.UseSystemPasswordChar = true;
+            textBox_ConfirmPass.BorderStyle = BorderStyle.None;
+            textBox_ConfirmPass.Location = new Point(611, 288);
+            textBox_ConfirmPass.Name = "textBox_ConfirmPass";
+            textBox_ConfirmPass.Size = new Size(112, 16);
+            textBox_ConfirmPass.TabIndex = 3;
+            textBox_ConfirmPass.UseSystemPasswordChar = true;
             // 
             // button_CreateAcc
             // 
-            this.button_CreateAcc.BackColor = System.Drawing.Color.Transparent;
-            this.button_CreateAcc.FlatAppearance.BorderSize = 0;
-            this.button_CreateAcc.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button_CreateAcc.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button_CreateAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_CreateAcc.Location = new System.Drawing.Point(448, 414);
-            this.button_CreateAcc.Name = "button_CreateAcc";
-            this.button_CreateAcc.Size = new System.Drawing.Size(275, 29);
-            this.button_CreateAcc.TabIndex = 4;
-            this.button_CreateAcc.UseVisualStyleBackColor = false;
-            this.button_CreateAcc.Click += new System.EventHandler(this.button_CreateAcc_Click);
+            button_CreateAcc.BackColor = Color.FromArgb(254, 80, 45);
+            button_CreateAcc.FlatAppearance.BorderSize = 0;
+            button_CreateAcc.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_CreateAcc.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_CreateAcc.FlatStyle = FlatStyle.Flat;
+            button_CreateAcc.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
+            button_CreateAcc.ForeColor = Color.FromArgb(224, 224, 224);
+            button_CreateAcc.Location = new Point(66, 75);
+            button_CreateAcc.Name = "button_CreateAcc";
+            button_CreateAcc.Size = new Size(275, 41);
+            button_CreateAcc.TabIndex = 4;
+            button_CreateAcc.Text = "Create";
+            button_CreateAcc.UseVisualStyleBackColor = false;
+            button_CreateAcc.Visible = false;
+            button_CreateAcc.Click += button_CreateAcc_Click;
             // 
-            // button1
+            // button_Home
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(2, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(58, 29);
-            this.button1.TabIndex = 5;
-            this.button1.UseVisualStyleBackColor = false;
+            button_Home.BackColor = Color.Transparent;
+            button_Home.FlatAppearance.BorderSize = 0;
+            button_Home.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Home.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Home.FlatStyle = FlatStyle.Flat;
+            button_Home.Location = new Point(12, 21);
+            button_Home.Name = "button_Home";
+            button_Home.Size = new Size(58, 29);
+            button_Home.TabIndex = 5;
+            button_Home.UseVisualStyleBackColor = false;
+            button_Home.Click += button_Home_Click;
             // 
             // checkBox_ShowPass
             // 
-            this.checkBox_ShowPass.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox_ShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox_ShowPass.Location = new System.Drawing.Point(556, 327);
-            this.checkBox_ShowPass.Margin = new System.Windows.Forms.Padding(5);
-            this.checkBox_ShowPass.Name = "checkBox_ShowPass";
-            this.checkBox_ShowPass.Size = new System.Drawing.Size(18, 17);
-            this.checkBox_ShowPass.TabIndex = 7;
-            this.checkBox_ShowPass.UseVisualStyleBackColor = false;
-            this.checkBox_ShowPass.CheckedChanged += new System.EventHandler(this.checkBox_ShowPass_CheckedChanged);
+            checkBox_ShowPass.BackColor = Color.Transparent;
+            checkBox_ShowPass.FlatStyle = FlatStyle.Flat;
+            checkBox_ShowPass.Location = new Point(716, 288);
+            checkBox_ShowPass.Margin = new Padding(5);
+            checkBox_ShowPass.Name = "checkBox_ShowPass";
+            checkBox_ShowPass.Size = new Size(18, 17);
+            checkBox_ShowPass.TabIndex = 7;
+            checkBox_ShowPass.UseVisualStyleBackColor = false;
+            checkBox_ShowPass.CheckedChanged += checkBox_ShowPass_CheckedChanged;
+            // 
+            // textBox_VerCode
+            // 
+            textBox_VerCode.Location = new Point(439, 354);
+            textBox_VerCode.Multiline = true;
+            textBox_VerCode.Name = "textBox_VerCode";
+            textBox_VerCode.Size = new Size(295, 38);
+            textBox_VerCode.TabIndex = 8;
+            textBox_VerCode.Visible = false;
+            // 
+            // label_EnterCode
+            // 
+            label_EnterCode.AutoSize = true;
+            label_EnterCode.BackColor = Color.Transparent;
+            label_EnterCode.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label_EnterCode.ForeColor = Color.FromArgb(254, 80, 45);
+            label_EnterCode.Location = new Point(439, 331);
+            label_EnterCode.Name = "label_EnterCode";
+            label_EnterCode.Size = new Size(125, 15);
+            label_EnterCode.TabIndex = 9;
+            label_EnterCode.Text = "Enter verification code\n";
+            label_EnterCode.Visible = false;
+            // 
+            // button_Verify
+            // 
+            button_Verify.BackColor = Color.Transparent;
+            button_Verify.FlatAppearance.BorderSize = 0;
+            button_Verify.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_Verify.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button_Verify.FlatStyle = FlatStyle.Flat;
+            button_Verify.Location = new Point(444, 413);
+            button_Verify.Name = "button_Verify";
+            button_Verify.Size = new Size(267, 29);
+            button_Verify.TabIndex = 10;
+            button_Verify.UseVisualStyleBackColor = false;
+            button_Verify.Click += button_Verify_Click;
             // 
             // Form_CreateAccount
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(800, 492);
-            this.Controls.Add(this.checkBox_ShowPass);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button_CreateAcc);
-            this.Controls.Add(this.textBox_ConfirmPass);
-            this.Controls.Add(this.textBox_CreatePass);
-            this.Controls.Add(this.textBox_Email);
-            this.Controls.Add(this.textBox_CreateUser);
-            this.Name = "Form_CreateAccount";
-            this.Text = "Form_CreateAccount";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleMode = AutoScaleMode.None;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(800, 492);
+            Controls.Add(button_Verify);
+            Controls.Add(label_EnterCode);
+            Controls.Add(textBox_VerCode);
+            Controls.Add(checkBox_ShowPass);
+            Controls.Add(button_Home);
+            Controls.Add(button_CreateAcc);
+            Controls.Add(textBox_ConfirmPass);
+            Controls.Add(textBox_CreatePass);
+            Controls.Add(textBox_Email);
+            Controls.Add(textBox_CreateUser);
+            Name = "Form_CreateAccount";
+            Text = "Form_CreateAccount";
+            FormClosed += Form_CreateAccount_FormClosed;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -140,7 +187,10 @@
         private TextBox textBox_CreatePass;
         private TextBox textBox_ConfirmPass;
         private Button button_CreateAcc;
-        private Button button1;
+        private Button button_Home;
         private CheckBox checkBox_ShowPass;
+        private TextBox textBox_VerCode;
+        private Label label_EnterCode;
+        private Button button_Verify;
     }
 }
