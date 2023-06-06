@@ -12,7 +12,7 @@ namespace Client
     public partial class Form_Login : Form
     {
 
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "192.168.137.208";
         private const int serverPort = 8080;
         public Form_Login()
         {
@@ -23,20 +23,6 @@ namespace Client
         {
             Form_CreateAccount f1 = new Form_CreateAccount();
             f1.Show();
-        }
-
-        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox_ShowPass.Checked)
-            {
-                textBox_Password.UseSystemPasswordChar = false;
-
-            }
-            else
-            {
-                textBox_Password.UseSystemPasswordChar = true;
-
-            }
         }
 
         private void button_Login_Click(object sender, EventArgs e)
@@ -68,8 +54,7 @@ namespace Client
                         string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                         if (result == "True")
                         {
-                            MessageBox.Show("Login succesfully!");
-                            Form_Dashboard form_Dashboard = new Form_Dashboard(username,password);
+                            Form_Dashboard form_Dashboard = new Form_Dashboard(username, password);
                             //ẩn forrm
                             this.Hide();
                             form_Dashboard.ShowDialog();
@@ -93,7 +78,7 @@ namespace Client
             string username = textBox_Username.Text;
             if (username == "")
             {
-                MessageBox.Show("Plase, enter user name");
+                MessageBox.Show("Please, enter user name");
                 return;
             }
             try
@@ -126,6 +111,18 @@ namespace Client
             catch (Exception ex)
             {
                 MessageBox.Show($"Error get new password: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBox_ShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_ShowPass.Checked)
+            {
+                textBox_Password.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                textBox_Password.UseSystemPasswordChar = true;
             }
         }
     }

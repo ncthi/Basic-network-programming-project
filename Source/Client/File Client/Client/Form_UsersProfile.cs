@@ -18,28 +18,39 @@ namespace Client
 {
     public partial class Form_UsersProfile : Form
     {
-        private const string serverIpAddress = "127.0.0.1";
+        private const string serverIpAddress = "192.168.137.208";
         private const int serverPort = 8080;
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public Form_UsersProfile(string username, string password)
         {
-            InitializeComponent();
             UserName = username;
             Password = password;
+            getEmail();
+            InitializeComponent();
         }
+        private void getEmail()
+        {            
+            using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
+            {
+                using (NetworkStream stream = client.GetStream())
+                {
+                    // Mã hóa mật khẩu bằng khóa công khai RSA
+                    string data = $"{UserName},{Password},getEmail";
+                    byte[] dataEncrypt = RSAKeys.EncryptData(data);
 
+                    // Gửi thông điệp Tên và Mật khẩu đến server
+                    stream.Write(dataEncrypt, 0, dataEncrypt.Length);
 
-        private bool HasSpecialCharacters(string str)
-        {
-            string specialCharacters = @"!@#$%^&*()-=_+[]{}|;:,.<>?";
-            return str.IndexOfAny(specialCharacters.ToCharArray()) != -1;
-        }
+                    // Nhận kết quả từ server
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Email = result;
+                }
+            }
 
-        private bool HasUppercaseLetters(string str)
-        {
-            return str.Any(char.IsUpper);
         }
         private void button_changePassword_Click(object sender, EventArgs e)
         {
@@ -77,6 +88,7 @@ namespace Client
             form_Login.ShowDialog();
             formDashboard.Close();
         }
+
 
         private void button_Save_Click(object sender, EventArgs e)
         {
@@ -127,6 +139,32 @@ namespace Client
             catch (Exception ex)
             {
                 MessageBox.Show($"Error change password: {ex.Message}");
+            }
+        }
+
+        private void checkBox_ShowPass1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_ShowPass1.Checked)
+            {
+                textBox_CurrentPass.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                textBox_CurrentPass.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void checkBox_ShowPass3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_ShowPass3.Checked)
+            {
+                textBox_NewPass.UseSystemPasswordChar = false;
+                textBox_ConfirmPass.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                textBox_NewPass.UseSystemPasswordChar = true;
+                textBox_ConfirmPass.UseSystemPasswordChar = true;
             }
         }
     }

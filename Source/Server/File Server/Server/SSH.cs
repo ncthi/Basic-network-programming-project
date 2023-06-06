@@ -35,7 +35,7 @@ namespace Server
             sshClient.RunCommand(stringCmd);
             string cmdAddFtp= $"echo \"{UserName}\" | sudo tee -a /etc/vsftpd.userlist";
             sshClient.RunCommand(cmdAddFtp);
-            string cmdmod=$"sudo chmod "
+           // string cmdmod=$"sudo chmod "
         }
         //Delete user
         public bool DelUser(string UserName)
