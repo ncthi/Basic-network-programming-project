@@ -13,8 +13,8 @@ namespace Client
 {
     public partial class Form_Dashboard : Form
     {
-        string user;
-        string pass;
+        private static string user;
+        private static string pass;
         public Form_Dashboard(string userName, string password)
         {
             user = userName;
@@ -24,6 +24,8 @@ namespace Client
         }
 
         private Form currentFormChild;
+
+        public static string Pass { set => pass = value; }
 
         private void OpenChildForm(Form childForm)
         {

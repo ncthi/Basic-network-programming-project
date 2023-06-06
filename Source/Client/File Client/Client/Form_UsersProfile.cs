@@ -29,8 +29,8 @@ namespace Client
             UserName = username;
             Password = password;
         }
-        
-      
+
+
         private bool HasSpecialCharacters(string str)
         {
             string specialCharacters = @"!@#$%^&*()-=_+[]{}|;:,.<>?";
@@ -67,10 +67,23 @@ namespace Client
                 label_Confirm.Visible = true;
 
             }
+        }
+
+        private void button_signout_Click(object sender, EventArgs e)
+        {
+            Form_Login form_Login = new Form_Login();
+            Form_Dashboard formDashboard = (Form_Dashboard)this.ParentForm;
+            formDashboard.Hide();
+            form_Login.ShowDialog();
+            formDashboard.Close();
+        }
+
+        private void button_Save_Click(object sender, EventArgs e)
+        {
             string password = textBox_CurrentPass.Text;
             string confirm = textBox_ConfirmPass.Text;
             string newPass = textBox_NewPass.Text;
-            if (string.IsNullOrEmpty(newPass) || newPass.Length <6)
+            if (string.IsNullOrEmpty(newPass) || newPass.Length < 6)
             {
                 MessageBox.Show("Please enter valid password. Password must contain at least 6 characters", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -99,10 +112,11 @@ namespace Client
                         // Nhận kết quả từ server, đã đổi mật khẩu thành công hay chưa
                         byte[] buffer = new byte[1024];
                         int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                        string result = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                        string result = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                         if (result == "True")
                         {
                             MessageBox.Show("Successfully changed password!");
+                            Form_Dashboard.Pass = newPass;
                             this.Close();
                         }
                         else MessageBox.Show("You can not change password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -115,16 +129,5 @@ namespace Client
                 MessageBox.Show($"Error change password: {ex.Message}");
             }
         }
-
-        private void button_signout_Click(object sender, EventArgs e)
-        {
-            Form_Login form_Login = new Form_Login();
-            Form_Dashboard formDashboard = (Form_Dashboard)this.ParentForm;
-            formDashboard.Hide();
-            form_Login.ShowDialog();
-            formDashboard.Close();
-        }
-
-      
     }
 }
