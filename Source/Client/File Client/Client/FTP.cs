@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Utilities.Net;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -732,28 +734,6 @@ namespace Client
                         // Nếu entry là thư mục, tạo thư mục trên máy chủ FTP và tiếp tục đệ quy để tải lên các tệp tin và thư mục con của nó
                         if (entry.FullName.EndsWith(".zip"))
                         {
-                            //FtpWebRequest createSubFolderRequest = (FtpWebRequest)WebRequest.Create(remoteUrl);
-                            //createSubFolderRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
-                            //createSubFolderRequest.Credentials = new NetworkCredential(user, pass);
-
-                            //try
-                            //{
-                            //    using (FtpWebResponse createSubFolderResponse = (FtpWebResponse)createSubFolderRequest.GetResponse())
-                            //    {
-                            //        // Thư mục đã được tạo thành công
-                            //    }
-                            //}
-                            //catch (WebException ex)
-                            //{
-                            //    // Thư mục đã tồn tại trên máy chủ FTP
-                            //    FtpWebResponse response = (FtpWebResponse)ex.Response;
-                            //    if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
-                            //    {
-                            //        Console.WriteLine("Failed to create directory: " + remoteUrl + " - " + response.StatusCode + " - " + response.StatusDescription);
-                            //        return;
-                            //    }
-                            //}
-
                             // Tiếp tục đệ quy để tải lên các tệp tin và thư mục con của thư mục này
                             using (MemoryStream entryStream = new MemoryStream())
                             {
@@ -790,6 +770,75 @@ namespace Client
             }
         }
 
+        public string getDateTime(string filePath)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + filePath);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                ftpStream = ftpResponse.GetResponseStream();
+                StreamReader ftpReader = new StreamReader(ftpStream);
+
+                string fileInfo = null;
+                try { fileInfo = ftpReader.ReadToEnd(); }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+                ftpReader.Close();
+                ftpStream.Close();
+                ftpResponse.Close();
+                ftpRequest = null;
+
+                string[] fileDetails = fileInfo.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string modifiedTime = fileDetails[5] + " " + fileDetails[6] + " " + fileDetails[7];
+
+                return modifiedTime;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            return "";
+        }
+
+        // Lấy Size File
+        public string getSize(string filePath)
+        {
+            try
+            {
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + filePath);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                ftpStream = ftpResponse.GetResponseStream();
+                StreamReader ftpReader = new StreamReader(ftpStream);
+
+                string fileInfo = null;
+                try { fileInfo = ftpReader.ReadToEnd(); }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+                ftpReader.Close();
+                ftpStream.Close();
+                ftpResponse.Close();
+                ftpRequest = null;
+
+                string[] fileDetails = fileInfo.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string size = fileDetails[4];
+
+                return size;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+            return "";
+        }
 
         //Browse all files that have been stored in FTP server
         public string[] browseFile(string directory)
