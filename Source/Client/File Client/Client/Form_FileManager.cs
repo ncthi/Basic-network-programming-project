@@ -391,6 +391,7 @@ namespace Client
             else if (!isFolder)
             {
                 (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
+                isDirectory = false;
             }
             loadFilesAndDirectories(currentPath);
             toolStripMenuItem_Paste.Enabled = true;
@@ -414,6 +415,7 @@ namespace Client
             {
                 (memoryStream, filename) = ftpClient.copyFile(currentPath + "/" + item.Text);
                 ftpClient.deleteFile(currentPath + "/" + item.Text);
+                isDirectory = false;
             }
             loadFilesAndDirectories(currentPath);
             toolStripMenuItem_Paste.Enabled = true;
@@ -440,7 +442,7 @@ namespace Client
 
         private void toolStripMenuItem_CreateFolder_Click(object sender, EventArgs e)
         {
-            string newName = ShowInputDialog("Rename", "Enter new name for: ", "");
+            string newName = ShowInputDialog("Create new folder", "Enter new name for folder: ", "");
             if (newName != null)
             {
                 ftpClient.createDirectory(currentPath + "/" + newName);
