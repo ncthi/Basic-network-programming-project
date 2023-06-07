@@ -54,6 +54,8 @@
             // 
             button_AboutUs.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
             button_AboutUs.FlatAppearance.BorderSize = 0;
+            button_AboutUs.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            button_AboutUs.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button_AboutUs.FlatStyle = FlatStyle.Flat;
             button_AboutUs.Location = new Point(38, 285);
             button_AboutUs.Name = "button_AboutUs";

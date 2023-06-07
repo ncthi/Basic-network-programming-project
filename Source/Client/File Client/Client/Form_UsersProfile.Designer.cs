@@ -64,7 +64,7 @@
             textBox_email.BorderStyle = BorderStyle.None;
             textBox_email.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             textBox_email.ForeColor = Color.Black;
-            textBox_email.Location = new Point(298, 254);
+            textBox_email.Location = new Point(247, 256);
             textBox_email.Name = "textBox_email";
             textBox_email.ReadOnly = true;
             textBox_email.Size = new Size(232, 23);
@@ -83,6 +83,7 @@
             textBox_password.ReadOnly = true;
             textBox_password.Size = new Size(234, 23);
             textBox_password.TabIndex = 2;
+            textBox_password.Text = Password;
             // 
             // checkBox_ShowPass1
             // 
@@ -107,6 +108,7 @@
             button_signout.Size = new Size(136, 41);
             button_signout.TabIndex = 9;
             button_signout.UseVisualStyleBackColor = false;
+            button_signout.Click += Button_signout_Click;
             // 
             // button_changePassword
             // 
@@ -246,6 +248,11 @@
             Text = "Form_UsersProfile";
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void Button_signout_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
