@@ -40,7 +40,7 @@ namespace Client
         public void loadFilesAndDirectories(string path)
         {
             listView_Dialog.Items.Clear();
-            ftpClient = new FTP(@"ftp://192.168.137.27/", user, pass);
+            ftpClient = new FTP($@"ftp://{Program.ipFTPServer}/", user, pass);
             ftpClient.connect();
             // List directorys and files
             List<string> listAll = ftpClient.directoryListDetailed(path);
@@ -56,7 +56,7 @@ namespace Client
                 {
                     if (file.IndexOf('.') != -1)
                     {
-                        var fileExtension = file.Split('.')[1];
+                        var fileExtension = file.Split('.')[file.Split('.').Length-1];
                         {
                             switch (fileExtension)
                             {

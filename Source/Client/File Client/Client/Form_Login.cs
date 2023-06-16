@@ -12,8 +12,8 @@ namespace Client
     public partial class Form_Login : Form
     {
 
-        private const string serverIpAddress = "192.168.137.208";
-        private const int serverPort = 8080;
+        private const string serverIpAddress = Program.ipServerManager;
+        private const int serverPort = Program.portServerManager;
         public Form_Login()
         {
             InitializeComponent();

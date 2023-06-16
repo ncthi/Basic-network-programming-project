@@ -18,8 +18,8 @@ namespace Client
 {
     public partial class Form_UsersProfile : Form
     {
-        private const string serverIpAddress = "192.168.137.208";
-        private const int serverPort = 8080;
+        private const string serverIpAddress = Program.ipServerManager;
+        private const int serverPort = Program.portServerManager;
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -31,7 +31,7 @@ namespace Client
             InitializeComponent();
         }
         private void getEmail()
-        {            
+        {
             using (TcpClient client = new TcpClient(serverIpAddress, serverPort))
             {
                 using (NetworkStream stream = client.GetStream())
