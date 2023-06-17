@@ -1,3 +1,4 @@
+using Client;
 using System;
 
 namespace Server
@@ -8,6 +9,7 @@ namespace Server
         ///  The main entry point for the application.
         /// </summary>
         ///
+        public static string ipFTPServer = "192.168.126.150";
         [STAThread]
         static void Main()
         {
@@ -22,7 +24,7 @@ namespace Server
             //email.SendPasswordResetEmail("21522613@gm.uit.edu.vn", path,"caothi",passRandom);
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form_FileManager());
+            Application.Run(new Form_FileManager("caothi","123456"));
             server.disconect(false);
         }
     }

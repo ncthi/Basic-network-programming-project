@@ -104,7 +104,6 @@ namespace Server
                 }
                 catch
                 {
-                   
                 }
             }
             stream.Close();

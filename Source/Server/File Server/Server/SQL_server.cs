@@ -24,7 +24,7 @@ namespace Server
             serverName = "(local)";
             databaseName = "Basic network programming project";
             userName = "LTM";
-            password = "30052022";
+            password = "123456";
         }
         public SQL_server(string serverName, string databaseName, string userName, string password)
         {

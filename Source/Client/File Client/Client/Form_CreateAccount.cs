@@ -20,8 +20,8 @@ namespace Client
     {
 
 
-        private const string serverIpAddress = "192.168.137.208";
-        private const int serverPort = 8080;
+        private const string serverIpAddress = Program.ipServerManager;
+        private const int serverPort = Program.portServerManager;
         private TcpClient client = new TcpClient(serverIpAddress, serverPort);
         NetworkStream stream;
         public Form_CreateAccount()
